@@ -1,0 +1,24 @@
+!!!HTML5
+%html
+  %head
+    %title= "Lovely.IO » #{@page_title}"
+    = stylesheet_link_tag :application
+
+  %body
+    %header
+      %h1= link_to '/', 'Lovely.IO'
+      %h2 The Front-Side Development Platform
+
+      %form.search
+        %input{ placeholder: "Search"}
+
+      %nav
+        = link_to "/",      "Home"
+        = link_to "/about", "About"
+
+    %section
+      = yield
+
+    %footer
+      Copyright (C) 2011
+      = link_to "http://st-on-it.blogspot.com", "Nikolay Nemshilov"
