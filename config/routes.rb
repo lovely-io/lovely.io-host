@@ -1,4 +1,10 @@
 Lovelyio::Application.routes.draw do
+  get '/:id' => "pages#show"
+
+  root :to => "pages#show", :id => 'index'
+
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
