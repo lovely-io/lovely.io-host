@@ -10,7 +10,8 @@ gem 'sqlite3'
 gem 'haml'
 gem 'sass'
 
-gem 'omniauth'
+gem 'oa-core'
+gem 'oa-oauth'
 
 # Use unicorn as the web server
 # gem 'unicorn'

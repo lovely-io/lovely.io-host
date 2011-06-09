@@ -1,0 +1,3 @@
+%ul.providers
+  - AUTHENTICATION_PROVIDERS.each do |name|
+   = link_to name.upcase, authentication_url(:provider => name), :class => name
