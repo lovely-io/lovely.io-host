@@ -7,8 +7,8 @@ class CreateUsers < ActiveRecord::Migration
 
       t.string   :uid,          :null => false  # external ID
       t.string   :provider,     :null => false
-      t.string   :avatar_url,   :null => false
-      t.string   :external_url, :null => false
+      t.string   :avatar_url
+      t.string   :external_url
 
       t.string   :last_login_ip
       t.datetime :last_login_at
