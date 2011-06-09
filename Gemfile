@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -9,6 +9,8 @@ gem 'sqlite3'
 
 gem 'haml'
 gem 'sass'
+
+gem 'omniauth'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -31,5 +33,6 @@ gem 'sass'
 # and rake tasks are available in development mode:
 group :test do
   gem 'rspec'
-  gem "rspec-rails"
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
