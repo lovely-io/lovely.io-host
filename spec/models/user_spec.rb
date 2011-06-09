@@ -33,4 +33,30 @@ describe User do
       user.should have(0).errors_on(:uid)
     end
   end
+
+  describe "mass-assignment" do
+    before do
+      @user = User.new(Factory.attributes_for(:user))
+    end
+
+    it "should assign the email" do
+      @user.email.should_not be_empty
+    end
+
+    it "should assign the name" do
+      @user.name.should_not be_empty
+    end
+
+    it "should not allow to assign the role" do
+      @user.role.should be_nil
+    end
+
+    it "should not mass-assign auth-provider" do
+      @user.provider.should be_nil
+    end
+
+    it "should not mass-assign UID" do
+      @user.uid.should be_nil
+    end
+  end
 end
