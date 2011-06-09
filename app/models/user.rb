@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   validates_presence_of :provider, :uid
   validate :provider_and_uid_uniqueness
 
+  def admin?
+    'admin' == role
+  end
+
 private
 
   def provider_and_uid_uniqueness

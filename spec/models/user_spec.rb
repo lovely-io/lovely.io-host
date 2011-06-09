@@ -59,4 +59,20 @@ describe User do
       @user.uid.should be_nil
     end
   end
+
+  describe "user-roles" do
+    before :each do
+      @user = User.new
+    end
+
+    it "should say it's an admin when it has the admin role" do
+      @user.role = "admin"
+      @user.should be_admin
+    end
+
+    it "should say it's not an admin when it's not" do
+      @user.role = "moderator"
+      @user.should_not be_admin
+    end
+  end
 end
