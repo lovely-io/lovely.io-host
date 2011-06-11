@@ -66,6 +66,7 @@ protected
 
   def current_user=(user)
     if user
+      session[:user_id] = user.id
       @current_user = user
     else
       @current_user = session[:user_id] = nil
