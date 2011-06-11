@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110605100834) do
+ActiveRecord::Schema.define(:version => 20110609152542) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
@@ -18,13 +18,14 @@ ActiveRecord::Schema.define(:version => 20110605100834) do
     t.string   "role"
     t.string   "uid",           :null => false
     t.string   "provider",      :null => false
-    t.string   "avatar_url",    :null => false
-    t.string   "external_url",  :null => false
+    t.string   "avatar_url"
+    t.string   "external_url"
     t.string   "last_login_ip"
     t.datetime "last_login_at"
     t.string   "auth_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "location"
   end
 
   add_index "users", ["auth_token"], :name => "index_users_on_auth_token", :unique => true

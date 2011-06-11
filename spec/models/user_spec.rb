@@ -75,4 +75,81 @@ describe User do
       @user.should_not be_admin
     end
   end
+
+  describe ".find_or_create_by_auth" do
+    before do
+      @auth = {
+        'provider'   => 'someprovider',
+        'uid'        => 'someuid',
+        'user_info'  => {
+          'name'     => 'User Fullname',
+          'location' => 'User Location',
+          'image'    => 'http://avatar.url'
+        }
+      }
+
+      User.delete_all :provider => @auth['provider'], :uid => @auth['uid']
+    end
+
+    describe "with existing user" do
+      before do
+        @user = Factory.create(:user, :provider => @auth['provider'], :uid => @auth['uid'])
+      end
+
+      it "should find that user by provider and an UID" do
+        User.find_or_create_by_auth(@auth).should == @user
+      end
+    end
+
+    describe "new user creation" do
+
+      describe "basic properties" do
+        before do
+          @user = User.find_or_create_by_auth(@auth)
+        end
+
+        it "should assign the provider property" do
+          @user.provider.should == @auth['provider']
+        end
+
+        it "should assign the UID property" do
+          @user.uid.should == @auth['uid']
+        end
+
+        it "should assign the user name" do
+          @user.name.should == @auth['user_info']['name']
+        end
+
+        it "should assign the user's location" do
+          @user.location.should == @auth['user_info']['location']
+        end
+
+        it "should assign the user's avatar url" do
+          @user.avatar_url.should == @auth['user_info']['image']
+        end
+      end
+
+      describe "#external_url assignment" do
+        it "should correctly set a twitter's user location" do
+          @auth['provider'] = 'twitter'
+          @user = User.find_or_create_by_auth(@auth)
+          @user.external_url.should == "http://twitter.com/#{@auth['user_info']['nickname']}"
+        end
+
+        it "should correctly set a github account location" do
+          @auth['provider'] = 'github'
+          @user = User.find_or_create_by_auth(@auth)
+          @user.external_url.should == "http://github.com/#{@auth['user_info']['nickname']}"
+        end
+
+        it "should correctly set a facebooker's external location" do
+          @auth['provider'] = 'facebook'
+          @user = User.find_or_create_by_auth(@auth)
+          @user.external_url.should == "http://www.facebook.com/profile.php?id=#{@auth['uid']}"
+        end
+      end
+
+    end
+
+  end
 end

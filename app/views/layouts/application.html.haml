@@ -4,7 +4,7 @@
     %title= "Lovely.IO » #{@page_title}"
     = stylesheet_link_tag 'application'
 
-  %body
+  %body{:class => body_class_name}
     %header
       %h1= link_to 'Lovely.IO', '/'
       %h2 The Front-Side Development Platform
@@ -13,11 +13,14 @@
         %input{ placeholder: "Search"}
 
       %nav
-        = link_to "Home",  "/"
+        = link_to "Home",  root_path
         |
-        = link_to "About", "/about"
+        = link_to "About", page_path(:about)
+        |
+        = render "layouts/userbar"
 
     %section
+      = flash_messages
       = yield
 
     %footer
