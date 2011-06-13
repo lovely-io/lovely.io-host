@@ -7,8 +7,8 @@ module AuthenticationMocks
     controller.stub!(:current_user).and_return(nil)
   end
 
-  def logged_in!
-    @current_user = Factory.create(:user)
+  def logged_in!(user=nil)
+    @current_user = user || Factory.create(:user)
     controller.stub!(:current_user).and_return(@current_user)
   end
 

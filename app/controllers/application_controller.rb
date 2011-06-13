@@ -45,7 +45,7 @@ protected
   helper_method :admin?, :logged_in?, :current_user
 
   def require_login
-    railse RequireLogin unless logged_in?
+    raise RequireLogin unless logged_in?
   end
 
   def require_admin

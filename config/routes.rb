@@ -1,5 +1,8 @@
 Lovelyio::Application.routes.draw do
 
+  resources :users
+  resource  :profile, :controller => 'users'
+
   # authentication routes
   match '/login'                   => 'sessions#new',     :as => :login
   match '/logout'                  => 'sessions#destroy', :as => :logout

@@ -13,6 +13,8 @@ gem 'sass'
 gem 'oa-core'
 gem 'oa-oauth'
 
+gem 'dynamic_form'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
