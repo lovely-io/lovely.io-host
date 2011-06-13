@@ -32,6 +32,16 @@ describe User do
 
       user.should have(0).errors_on(:uid)
     end
+
+    it "should be invalid with a malformed email" do
+      @user.email = 'malformed'
+      @user.should have(1).error_on(:email)
+    end
+
+    it "should allow empty emails" do
+      @user.email = ''
+      @user.should have(0).errors_on(:email)
+    end
   end
 
   describe "mass-assignment" do
@@ -45,6 +55,10 @@ describe User do
 
     it "should assign the name" do
       @user.name.should_not be_empty
+    end
+
+    it "should assign the home-url property" do
+      @user.home_url.should_not be_empty
     end
 
     it "should not allow to assign the role" do
@@ -129,23 +143,23 @@ describe User do
         end
       end
 
-      describe "#external_url assignment" do
+      describe "#home_url assignment" do
         it "should correctly set a twitter's user location" do
           @auth['provider'] = 'twitter'
           @user = User.find_or_create_by_auth(@auth)
-          @user.external_url.should == "http://twitter.com/#{@auth['user_info']['nickname']}"
+          @user.home_url.should == "http://twitter.com/#{@auth['user_info']['nickname']}"
         end
 
         it "should correctly set a github account location" do
           @auth['provider'] = 'github'
           @user = User.find_or_create_by_auth(@auth)
-          @user.external_url.should == "http://github.com/#{@auth['user_info']['nickname']}"
+          @user.home_url.should == "http://github.com/#{@auth['user_info']['nickname']}"
         end
 
         it "should correctly set a facebooker's external location" do
           @auth['provider'] = 'facebook'
           @user = User.find_or_create_by_auth(@auth)
-          @user.external_url.should == "http://www.facebook.com/profile.php?id=#{@auth['uid']}"
+          @user.home_url.should == "http://www.facebook.com/profile.php?id=#{@auth['uid']}"
         end
       end
 

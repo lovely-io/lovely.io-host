@@ -21,7 +21,7 @@ body
   background: #F2F2E4
   position: relative
 
-h1, h2, h3, h4, label, th, dd
+h1, h2, h3, h4, label, th, dt
   font-family: 'OFL Sorts Mill Goudy TT', serif
 
 h1
@@ -30,6 +30,21 @@ h1
 
 h2, h3, h4
   margin-top: 2em
+
+dt
+  font-weight: bold
+
+dd
+  margin-bottom: 1em
+
+label
+  font-weight: bold
+  display: block
+
+p.required label:after
+  content: '*'
+  color: red
+  margin-left: .5em
 
 a
   text-decoration: none
@@ -40,6 +55,7 @@ a:hover
 
 input[type="text"], input[type="password"], textarea
   font-family: inherit
+  font-size: 1em
   background: #F4F9EC
   border: 1px solid #D1D3BE
   border-radius: .25em

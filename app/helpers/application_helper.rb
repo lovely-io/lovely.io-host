@@ -1,6 +1,5 @@
 module ApplicationHelper
   def flash_messages
-    flash[:notice] = "Hello world!"
     unless flash.empty?
       content_tag :div, flash.map{ |key, value|
         content_tag :div, value, :class => key

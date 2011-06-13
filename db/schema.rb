@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609152542) do
+ActiveRecord::Schema.define(:version => 20110613114903) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20110609152542) do
     t.string   "uid",           :null => false
     t.string   "provider",      :null => false
     t.string   "avatar_url"
-    t.string   "external_url"
+    t.string   "home_url"
     t.string   "last_login_ip"
     t.datetime "last_login_at"
     t.string   "auth_token"

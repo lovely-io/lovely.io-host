@@ -3,4 +3,5 @@ Factory.define :user do |f|
   f.sequence(:name)  { |i| "User Name #{i}"     }
   f.sequence(:uid)   { |i| "uid#{i}"}
   f.provider     "twitter"
+  f.home_url     "http://some.url"
 end
