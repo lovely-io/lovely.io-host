@@ -23,6 +23,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def token
+    @token = @user.new_auth_token! if params[:create]
+  end
+
   # blocking the rest of the REST
   def new()     raise NotFound end
   def create()  raise NotFound end

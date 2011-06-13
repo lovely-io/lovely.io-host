@@ -1,7 +1,9 @@
 Lovelyio::Application.routes.draw do
 
   resources :users
-  resource  :profile, :controller => 'users'
+  resource  :profile, :controller => 'users' do
+    get :token
+  end
 
   # authentication routes
   match '/login'                   => 'sessions#new',     :as => :login
