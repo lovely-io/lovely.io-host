@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :home_url
 
   validates_presence_of :provider, :uid, :name
+  validates_format_of :email, :with => /^[\w\d\.\-]+@[\w\d\.\-]+$/, :allow_blank => true
   validate :provider_and_uid_uniqueness, :on => :create
 
   # find or create a user by omni-auth data-hash

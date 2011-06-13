@@ -32,6 +32,16 @@ describe User do
 
       user.should have(0).errors_on(:uid)
     end
+
+    it "should be invalid with a malformed email" do
+      @user.email = 'malformed'
+      @user.should have(1).error_on(:email)
+    end
+
+    it "should allow empty emails" do
+      @user.email = ''
+      @user.should have(0).errors_on(:email)
+    end
   end
 
   describe "mass-assignment" do
