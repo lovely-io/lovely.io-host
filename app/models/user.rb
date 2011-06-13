@@ -1,4 +1,9 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
+  AUTH_TOKEN_SIZE    = 64
+  AUTH_TOKEN_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
+
   attr_accessible :email, :name, :home_url
 
   validates_presence_of :provider, :uid, :name
@@ -21,6 +26,26 @@ class User < ActiveRecord::Base
         else nil
       end
     end
+  end
+
+  def self.find_by_auth_token(token)
+    id, token = token.split('$')
+    if user = User.find_by_id(id)
+      if BCrypt::Password.new(user.auth_token) == token
+        return user
+      end
+    end
+
+  # in case the hash was not set yet
+  rescue BCrypt::Errors::InvalidHash
+    return nil
+  end
+
+  def new_auth_token!
+    token = AUTH_TOKEN_SYMBOLS.shuffle!.slice(0, AUTH_TOKEN_SIZE).join('')
+    self.auth_token = BCrypt::Password.create(token).to_s
+    self.save
+    "#{id}$#{token}"
   end
 
   def admin?

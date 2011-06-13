@@ -166,4 +166,40 @@ describe User do
     end
 
   end
+
+  describe "#new_auth_token!" do
+    before do
+      @user = Factory.create(:user)
+      @token = @user.new_auth_token!
+    end
+
+    it "should create an auth-token" do
+      @token.should_not be_blank
+    end
+
+    it "should save a hash in the database" do
+      user = User.find(@user)
+      user.auth_token.should_not be_blank
+      user.auth_token.should_not include(@token.split('$').last)
+    end
+
+    it "should embed the user's ID into the token" do
+      @token.split('$').first.should == @user.id.to_s
+    end
+  end
+
+  describe ".find_by_auth_token" do
+    before do
+      @user  = Factory.create(:user)
+      @token = @user.new_auth_token!
+    end
+
+    it "should find a user by a correct token" do
+      User.find_by_auth_token(@token).should == @user
+    end
+
+    it "should find nothing if the token is wrong" do
+      User.find_by_auth_token("#{@user.id}$bogustoken").should be_nil
+    end
+  end
 end

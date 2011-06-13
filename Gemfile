@@ -15,6 +15,8 @@ gem 'oa-oauth'
 
 gem 'dynamic_form'
 
+gem 'bcrypt-ruby'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
