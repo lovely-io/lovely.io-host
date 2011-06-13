@@ -176,6 +176,60 @@ describe UsersController do
     end
   end
 
+  describe "GET #token" do
+    describe "simple open the page" do
+      before do
+        logged_in! @user
+
+        get :token
+      end
+
+      it "should not generate a token" do
+        assigns[:token].should be_nil
+      end
+
+      it "should render the 'token' page" do
+        response.should be_ok
+        response.should render_template('token')
+      end
+    end
+
+    describe "actual token generating" do
+      before do
+        logged_in! @user
+
+        @token = "some-token"
+        @user.should_receive(:new_auth_token!).and_return(@token)
+
+        get :token, :create => true
+      end
+
+      it "should generate new token" do
+        assigns[:token].should == @token
+      end
+
+      it "should render the 'token' page" do
+        response.should be_ok
+        response.should render_template('token')
+      end
+    end
+
+    describe "anonymous access" do
+      before do
+        anonymous!
+        get :token
+      end
+
+      it "should send 422 error" do
+        response.status.should == 422
+      end
+
+      it "should render the login page" do
+        response.should render_template('sessions/new')
+      end
+    end
+  end
+
   describe "GET #new" do
     it "should render 404 not-found" do
       get :new

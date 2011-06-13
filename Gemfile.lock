@@ -30,6 +30,7 @@ GEM
     activesupport (3.0.8)
     addressable (2.2.4)
     arel (2.0.10)
+    bcrypt-ruby (2.1.4)
     builder (2.1.2)
     diff-lcs (1.1.2)
     dynamic_form (1.1.4)
@@ -110,6 +111,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby
   dynamic_form
   factory_girl_rails
   haml
