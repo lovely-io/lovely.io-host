@@ -5,3 +5,9 @@ Factory.define :user do |f|
   f.provider     "twitter"
   f.home_url     "http://some.url"
 end
+
+Factory.define :package do |f|
+  f.sequence(:name)  { |i| "package-#{i}"}
+  f.description "Package description"
+  f.association :owner, :factory => :user
+end
