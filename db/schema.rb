@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110618131622) do
+ActiveRecord::Schema.define(:version => 20110620145153) do
 
   create_table "packages", :force => true do |t|
     t.integer  "owner_id"
@@ -41,5 +41,15 @@ ActiveRecord::Schema.define(:version => 20110618131622) do
 
   add_index "users", ["auth_token"], :name => "index_users_on_auth_token", :unique => true
   add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid", :unique => true
+
+  create_table "versions", :force => true do |t|
+    t.integer  "package_id"
+    t.string   "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "versions", ["number"], :name => "index_versions_on_number"
+  add_index "versions", ["package_id"], :name => "index_versions_on_package_id"
 
 end
