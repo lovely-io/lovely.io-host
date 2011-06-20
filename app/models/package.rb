@@ -1,6 +1,6 @@
 class Package < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
-  has_many   :versions, :order => 'number DESC'
+  has_many   :versions, :order => 'number DESC', :dependent => :destroy
 
   attr_accessible :name, :description, :version
 
@@ -8,6 +8,9 @@ class Package < ActiveRecord::Base
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]+[a-z0-9]$/i, :allow_blank => true
   validates_uniqueness_of :name, :allow_blank => true
   validate :version_check
+
+  scope :recent,  order('created_at DESC')
+  scope :updated, order('updated_at DESC')
 
   def version
     @version.number if @version = versions.first
