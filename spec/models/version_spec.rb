@@ -12,11 +12,6 @@ describe Version do
       @version.should be_valid
     end
 
-    it "should fail without a package_id" do
-      @version.package_id = nil
-      @version.should have(1).error_on(:package_id)
-    end
-
     it "should fail without a number" do
       @version.number = ''
       @version.should have(1).error_on(:number)

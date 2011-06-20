@@ -7,7 +7,8 @@ Factory.define :user do |f|
 end
 
 Factory.define :package do |f|
-  f.sequence(:name)  { |i| "package-#{i}"}
+  f.sequence(:name)    { |i| "package-#{i}" }
+  f.sequence(:version) { |i| "1.1.#{i}" }
   f.description "Package description"
   f.association :owner, :factory => :user
 end
