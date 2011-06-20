@@ -76,4 +76,15 @@ describe Package do
       @package.version.should == '1.0.0'
     end
   end
+
+  describe "mass-assignment" do
+    before do
+      @user = Factory.create(:user)
+      @package = Package.new(Factory.attributes_for(:package, :owner => @user))
+    end
+
+    it "should not assign the 'owner' reference" do
+      @package.owner.should be_nil
+    end
+  end
 end
