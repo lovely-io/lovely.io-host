@@ -50,6 +50,12 @@ describe Package do
       @package.version = 'some crap'
       @package.should have(1).error_on(:version)
     end
+
+    it "should fail with already existing version number" do
+      @version = Factory.create(:version, :package => @package)
+      @package.version = @version.number
+      @package.should have(1).error_on(:version)
+    end
   end
 
   describe "#version assignment" do

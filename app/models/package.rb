@@ -20,8 +20,10 @@ private
   def version_check
     if !@version
       errors.add(:version, "can't be blank")
-    elsif !@version.valid? && @version.errors[:number][0]
+    elsif !@version.valid?
       errors.add(:version, @version.errors[:number][0])
     end
+
+    errors.delete :versions # removing the 'versions' errors list
   end
 end
