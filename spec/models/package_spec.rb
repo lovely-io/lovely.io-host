@@ -51,10 +51,14 @@ describe Package do
       @package.should have(1).error_on(:version)
     end
 
-    it "should fail with already existing version number" do
-      @version = Factory.create(:version, :package => @package)
-      @package.version = @version.number
-      @package.should have(1).error_on(:version)
+    it "should fail without a build string" do
+      @package.build = ''
+      @package.should have(1).error_on(:build)
+    end
+
+    it "should fail without a readme string" do
+      @package.readme = ''
+      @package.should have(1).error_on(:readme)
     end
   end
 
