@@ -27,7 +27,7 @@ class Package < ActiveRecord::Base
   end
 
   def build
-    @build or version.build if version
+    @build or @version.build if @version
   end
 
   def build=(str)
@@ -35,7 +35,7 @@ class Package < ActiveRecord::Base
   end
 
   def readme
-    @readme or version.readme if version
+    @readme or @version.readme if @version
   end
 
   def readme=(str)

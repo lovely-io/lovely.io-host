@@ -91,4 +91,35 @@ describe Package do
       @package.owner.should be_nil
     end
   end
+
+  describe "version switch" do
+    before do
+      @package = Factory.create(:package, {
+        :version => '1.0.0',
+        :build   => "Build 1",
+        :readme  => "Readme 1"
+      })
+
+      @package.version = '2.0.0'
+      @package.build   = 'Build 2'
+      @package.readme  = 'Readme 2'
+      @package.save!
+
+      @package = Package.find(@package)
+    end
+
+    it "should use the latest version by default" do
+      @package.version.should == '2.0.0'
+      @package.build.should   == 'Build 2'
+      @package.readme.should  == "<p>Readme 2</p>\n"
+    end
+
+    it "should use a previous build and readme when switched to another version" do
+      @package.version = '1.0.0'
+
+      @package.version.should == '1.0.0'
+      @package.build.should   == 'Build 1'
+      @package.readme.should  == "<p>Readme 1</p>\n"
+    end
+  end
 end
