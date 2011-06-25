@@ -7,7 +7,7 @@ class Package < ActiveRecord::Base
   validates_presence_of   :owner_id, :name, :description
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]+[a-z0-9]$/, :allow_blank => true
   validates_uniqueness_of :name, :allow_blank => true
-  validate :version_check
+  #validate :version_check
 
   scope :recent,  order('created_at DESC')
   scope :updated, order('updated_at DESC')
