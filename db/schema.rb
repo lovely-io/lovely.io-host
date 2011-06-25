@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110620154426) do
+ActiveRecord::Schema.define(:version => 20110625085327) do
 
   create_table "packages", :force => true do |t|
     t.integer  "owner_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110620154426) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "license"
   end
 
   add_index "packages", ["created_at"], :name => "index_packages_on_created_at"
