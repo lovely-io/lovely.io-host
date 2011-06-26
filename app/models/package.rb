@@ -15,6 +15,18 @@ class Package < ActiveRecord::Base
   scope :updated, order('updated_at DESC')
   scope :like,    lambda{ |s| where("name LIKE ?", "%#{s}%") }
 
+  def self.find(*args)
+    if args.size == 1 && args[0].is_a?(String) && args[0] !=~ /^\d+$/
+      find_by_name(args[0]) or raise(ActiveRecord::RecordNotFound)
+    else
+      super *args
+    end
+  end
+
+  def to_param
+    name
+  end
+
   def version
     (@version ||= versions.first).number
   end

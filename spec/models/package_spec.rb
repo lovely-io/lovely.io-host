@@ -122,4 +122,28 @@ describe Package do
       @package.readme.should  == "<p>Readme 1</p>\n"
     end
   end
+
+  describe "#name attribute as the primary key" do
+    before do
+      @package = Factory.create(:package)
+    end
+
+    it "should return the name as the param" do
+      @package.to_param.should == @package.name
+    end
+
+    it "should be findable by it's ID" do
+      Package.find(@package.id).should == @package
+    end
+
+    it "should be findable by it's name" do
+      Package.find(@package.name).should == @package
+    end
+
+    it "should raise ActiveRecord::RecordNotFound for a non-existing name" do
+      lambda {
+        Package.find('non-existing-name')
+      }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end
