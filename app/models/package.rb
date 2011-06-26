@@ -13,6 +13,7 @@ class Package < ActiveRecord::Base
 
   scope :recent,  order('created_at DESC')
   scope :updated, order('updated_at DESC')
+  scope :like,    lambda{ |s| where("name LIKE ?", "%#{s}%") }
 
   def version
     (@version ||= versions.first).number

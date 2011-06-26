@@ -1,4 +1,8 @@
 Lovelyio::Application.routes.draw do
+  resources :packages
+
+  get '/packages/recent'  => 'packages#index', :order => 'recent',  :as => :recent_packages
+  get '/packages/updated' => 'packages#index', :order => 'updated', :as => :updated_packages
 
   resources :users
   resource  :profile, :controller => 'users' do

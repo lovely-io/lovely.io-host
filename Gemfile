@@ -15,6 +15,7 @@ gem 'oa-core'
 gem 'oa-oauth'
 
 gem 'dynamic_form'
+gem 'will_paginate'
 
 gem 'bcrypt-ruby'
 

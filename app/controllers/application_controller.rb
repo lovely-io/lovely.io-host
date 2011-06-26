@@ -17,19 +17,32 @@ protected
   rescue_from RequireLogin,                 :with => :render_require_login
 
   def render_not_found
-    render "pages/404", :status => 404
+    respond_to do |format|
+      format.html { render "pages/404", :status => 404 }
+      format.json { render :json => {:errors => {:server => "Not found"}}, :status => 404 }
+    end
+
     false
   end
 
   def render_access_denied
-    render "pages/422", :status => 422
+    respond_to do |format|
+      format.html { render "pages/422", :status => 422 }
+      format.json { render :json => {:errors => {:server => "Access denied"}}, :status => 422 }
+    end
+
     false
   end
 
   def render_require_login
     session[:return_to] = request.fullpath
     flash[:error] = "You must be logged in to access this page"
-    render "sessions/new", :status => 422
+
+    respond_to do |format|
+      format.html { render "sessions/new", :status => 422 }
+      format.json { render :json => {:errors => {:server => "Authentication failed"}}, :status => 422 }
+    end
+
     false
   end
 
