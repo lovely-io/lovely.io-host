@@ -63,6 +63,15 @@ describe PackagesController do
     end
   end
 
+  describe "PUT #update" do
+    it "should render 404" do
+      put :update, :id => '123'
+
+      response.status.should == 404
+      response.should render_template('pages/404')
+    end
+  end
+
   describe "POST #create" do
     describe "when accessed anonymously" do
       it "should render 422 error" do
@@ -78,7 +87,7 @@ describe PackagesController do
         logged_in! @user
 
         @package = Factory.create(:package)
-        @params  = 'package-params'
+        @params  = {'package' => 'params'}
 
         Package.should_receive(:new).with(@params).and_return(@package)
       end
@@ -112,74 +121,10 @@ describe PackagesController do
     end
   end
 
-  describe "PUT #update" do
-    describe "when accessed anonymously" do
-      it "should render 422 error" do
-        put :update, :id => '123'
-
-        response.status.should == 422
-        response.should render_template('sessions/new')
-      end
-    end
-
-    describe "when logged in correctly" do
-      before do
-        logged_in! @user
-
-        @package = Factory.create(:package, :owner => @user)
-        Package.should_receive(:find).with(@package.id).and_return(@package)
-      end
-
-      it "should render 404 for a non-existing package" do
-        Package.find(@package.id) # reseting the should_receive mock
-        Package.should_receive(:find).with('9999').and_raise(ActiveRecord::RecordNotFound)
-
-        put :update, :id => '9999'
-
-        response.status.should == 404
-        response.should render_template('pages/404')
-      end
-
-      it "should render 422 access-denied when accessing someone else's package" do
-        @package.owner = Factory.create(:user)
-
-        put :update, :id => @package.id, :package => {}
-
-        response.status.should == 422
-        response.should render_template('pages/422')
-      end
-
-      it "should render the package url back in a JSON response" do
-        @params = {'some' => 'params'}
-        @package.should_receive(:update_attributes).with(@params).and_return(true)
-
-        put :update, :id => @package.id, :package => @params
-
-        response.should be_ok
-        response.content_type.should == 'application/json'
-        response.body.should == {:url => package_url(@package)}.to_json
-      end
-
-      it "should render the package errors in JSON when the saving is failed" do
-        @params = {'some' => 'params'}
-        @errors = {'some' => 'errors'}
-
-        @package.should_receive(:update_attributes).with(@params).and_return(false)
-        @package.should_receive(:errors).and_return(@errors)
-
-        put :update, :id => @package.id, :package => @params
-
-        response.should be_ok
-        response.content_type.should == 'application/json'
-        response.body.should == {:errors => @errors}.to_json
-      end
-    end
-  end
-
   describe "DELETE #destroy" do
     describe "when accessed anonymously" do
       it "should render 422 error" do
-        put :update, :id => '123'
+        delete :destroy, :id => '123'
 
         response.status.should == 422
         response.should render_template('sessions/new')
@@ -192,13 +137,15 @@ describe PackagesController do
 
         @package = Factory.create(:package, :owner => @user)
         Package.should_receive(:find).with(@package.id).and_return(@package)
+
+        @version = @package.versions.first
       end
 
       it "should render 404 for a non-existing package" do
         Package.find(@package.id) # reseting the should_receive mock
         Package.should_receive(:find).with('9999').and_raise(ActiveRecord::RecordNotFound)
 
-        delete :update, :id => '9999'
+        delete :destroy, :id => '9999'
 
         response.status.should == 404
         response.should render_template('pages/404')
@@ -207,20 +154,37 @@ describe PackagesController do
       it "should render 422 access-denied when accessing someone else's package" do
         @package.owner = Factory.create(:user)
 
-        delete :update, :id => @package.id
+        delete :destroy, :id => @package.id
 
         response.status.should == 422
         response.should render_template('pages/422')
+      end
+
+      it "should require a :version parameter" do
+        @package.should_not_receive(:destroy)
+        @version.should_not_receive(:destroy)
+
+        delete :destroy, :id => @package.id
+
+        response.should be_ok
+        response.content_type.should == 'application/json'
+        response.body.should == {:errors => {:server => "can't find the version"}}.to_json
       end
 
       it "should call #destroy on the package" do
         @package.should_receive(:destroy)
+        @version.should_receive(:destroy)
 
-        delete :destroy, :id => @package.id
+        @package.versions.should_receive(:find_by_number).with(@version.number).and_return(@version)
+        @package.versions.should_receive(:count).and_return(0)
+
+        delete :destroy, :id => @package.id, :version => @version.number
       end
 
       it "should render JSON with the packages_url back" do
-        delete :destroy, :id => @package.id
+        @package.versions.should_receive(:find_by_number).with(@version.number).and_return(@version)
+
+        delete :destroy, :id => @package.id, :version => @version.number
 
         response.should be_ok
         response.content_type.should == 'application/json'

@@ -4,7 +4,7 @@ class Package < ActiveRecord::Base
 
   attr_accessible :name, :description, :license, :version, :build, :readme
 
-  validates_presence_of   :owner_id, :name, :description
+  validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]+[a-z0-9]$/, :allow_blank => true
   validates_uniqueness_of :name, :allow_blank => true
 
@@ -28,7 +28,8 @@ class Package < ActiveRecord::Base
   end
 
   def version
-    (@version ||= versions.first).number
+    @version ||= versions.first
+    @version.number if @version
   end
 
   def version=(number)
@@ -53,6 +54,10 @@ class Package < ActiveRecord::Base
 
   def readme=(str)
     @readme = str
+  end
+
+  def save
+    super and ((new_record? || !@version) ? true : @version.save)
   end
 
 private

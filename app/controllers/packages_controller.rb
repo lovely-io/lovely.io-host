@@ -3,9 +3,8 @@
 #       `lovely` CLI tool which works via JSON format
 #
 class PackagesController < ApplicationController
-  before_filter :require_login, :only => [:create, :update, :destroy]
-  before_filter :find_package,  :only => [:show, :update, :destroy]
-  before_filter :check_access,  :only => [:update, :destroy]
+  before_filter :require_login, :only => [:create, :destroy]
+  before_filter :find_package,  :only => [:show,   :destroy]
 
   def index
     @packages = (params[:user_id] ? User.find(params[:user_id]).packages : Package)
@@ -30,32 +29,35 @@ class PackagesController < ApplicationController
     end
   end
 
-  def new()  raise NotFound end
-  def edit() raise NotFound end
+  def new()    raise NotFound end
+  def edit()   raise NotFound end
+  def update() raise NotFound end
 
   def create
-    @package = Package.new(params[:package])
-    @package.owner = current_user
-
-    if @package.save
-      render :json => {:url => package_url(@package)}
+    if params[:package] && @package = Package.find_by_name(params[:package][:name])
+      check_access
+      @package.attributes = params[:package]
     else
-      render :json => {:errors => @package.errors}
+      @package = Package.new(params[:package])
+      @package.owner = current_user
     end
-  end
 
-  def update
-    if @package.update_attributes(params[:package])
-      render :json => {:url => package_url(@package)}
-    else
-      render :json => {:errors => @package.errors}
-    end
+    render :json => @package.save ?
+      {:url => package_url(@package)} :
+      {:errors => @package.errors}
   end
 
   def destroy
-    @package.destroy
+    check_access
 
-    render :json => {:url => packages_url}
+    render :json => if @version = @package.versions.find_by_number(params[:version])
+      @version.destroy
+      @package.destroy if @package.versions.count == 0
+
+      {:url => packages_url}
+    else
+      {:errors => {:server => "can't find the version"}}
+    end
   end
 
 protected

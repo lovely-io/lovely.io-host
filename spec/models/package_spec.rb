@@ -43,7 +43,7 @@ describe Package do
 
     it "should fail without a version number" do
       @package.version = ''
-      @package.should have(1).error_on(:version)
+      @package.should have(2).error_on(:version)
     end
 
     it "should fail with a malformed number" do
@@ -111,7 +111,7 @@ describe Package do
     it "should use the latest version by default" do
       @package.version.should == '2.0.0'
       @package.build.should   == 'Build 2'
-      @package.readme.should  == "<p>Readme 2</p>\n"
+      @package.readme.should  == "Readme 2"
     end
 
     it "should use a previous build and readme when switched to another version" do
@@ -119,7 +119,7 @@ describe Package do
 
       @package.version.should == '1.0.0'
       @package.build.should   == 'Build 1'
-      @package.readme.should  == "<p>Readme 1</p>\n"
+      @package.readme.should  == "Readme 1"
     end
   end
 

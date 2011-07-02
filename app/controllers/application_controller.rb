@@ -19,7 +19,7 @@ protected
   def render_not_found
     respond_to do |format|
       format.html { render "pages/404", :status => 404 }
-      format.json { render :json => {:errors => {:server => "Not found"}}, :status => 404 }
+      format.json { render :json => {:errors => {:page => "is not found"}}, :status => 404 }
     end
 
     false
@@ -28,7 +28,7 @@ protected
   def render_access_denied
     respond_to do |format|
       format.html { render "pages/422", :status => 422 }
-      format.json { render :json => {:errors => {:server => "Access denied"}}, :status => 422 }
+      format.json { render :json => {:errors => {:server => "access denied"}}, :status => 422 }
     end
 
     false
@@ -40,7 +40,7 @@ protected
 
     respond_to do |format|
       format.html { render "sessions/new", :status => 422 }
-      format.json { render :json => {:errors => {:server => "Authentication failed"}}, :status => 422 }
+      format.json { render :json => {:errors => {:server => "authentication failed"}}, :status => 422 }
     end
 
     false
