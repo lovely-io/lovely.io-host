@@ -1,4 +1,5 @@
 Lovelyio::Application.routes.draw do
+
   resources :packages, :only => [:index, :show, :create, :destroy] do
     collection do
       get :recent,  :action => :index, :order => 'recent'
@@ -18,8 +19,8 @@ Lovelyio::Application.routes.draw do
   match '/auth/failure'            => 'sessions#create'   # omniauth failures
 
   # static pages
-  get '/:id' => "pages#show", :as => :page
+  get '/:id' => "static#page", :as => :page
 
-  root :to => "pages#show", :id => 'index'
+  root :to => "static#page", :id => 'index'
 
 end
