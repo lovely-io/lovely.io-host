@@ -23,8 +23,11 @@ class PackagesController < ApplicationController
   end
 
   def show
-    @package.version
-    @package.version = params[:version] if params[:version]
+    @package.version = if params[:version]
+      @package.versions.find_by_number(params[:version]) or raise(NotFound)
+    else
+      @package.versions.first
+    end
 
     respond_to do |format|
       format.html

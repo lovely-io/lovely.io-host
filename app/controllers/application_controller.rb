@@ -22,6 +22,7 @@ protected
     respond_to do |format|
       format.html { render "pages/404", :status => 404 }
       format.json { render :json => {:errors => {:page => "is not found"}}, :status => 404 }
+      format.js   { render :js => "/* 404 Page is not found */", :status => 404 }
     end
 
     false

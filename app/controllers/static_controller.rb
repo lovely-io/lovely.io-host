@@ -14,4 +14,19 @@ class StaticController < ApplicationController
     end
   end
 
+  # CDN mockery
+  def script
+    @package = Package.find(params[:id])
+
+    @package.version = if params[:version]
+      @package.versions.find_by_number(params[:version]) or raise(NotFound)
+    else
+      @package.versions.first
+    end
+
+    expires_in params[:version] ? 1.year : 1.day, :public => true
+
+    render :js => @package.build
+  end
+
 end
