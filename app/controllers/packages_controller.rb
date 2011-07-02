@@ -10,8 +10,8 @@ class PackagesController < ApplicationController
     @packages = (params[:user_id] ? User.find(params[:user_id]).packages : Package)
     @packages = @packages.order('name').includes(:owner)
 
-    @packages = @packages.recent  if params[:order] = 'recent'
-    @packages = @packages.updated if params[:order] = 'updated'
+    @packages = @packages.recent  if params[:order] == 'recent'
+    @packages = @packages.updated if params[:order] == 'updated'
     @packages = @packages.like(params[:search]) unless params[:search].blank?
 
     @packages = @packages.paginate(:page => params[:page], :per_page => params[:per_page] || 10)
@@ -23,15 +23,14 @@ class PackagesController < ApplicationController
   end
 
   def show
+    @package.version
+    @package.version = params[:version] if params[:version]
+
     respond_to do |format|
       format.html
       format.json { render :json => @package }
     end
   end
-
-  def new()    raise NotFound end
-  def edit()   raise NotFound end
-  def update() raise NotFound end
 
   def create
     if params[:package] && @package = Package.find_by_name(params[:package][:name])

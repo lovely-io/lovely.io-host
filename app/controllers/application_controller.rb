@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include CodeHighlighter
+
   protect_from_forgery
 
 protected

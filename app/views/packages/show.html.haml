@@ -1,3 +1,24 @@
-%h1 Package Info
+- content_for :sidebar do
+  %dl
+    %dt Author
+    %dd= link_to @package.owner.name, @package.owner, :class => :user
 
-TODO me
+    %dt Versions
+    %dd
+      %ul
+        - @package.versions.each do |version|
+          %li{:class => params[:version] == version.number ? :current : nil}
+            = link_to version.number, package_path(@package, :version => version.number)
+            = "(#{version.updated_at.to_s(:short)})"
+
+    %dt CDN Links
+    %dd
+      %ul
+        %li
+          = link_to "#{@package.name}.js", cdn_package_url(@package), :class => :cdn
+          = "(no cache)"
+        %li= link_to "#{@package.name}-#{@package.version}.js", cdn_package_url(@package, @package.version), :class => :cdn
+
+
+
+= md @package.readme

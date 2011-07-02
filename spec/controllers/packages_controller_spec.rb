@@ -45,33 +45,6 @@ describe PackagesController do
     end
   end
 
-  describe "GET #new" do
-    it "should render 404" do
-      get :new
-
-      response.status.should == 404
-      response.should render_template('pages/404')
-    end
-  end
-
-  describe "GET #edit" do
-    it "should render 404" do
-      get :edit, :id => '123'
-
-      response.status.should == 404
-      response.should render_template('pages/404')
-    end
-  end
-
-  describe "PUT #update" do
-    it "should render 404" do
-      put :update, :id => '123'
-
-      response.status.should == 404
-      response.should render_template('pages/404')
-    end
-  end
-
   describe "POST #create" do
     describe "when accessed anonymously" do
       it "should render 422 error" do
