@@ -146,4 +146,27 @@ describe Package do
       }.should raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe "dependencies" do
+    before do
+      @p1 = Factory.create(:package)
+      @p2 = Factory.create(:package)
+      @p3 = Factory.create(:package)
+      @p4 = Factory.create(:package)
+
+      @deps = {
+        "#{@p1.name}" => "#{@p1.version}",
+        "#{@p2.name}" => "#{@p2.version}"
+      }
+
+      @package = Factory.create(:package, :dependencies => @deps)
+    end
+
+    it "should save the dependencies" do
+      package = Package.find(@package)
+      package.version = package.versions.first
+
+      package.dependencies.should == @deps.dup
+    end
+  end
 end

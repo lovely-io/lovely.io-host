@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110625091715) do
+ActiveRecord::Schema.define(:version => 20110703154152) do
+
+  create_table "dependencies", :force => true do |t|
+    t.integer  "version_id"
+    t.integer  "dependency_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dependencies", ["dependency_id"], :name => "index_dependencies_on_dependency_id"
+  add_index "dependencies", ["version_id"], :name => "index_dependencies_on_version_id"
 
   create_table "packages", :force => true do |t|
     t.integer  "owner_id"

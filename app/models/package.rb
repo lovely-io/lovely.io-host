@@ -2,7 +2,7 @@ class Package < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   has_many   :versions, :order => 'number DESC', :dependent => :destroy
 
-  attr_accessible :name, :description, :license, :version, :build, :readme
+  attr_accessible :name, :description, :license, :version, :build, :readme, :dependencies
 
   validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]+[a-z0-9]$/, :allow_blank => true
@@ -56,6 +56,14 @@ class Package < ActiveRecord::Base
     @readme = str
   end
 
+  def dependencies
+    @dependencies or @version.dependencies_hash if @version
+  end
+
+  def dependencies=(hash)
+    @dependencies = hash
+  end
+
   def save
     super and ((new_record? || !@version) ? true : @version.save)
   end
@@ -66,6 +74,7 @@ private
     if @version
       @version.build  = @build
       @version.readme = @readme
+      @version.dependencies_hash = @dependencies unless @dependencies.blank?
     end
   end
 

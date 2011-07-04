@@ -13,7 +13,7 @@ protected
   def highlight_code_blocks
     return if response.content_type != 'text/html'
 
-    response.body = response.body.gsub /([ \t]+)<pre>(.+?)<\/pre>/im, do
+    response.body = response.body.gsub /([ \t]+)<pre>(.+?)<\/pre>/im do
       code = $2.gsub "\n#{$1}", "\n"
 
       "<pre>#{code.strip}</pre>"
