@@ -169,4 +169,28 @@ describe Package do
       package.dependencies.should == @deps.dup
     end
   end
+
+  describe "#to_json" do
+    before do
+      @package = Factory.create(:package)
+      @v1 = @package.versions.first
+      @v2 = Factory.create(:version, :package => @package)
+      @v2 = Factory.create(:version, :package => @package)
+
+      @package = Package.find(@package)
+    end
+
+    it "should export the thing in an object like that" do
+      JSON.parse(@package.to_json).should == {
+        'id'          => @package.id,
+        'name'        => @package.name,
+        'description' => @package.description,
+        'author'      => @package.owner.name,
+        'license'     => @package.license,
+        'versions'    => @package.versions.map(&:number),
+        'created_at'  => @package.created_at.as_json,
+        'updated_at'  => @package.updated_at.as_json
+      }
+    end
+  end
 end

@@ -68,6 +68,20 @@ class Package < ActiveRecord::Base
     super and ((new_record? || !@version) ? true : @version.save)
   end
 
+  # better json export
+  def to_json
+    {
+      'id'          => id,
+      'name'        => name,
+      'description' => description,
+      'author'      => owner.name,
+      'license'     => license,
+      'versions'    => versions.map(&:number),
+      'created_at'  => created_at,
+      'updated_at'  => updated_at
+    }.to_json
+  end
+
 private
 
   def pass_data_to_version
