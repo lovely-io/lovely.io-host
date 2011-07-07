@@ -5,7 +5,7 @@ class Package < ActiveRecord::Base
   attr_accessible :name, :description, :license, :version, :build, :readme, :dependencies
 
   validates_presence_of   :owner_id, :name, :description, :version
-  validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]+[a-z0-9]$/, :allow_blank => true
+  validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
   validates_uniqueness_of :name, :allow_blank => true
 
   before_validation :pass_data_to_version
@@ -71,14 +71,14 @@ class Package < ActiveRecord::Base
   # better json export
   def to_json
     {
-      'id'          => id,
-      'name'        => name,
-      'description' => description,
-      'author'      => owner.name,
-      'license'     => license,
-      'versions'    => versions.map(&:number),
-      'created_at'  => created_at,
-      'updated_at'  => updated_at
+      'name'         => name,
+      'description'  => description,
+      'author'       => owner.name,
+      'license'      => license,
+      'versions'     => versions.map(&:number),
+      'dependencies' => dependencies || {},
+      'created_at'   => created_at,
+      'updated_at'   => updated_at
     }.to_json
   end
 

@@ -182,14 +182,14 @@ describe Package do
 
     it "should export the thing in an object like that" do
       JSON.parse(@package.to_json).should == {
-        'id'          => @package.id,
-        'name'        => @package.name,
-        'description' => @package.description,
-        'author'      => @package.owner.name,
-        'license'     => @package.license,
-        'versions'    => @package.versions.map(&:number),
-        'created_at'  => @package.created_at.as_json,
-        'updated_at'  => @package.updated_at.as_json
+        'name'         => @package.name,
+        'description'  => @package.description,
+        'author'       => @package.owner.name,
+        'license'      => @package.license,
+        'versions'     => @package.versions.map(&:number),
+        'dependencies' => @package.dependencies || {},
+        'created_at'   => @package.created_at.as_json,
+        'updated_at'   => @package.updated_at.as_json
       }
     end
   end
