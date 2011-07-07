@@ -7,6 +7,8 @@ class Package < ActiveRecord::Base
   validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
   validates_uniqueness_of :name, :allow_blank => true
+  validates_length_of     :description,    :maximum => 250.bytes,     :allow_blank => true
+  validates_length_of     :build, :readme, :maximum => 250.kilobytes, :allow_blank => true
 
   before_validation :pass_data_to_version
   after_validation  :pass_errors_from_version

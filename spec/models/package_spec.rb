@@ -41,6 +41,11 @@ describe Package do
       @package.should have(1).error_on(:description)
     end
 
+    it "should fail with a too long description" do
+      @package.description = 'a' * 1.kilobyte
+      @package.should have(1).error_on(:description)
+    end
+
     it "should fail without a version number" do
       @package.version = ''
       @package.should have(2).error_on(:version)
@@ -56,8 +61,18 @@ describe Package do
       @package.should have(1).error_on(:build)
     end
 
+    it "should fail with too large builds" do
+      @package.build = 'a' * 500.kilobytes
+      @package.should have(1).error_on(:build)
+    end
+
     it "should fail without a readme string" do
       @package.readme = ''
+      @package.should have(1).error_on(:readme)
+    end
+
+    it "should fail with too large readme file" do
+      @package.readme = 'a' * 500.kilobytes
       @package.should have(1).error_on(:readme)
     end
   end
