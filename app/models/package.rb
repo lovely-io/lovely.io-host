@@ -2,7 +2,8 @@ class Package < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   has_many   :versions, :order => 'number DESC', :dependent => :destroy
 
-  attr_accessible :name, :description, :license, :version, :build, :readme, :dependencies
+  attr_accessible :name, :description, :license, :version, :build,
+    :readme, :dependencies, :manifest, :documentation
 
   validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
@@ -66,6 +67,32 @@ class Package < ActiveRecord::Base
     @dependencies = hash
   end
 
+  # properties mass-assignment via the package manifest
+  MANIFEST_FIELDS = %w{
+    name
+    version
+    license
+    description
+    dependencies
+    home_url
+    source_url
+  }
+  def manifest=(json_string)
+    begin
+      JSON.parse(json_string).each do |key, value|
+        if MANIFEST_FIELDS.include?(key.to_s) && value
+          self.send("#{key}=", value)
+        end
+      end
+    rescue
+      @malformed_manifest = true
+    end
+  end
+
+  def documentation=(docs_hash)
+    @documentation = docs_hash
+  end
+
   def save
     super and ((new_record? || !@version) ? true : @version.save)
   end
@@ -102,5 +129,7 @@ private
     end
 
     errors.delete :versions # don't need this one anymore
+
+    errors.add(:manifest, "is malformed") if @malformed_manifest
   end
 end

@@ -185,6 +185,52 @@ describe Package do
     end
   end
 
+  describe "#manifest parsing" do
+    before do
+      @manifest = {
+        :name         => "some-package",
+        :description  => "Some description",
+        :version      => "1.2.3",
+        :license      => "IDOYS",
+        :dependencies => {
+          "pack1" => "1.2.3",
+          "pack2" => "2.3.4"
+        }
+      }
+
+      @package = Package.new(:manifest => @manifest.to_json)
+    end
+
+    it "should assign the name" do
+      @package.name.should == @manifest[:name]
+    end
+
+    it "should assign the description" do
+      @package.description.should == @manifest[:description]
+    end
+
+    it "should assign the version number" do
+      @package.version.should == @manifest[:version]
+    end
+
+    it "should assign the dependencies list" do
+      @package.dependencies.should == @manifest[:dependencies]
+    end
+
+    it "should assign the license" do
+      @package.license.should == @manifest[:license]
+    end
+
+    it "should have no manifest errors with a valid manifest" do
+      @package.should have(0).errors_on(:manifest)
+    end
+
+    it "should set an error if the manifest is malformed" do
+      @package.manifest = "I'm gonna get ya!"
+      @package.should have(1).error_on(:manifest)
+    end
+  end
+
   describe "#to_json" do
     before do
       @package = Factory.create(:package)
