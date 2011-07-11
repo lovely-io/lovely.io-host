@@ -9,15 +9,21 @@
       %h1= link_to 'Lovely.IO', '/'
       %h2 The Front-Side Development Platform
 
-      %form#search
-        %input{ :type => 'text', :placeholder => "Search"}
+      %form#search{:action => packages_path, :method => :get}
+        %input{ :type => 'text', :placeholder => "Search", :name => :search, :value => params[:search]}
 
       %nav
         = link_to "Home",  root_path
         |
+        = link_to "Packages", packages_path
+        |
         = link_to "About", page_path(:about)
         |
         = render "layouts/userbar"
+
+
+    - unless (sidebar_content = yield(:sidebar)).blank?
+      %sidebar= sidebar_content
 
     %section
       = flash_messages

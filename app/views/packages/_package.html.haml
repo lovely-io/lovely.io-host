@@ -1,0 +1,7 @@
+.package
+  %header
+    = link_to "#{package.name} - #{package.version}", package
+    = "(#{package.updated_at.to_s(:short)})"
+
+  %article
+    = package.description

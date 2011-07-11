@@ -46,6 +46,7 @@ GEM
       rack (< 2, >= 1.1.0)
     haml (3.1.2)
     i18n (0.5.0)
+    json (1.5.3)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -87,6 +88,7 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.9.2)
+    redcarpet (1.17.2)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -106,6 +108,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
@@ -115,10 +118,13 @@ DEPENDENCIES
   dynamic_form
   factory_girl_rails
   haml
+  json
   oa-core
   oa-oauth
   rails
+  redcarpet
   rspec
   rspec-rails
   sass
   sqlite3
+  will_paginate

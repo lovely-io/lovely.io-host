@@ -1,8 +1,7 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  AUTH_TOKEN_SIZE    = 64
-  AUTH_TOKEN_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
+  has_many :packages, :order => :name, :foreign_key => :owner_id
 
   attr_accessible :email, :name, :home_url
 
@@ -40,6 +39,9 @@ class User < ActiveRecord::Base
   rescue BCrypt::Errors::InvalidHash
     return nil
   end
+
+  AUTH_TOKEN_SIZE    = 64
+  AUTH_TOKEN_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
 
   def new_auth_token!
     token = AUTH_TOKEN_SYMBOLS.shuffle!.slice(0, AUTH_TOKEN_SIZE).join('')

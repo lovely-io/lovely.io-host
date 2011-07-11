@@ -9,13 +9,16 @@ gem 'sqlite3'
 
 gem 'haml'
 gem 'sass'
+gem 'redcarpet'
 
 gem 'oa-core'
 gem 'oa-oauth'
 
 gem 'dynamic_form'
+gem 'will_paginate'
 
 gem 'bcrypt-ruby'
+gem 'json'
 
 # Use unicorn as the web server
 # gem 'unicorn'

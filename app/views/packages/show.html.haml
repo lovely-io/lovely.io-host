@@ -1,0 +1,40 @@
+- content_for :sidebar do
+  %h2 Package Info
+  %dl
+    %dt Name
+    %dd= link_to @package.name, @package, :class => :package
+
+    %dt Author
+    %dd= link_to @package.owner.name, @package.owner, :class => :user
+
+    %dt License
+    %dd= @package.license.blank? ? 'Unspecified' : @package.license
+
+    %dt Versions
+    %dd
+      %ul
+        - @package.versions.each do |version|
+          %li{:class => params[:version] == version.number ? :current : nil}
+            = link_to version.number, package_path(@package, :version => version.number)
+            = "(#{version.updated_at.to_s(:short)})"
+
+    %dt CDN Links
+    %dd
+      %ul
+        %li
+          = link_to "#{@package.name}.js", cdn_package_url(@package), :class => :cdn
+          = "(1 day cache)"
+        %li= link_to "#{@package.name}-#{@package.version}.js", cdn_package_url(@package, @package.version), :class => :cdn
+
+    %dt Dependencies
+    %dd
+      %ul
+        - if @package.dependencies.empty?
+          %li None
+        - else
+          - @package.dependencies.each do |package, version|
+            %li= link_to "#{package}-#{version}", package_path(Package.find_by_name(package), :version => version)
+
+
+
+= md @package.readme

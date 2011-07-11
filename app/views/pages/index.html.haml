@@ -1,4 +1,15 @@
 %h1 Hello My Dears!
 
-%p
-  Some bla bla bla in here
+.half-width
+  %h2 New Packages
+
+  .packages
+    - Package.recent.limit(10).each do |package|
+      = render package
+
+.half-width
+  %h2 Updated Packages
+
+  .packages
+    - Package.updated.limit(10).each do |package|
+      = render package

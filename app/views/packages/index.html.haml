@@ -1,0 +1,25 @@
+- if params[:order] == 'recent'
+  %h1 Recently Created Packages
+- elsif params[:order] == 'updated'
+  %h1 Recently Updated Packages
+- else
+  %h1 Packages Index
+
+#packages
+  - @packages.each do |package|
+    = render package
+
+
+= will_paginate @packages
+
+
+= content_for :sidebar do
+  %h2 Filters
+  %nav
+    %ul
+      %li{:class => params[:order].blank? ? :current : nil}
+        = link_to "In Alphabetic order", packages_path
+      %li{:class => params[:order] == 'recent' ? :current : nil}
+        = link_to "Recently created", recent_packages_path
+      %li{:class => params[:order] == 'updated' ? :current : nil}
+        = link_to "Recently updated", updated_packages_path
