@@ -36,6 +36,13 @@ describe Package do
       @package.should have(1).error_on(:name)
     end
 
+    it "should fail with a reserved name" do
+      Package::RESERVED_NAMES.each do |name|
+        @package.name = name
+        @package.should have(1).error_on(:name)
+      end
+    end
+
     it "should fail without a description" do
       @package.description = ''
       @package.should have(1).error_on(:description)
