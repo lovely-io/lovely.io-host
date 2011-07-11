@@ -8,6 +8,8 @@ Lovelyio::Application.routes.draw do
     end
   end
 
+  get '/packages/search(/:search)' => 'packages#index'
+
   get '/packages/:id(/:version)(.:format)' => 'packages#show', :as => :package, :constraints => {
     :version => VERSION_RE
   }

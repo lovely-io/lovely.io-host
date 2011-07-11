@@ -8,13 +8,13 @@ class PackagesController < ApplicationController
 
   def index
     @packages = (params[:user_id] ? User.find(params[:user_id]).packages : Package)
-    @packages = @packages.order('name').includes(:owner)
+    @packages = @packages.includes(:owner)
 
     @packages = @packages.recent  if params[:order] == 'recent'
     @packages = @packages.updated if params[:order] == 'updated'
     @packages = @packages.like(params[:search]) unless params[:search].blank?
 
-    @packages = @packages.paginate(:page => params[:page])
+    @packages = @packages.order('name').paginate(:page => params[:page])
 
     respond_to do |format|
       format.html
