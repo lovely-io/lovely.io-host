@@ -7,6 +7,10 @@
     %dt Author
     %dd= link_to @package.owner.name, @package.owner, :class => :user
 
+    - unless @package.home_url.blank?
+      %dt Home URL:
+      %dd= link_to truncate(@package.home_url, :length => 32), @package.home_url
+
     %dt License
     %dd= @package.license.blank? ? 'Unspecified' : @package.license
 

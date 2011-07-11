@@ -3,7 +3,7 @@ class Package < ActiveRecord::Base
   has_many   :versions, :order => 'number DESC', :dependent => :destroy
 
   attr_accessible :name, :description, :license, :version, :build,
-    :readme, :dependencies, :manifest, :documentation
+    :readme, :dependencies, :manifest, :documentation, :home_url
 
   validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
@@ -75,7 +75,6 @@ class Package < ActiveRecord::Base
     description
     dependencies
     home_url
-    source_url
   }
   def manifest=(json_string)
     begin
