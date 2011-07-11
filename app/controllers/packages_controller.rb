@@ -36,10 +36,7 @@ class PackagesController < ApplicationController
   end
 
   def create
-    if params[:package] && @package = Package.find_by_name(params[:package][:name])
-      check_access
-      @package.attributes = params[:package]
-    else
+    unless @package = find_existing_package
       @package = Package.new(params[:package])
       @package.owner = current_user
     end
@@ -74,4 +71,22 @@ protected
     end
   end
 
+  def find_existing_package
+    if params[:package]
+      @package_name = if params[:package][:manifest]
+        @package_name = JSON.parse(params[:package][:manifest])['name']
+      else
+        params[:package][:name]
+      end
+
+      if @package_name && @package = Package.find_by_name(@package_name)
+        check_access
+        @package.attributes = params[:package]
+        return @package
+      end
+    end
+
+  rescue JSON::ParserError => e
+    return nil
+  end
 end
