@@ -1,6 +1,10 @@
 !!!HTML5
 %html
   %head
+    - main_content = yield
+    - sidebar_content = yield(:sidebar)
+    - @page_title ||= main_content.scan(/<h1>(.+?)<\/h1>/i)
+
     %title= "Lovely.IO » #{@page_title}"
     = stylesheet_link_tag 'application'
 
@@ -12,8 +16,6 @@
       = render 'layouts/search'
 
       %nav
-        = link_to "Home",  root_path
-        |
         = link_to "Packages", packages_path
         |
         = link_to "About", page_path(:about)
@@ -21,12 +23,12 @@
         = render "layouts/userbar"
 
 
-    - unless (sidebar_content = yield(:sidebar)).blank?
+    - unless sidebar_content.blank?
       %sidebar= sidebar_content
 
     %section
       = flash_messages
-      = yield
+      = main_content
 
     %footer
       Copyright (C) 2011
