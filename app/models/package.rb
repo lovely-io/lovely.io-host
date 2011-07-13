@@ -91,12 +91,8 @@ class Package < ActiveRecord::Base
     end
   end
 
-  def documentation=(docs_hash)
-    @documentation = docs_hash
-  end
-
-  def save
-    super and ((new_record? || !@version) ? true : @version.save)
+  def save(*args)
+    super(*args) and ((new_record? || !@version) ? true : @version.save)
   end
 
   # better json export
