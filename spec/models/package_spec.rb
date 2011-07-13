@@ -132,7 +132,6 @@ describe Package do
 
     it "should use the latest version by default" do
       @package.version.should == '2.0.0'
-      @package.build.should   == 'Build 2'
       @package.readme.should  == "Readme 2"
     end
 
@@ -140,7 +139,6 @@ describe Package do
       @package.version = '1.0.0'
 
       @package.version.should == '1.0.0'
-      @package.build.should   == 'Build 1'
       @package.readme.should  == "Readme 1"
     end
   end

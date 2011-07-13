@@ -5,7 +5,7 @@ class Package < ActiveRecord::Base
   attr_accessible :name, :description, :license, :version, :build,
     :readme, :dependencies, :manifest, :documentation, :home_url
 
-  RESERVED_NAMES = %w(updated recent search)
+  RESERVED_NAMES = %w(updated recent search page)
 
   validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
@@ -91,12 +91,8 @@ class Package < ActiveRecord::Base
     end
   end
 
-  def documentation=(docs_hash)
-    @documentation = docs_hash
-  end
-
-  def save
-    super and ((new_record? || !@version) ? true : @version.save)
+  def save(*args)
+    super(*args) and ((new_record? || !@version) ? true : @version.save)
   end
 
   # better json export

@@ -5,6 +5,7 @@ tmp/*
 tmp/**/*
 coverage
 public/stylesheets/application.css
+public/cdn/_
 
 config/database.yml
 config/authentication.yml
