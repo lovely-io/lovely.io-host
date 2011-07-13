@@ -5,7 +5,7 @@ class Package < ActiveRecord::Base
   attr_accessible :name, :description, :license, :version, :build,
     :readme, :dependencies, :manifest, :documentation, :home_url
 
-  RESERVED_NAMES = %w(updated recent search)
+  RESERVED_NAMES = %w(updated recent search page)
 
   validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true

@@ -4,6 +4,7 @@
 # Copyright (C) 2011 Nikolay Nemshilov
 #
 class StaticController < ApplicationController
+  caches_page :page
 
   def page
     file = "#{::Rails.root}/app/views/pages/#{params[:id]}.html.haml"

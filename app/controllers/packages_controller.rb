@@ -3,6 +3,8 @@
 #       `lovely` CLI tool which works via JSON format
 #
 class PackagesController < ApplicationController
+  caches_page :index, :show
+
   before_filter :require_login, :only => [:create, :destroy]
   before_filter :find_package,  :only => [:show,   :destroy]
 

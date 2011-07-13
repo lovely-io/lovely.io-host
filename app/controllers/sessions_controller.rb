@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
+  caches_page :new
 
   def new
-    flash[:notice] = "Already logged in" if logged_in?
   end
 
   def create
