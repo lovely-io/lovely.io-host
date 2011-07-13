@@ -1,7 +1,7 @@
-class Version
+class VersionsCacher
 protected
+  # don't mess with the files
 
-  def save_assets
-    # don't mess with the files
-  end
+  def clean_cache(version) end
+  def save_assets(version) end
 end

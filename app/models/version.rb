@@ -11,7 +11,6 @@ class Version < ActiveRecord::Base
   validates_format_of     :number, :with => /^\d+\.\d+\.\d+(-[a-z0-9\.]+)?$/i, :allow_blank => true
   validates_uniqueness_of :number, :scope => :package_id, :allow_blank => true
 
-  after_save :save_assets
   after_save :update_package_timestamps
 
   def dependencies_hash
@@ -32,14 +31,6 @@ class Version < ActiveRecord::Base
   end
 
 protected
-
-  def save_assets
-    unless @build.blank?
-      File.open("#{ASSETS_DIR}/#{package.name}-#{number}.js", "w") do |f|
-        f.write @build
-      end
-    end
-  end
 
   def update_package_timestamps
     if package = Package.find_by_id(package_id)
