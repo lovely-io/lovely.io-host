@@ -31,14 +31,12 @@ describe StaticController do
     end
   end
 
-  describe "GET #package" do
-    before do
-      @package = Factory.create(:package)
-    end
+  describe "GET #script" do
 
     describe "without a version number" do
       before do
-        Package.should_receive(:find).with('123').and_return(@package)
+        Dir.should_receive(:[]).with("#{ASSETS_DIR}/123-*.js").and_return("123-0.0.0.js")
+        File.should_receive(:read).and_return("the build")
         get :script, :id => '123'
       end
 
@@ -47,7 +45,7 @@ describe StaticController do
       end
 
       it "should send the package build back" do
-        response.body.should == @package.build
+        response.body.should == "the build"
       end
 
       it "should send the text/javascript content type" do
@@ -61,10 +59,7 @@ describe StaticController do
 
     describe "with a version number" do
       before do
-        @version = Factory.create(:version, :package => @package)
-
-        Package.should_receive(:find).with('123').and_return(@package)
-        @package.versions.should_receive(:find_by_number).with('1.2.3').and_return(@version)
+        File.should_receive(:read).with("#{ASSETS_DIR}/123-1.2.3.js").and_return("the build")
 
         get :script, :id => '123', :version => '1.2.3'
       end
@@ -74,7 +69,7 @@ describe StaticController do
       end
 
       it "should send the specified version build" do
-        response.body.should == @version.build
+        response.body.should == "the build"
       end
 
       it "should send the text/javascript content type" do
@@ -88,30 +83,8 @@ describe StaticController do
 
     describe "when a package doesn't exists" do
       before do
-        Package.should_receive(:find).with('123').and_raise(ActiveRecord::RecordNotFound)
-
+        File.should_receive(:read).and_raise(StandardError)
         get :script, :id => '123', :format => :js
-      end
-
-      it "should send the 404 status" do
-        response.status.should == 404
-      end
-
-      it "should send the text/javascript content type" do
-        response.content_type.should == 'text/javascript'
-      end
-
-      it "should send a JavaScript comment in the body" do
-        response.body.should == "/* 404 Page is not found */"
-      end
-    end
-
-    describe "when a version doesn't exists" do
-      before do
-        Package.should_receive(:find).with('123').and_return(@package)
-        @package.versions.should_receive(:find_by_number).with('1.2.3').and_raise(ActiveRecord::RecordNotFound)
-
-        get :script, :id => '123', :version => '1.2.3', :format => :js
       end
 
       it "should send the 404 status" do
