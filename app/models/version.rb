@@ -7,7 +7,8 @@ class Version < ActiveRecord::Base
   has_many :dependees,    :dependent => :destroy, :foreign_key => :dependency_id, :class_name => 'Dependency'
   has_many :dependent_versions, :through => :dependencies, :uniq => true
 
-  validates_presence_of   :number, :build, :readme
+  validates_presence_of   :number, :readme
+  validates_presence_of   :build, :on => :create
   validates_format_of     :number, :with => /^\d+\.\d+\.\d+(-[a-z0-9\.]+)?$/i, :allow_blank => true
   validates_uniqueness_of :number, :scope => :package_id, :allow_blank => true
 
