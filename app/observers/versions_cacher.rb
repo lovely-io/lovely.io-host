@@ -22,15 +22,15 @@ protected
         "#{Rails.root}/public/index.html",
         "#{Rails.root}/public/packages.html",
         "#{Rails.root}/public/packages.json",
-        "#{Rails.root}/public/packages/page",
-        "#{Rails.root}/public/packages/search",
-        "#{Rails.root}/public/packages/recent",
-        "#{Rails.root}/public/packages/updated"
+        "#{Rails.root}/public/packages/page*",
+        "#{Rails.root}/public/packages/search*",
+        "#{Rails.root}/public/packages/recent*",
+        "#{Rails.root}/public/packages/updated*"
       ].each{ |f| FileUtils.rm_rf(f) }
 
       if package = version.package
         [
-          "#{Rails.root}/packages/#{package.name}",
+          "#{Rails.root}/packages/#{package.name}*",
           "#{ASSETS_DIR}/#{package.name}-#{version.number}.js",
           "#{ASSETS_DIR}/#{package.name}/#{version.number}/"
         ].each{ |f| FileUtils.rm_rf(f) }

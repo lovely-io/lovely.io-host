@@ -17,9 +17,9 @@ class Package < ActiveRecord::Base
   before_validation :pass_data_to_version
   after_validation  :pass_errors_from_version
 
-  scope :recent,  order('created_at DESC')
-  scope :updated, order('updated_at DESC')
-  scope :like,    lambda{ |s| where("name LIKE ?", "%#{s}%") }
+  scope :recent,  order('packages.created_at DESC')
+  scope :updated, order('packages.updated_at DESC')
+  scope :like,    lambda{ |s| where("packages.name LIKE ?", "%#{s}%") }
 
   def self.find(*args)
     if args.size == 1 && args[0].is_a?(String) && args[0] !=~ /^\d+$/
