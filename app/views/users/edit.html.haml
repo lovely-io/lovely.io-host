@@ -1,0 +1,22 @@
+%h1 Edit profile
+
+= form_for @user, :url => profile_path do |f|
+  = f.error_messages
+
+  %p.required
+    = f.label :name
+    = f.text_field :name
+
+  %p.required
+    = f.label :email
+    = f.text_field :email
+
+  %p
+    = f.label :home_url
+    = f.text_field :home_url
+
+  %p.buttons
+    = f.submit 'Save'
+
+%p.bottom-links
+  = link_to "Back", profile_path, :class => :back

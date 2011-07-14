@@ -1,0 +1,6 @@
+- if logged_in?
+  = link_to "Profile", profile_path, :id => 'profile'
+  |
+  = link_to "Log Out", logout_path, :id => 'logout'
+- else
+  = link_to "Log In", login_path, :id => 'login'

@@ -1,0 +1,1 @@
+ASSETS_DIR = "#{Rails.root}/public/cdn/_"

@@ -1,0 +1,33 @@
+!!!HTML5
+%html
+  %head
+    - main_content = yield
+    - sidebar_content = yield(:sidebar)
+    - @page_title ||= main_content.scan(/<h1>(.+?)<\/h1>/i)
+
+    %title= "Lovely.IO » #{@page_title}"
+    = stylesheet_link_tag 'application'
+
+  %body{:class => body_class_name}
+    %header
+      %h1= link_to 'Lovely.IO', '/'
+      %h2 The Front-Side Development Platform
+
+      = render 'layouts/search'
+
+      %nav
+        = link_to "Packages", packages_path
+        |
+        = link_to "About", page_path(:about)
+
+
+    - unless sidebar_content.blank?
+      %sidebar= sidebar_content
+
+    %section
+      = flash_messages
+      = main_content
+
+    %footer
+      Copyright (C) 2011
+      = link_to "Nikolay Nemshilov", "http://st-on-it.blogspot.com"

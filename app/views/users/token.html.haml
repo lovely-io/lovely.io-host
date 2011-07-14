@@ -1,0 +1,31 @@
+%h1 Authentication Token Generator
+
+%p
+  Authentication tokens are used with the <tt>lovely</tt> console tool
+  when you deploy your packages to <tt>lovely.io</tt>
+
+
+
+
+- if @token
+  %h2 New Token
+
+  %p
+    Please add the following to your <tt>~/.lovelyrc</tt> file
+
+  %pre= "auth = #{@token}"
+
+  %p
+    = link_to "Make a new one", token_profile_path(:create => true)
+
+- else
+  %h2 Generate A Token
+
+  %p
+    Click the following link to generate a new authentication-token
+
+  %p
+    <b>NOTE:</b> will make the current token invalid!
+
+  %p
+    = link_to "Got it! Make me a new one!", token_profile_path(:create => true)

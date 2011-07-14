@@ -1,0 +1,3 @@
+%ul.providers
+  - AUTHENTICATION_PROVIDERS.each do |name|
+    %li= link_to name.capitalize, "/auth/#{name}", :class => name

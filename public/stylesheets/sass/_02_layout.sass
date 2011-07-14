@@ -1,0 +1,80 @@
+body > header, body > section, body > footer
+  padding: 0 2em
+
+body > header
+  position: relative
+  padding-top: 1em
+  margin-bottom: 2em
+
+  h1
+    font-size: 4em
+    margin: 0
+    padding: 0
+    display: inline-block
+    color: brown
+
+  h2
+    margin: 0
+    padding: 0
+    font-weight: normal
+    font-style: italic
+    font-size: 1.1em
+    color: grey
+    position: absolute
+    margin-top: -1em
+
+  nav
+    position: absolute
+    bottom: 0
+    right: 2em
+
+  form#search
+    position: absolute
+    top: 2em
+    right: 2em
+
+    input[type="text"]
+      font-size: 80%
+
+
+body > section
+  padding-bottom: 6em
+
+body > sidebar ~ section
+  margin-right: 18.5em
+
+body > sidebar
+  float: right
+  width: 16em
+  margin-right: 2em
+  margin-top: 4em
+  background: #F4F9EC
+  padding: .5em .8em
+  border: 1px solid #D1D3BE
+  border-radius: .25em
+  -moz-border-radius: .25em
+  -webkit-border-radius: .25em
+
+body > sidebar h2
+  margin: 0
+  margin-bottom: .5em
+
+body > sidebar dl
+  margin: 0
+
+body > sidebar ul
+  margin: .5em 0
+  padding: 0 0 0 1.2em
+
+body > sidebar ul li.current
+  font-weight: bold
+
+body > footer
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 100%
+  padding-bottom: 2em
+  padding-top: 2em
+  color: grey
+

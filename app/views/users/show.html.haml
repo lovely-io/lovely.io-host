@@ -1,0 +1,22 @@
+%h1 Profile details
+
+.avatar-block
+  = user_avatar_link @user
+
+%dl.profile
+  %dt Full name
+  %dd= @user.name
+
+  %dt Home url
+  %dd= link_to @user.home_url
+
+  - if @user == current_user
+    %dt Email
+    %dd= @user.email
+
+    %dt Authentication Token
+    %dd= link_to "Create new auth-token", token_profile_path
+
+%p.bottom-links
+  - if logged_in?
+    = link_to "Edit", edit_profile_path, :class => :edit
