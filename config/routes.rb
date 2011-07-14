@@ -1,8 +1,8 @@
 Lovelyio::Application.routes.draw do
   VERSION_RE = /\d+\.\d+\.\d+(-[a-z0-9]+)?/i
 
-  get '/packages(/page/:page)'     => 'packages#index'
-  get '/packages/search(/:search)' => 'packages#index'
+  get '/users/:user_id/packages(/search/:search)(/page/:page)' => 'packages#index', :as => :user_packages
+  get '/packages(/search/:search)(/page/:page)'                => 'packages#index'
 
   resources :packages, :only => [:index, :show, :create, :destroy] do
     collection do

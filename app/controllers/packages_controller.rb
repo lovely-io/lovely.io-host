@@ -24,11 +24,11 @@ class PackagesController < ApplicationController
     @packages = @packages.updated if params[:order] == 'updated'
     @packages = @packages.like(params[:search]) unless params[:search].blank?
 
-    @packages = @packages.order('name').paginate(:page => params[:page])
+    @packages = @packages.order('name')
 
     respond_to do |format|
-      format.html
-      format.json { render :json => "[#{Package.all.map(&:to_json).join(",")}]" }
+      format.html { @packages = @packages.paginate(:page => params[:page]) }
+      format.json { render :json => "[#{@packages.map(&:to_json).join(",")}]" }
     end
   end
 

@@ -8,7 +8,10 @@
   %dd= @user.name
 
   %dt Home url
-  %dd= link_to @user.home_url
+  %dd= link_to @user.home_url, @user.home_url unless @user.home_url.blank?
+
+  %dt Packages
+  %dd= link_to "packages by this user", user_packages_path(@user)
 
   - if @user == current_user
     %dt Email
