@@ -3,9 +3,6 @@ Lovelyio::Application.routes.draw do
 
   get '/packages(/page/:page)'     => 'packages#index'
   get '/packages/search(/:search)' => 'packages#index'
-  get '/packages/:id(/:version)'   => 'packages#show',  :as => :package, :constraints => {
-    :version => VERSION_RE
-  }
 
   resources :packages, :only => [:index, :show, :create, :destroy] do
     collection do
@@ -13,6 +10,10 @@ Lovelyio::Application.routes.draw do
       get :updated, :action => :index, :order => 'updated'
     end
   end
+
+  get '/packages/:id(/:version)'   => 'packages#show',  :as => :package, :constraints => {
+    :version => VERSION_RE
+  }
 
   resources :users
   resource  :profile, :controller => 'users' do
