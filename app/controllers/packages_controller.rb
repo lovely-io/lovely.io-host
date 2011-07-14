@@ -5,6 +5,14 @@
 class PackagesController < ApplicationController
   caches_page :index, :show
 
+  # BUG: for some reason rails looses the `.html` extension
+  #      when there is a version number at the end
+  def self.page_cache_path(path, extension=nil)
+    path = super(path, extension)
+    path << extension if extension && !path.ends_with?(extension)
+    path
+  end
+
   before_filter :require_login, :only => [:create, :destroy]
   before_filter :find_package,  :only => [:show,   :destroy]
 
