@@ -3,7 +3,7 @@
   %head
     - main_content = yield
     - sidebar_content = yield(:sidebar)
-    - @page_title ||= main_content.scan(/<h1>(.+?)<\/h1>/i)
+    - @page_title ||= main_content.scan(/<h1>(.+?)<\/h1>/i)[0]
     - @page_title = 'Home' if @page_title.blank?
 
     %title= "Lovely.IO » #{@page_title}"
