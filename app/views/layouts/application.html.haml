@@ -12,6 +12,7 @@
     = javascript_include_tag 'application'
 
     = auto_discovery_link_tag :atom, news_index_path(:format => :atom), :title => "Lovely.IO News"
+    = auto_discovery_link_tag :atom, updated_packages_path(:format => :atom), :title => "Lovely.IO Packages"
 
   %body{:class => body_class_name}
     %header
