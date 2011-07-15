@@ -1,0 +1,15 @@
+%h1 Recent News
+
+#news
+  - @news.each do |news|
+    = div_for news do
+      %header
+        .date= news.created_at.to_s(:short)
+        .title= link_to news.title, news
+
+      %article=md news.text.split('<cut>').first
+
+  - if @news.empty?
+    No news on this list yet
+
+= will_paginate @news

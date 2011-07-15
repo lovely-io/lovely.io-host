@@ -28,6 +28,7 @@ class PackagesController < ApplicationController
 
     respond_to do |format|
       format.html { @packages = @packages.paginate(:page => params[:page]) }
+      format.atom { @packages = @packages.limit(10) }
       format.json { render :json => "[#{@packages.map(&:to_json).join(",")}]" }
     end
   end

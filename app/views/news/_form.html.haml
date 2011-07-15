@@ -1,0 +1,13 @@
+= form_for(@news) do |f|
+  = f.error_messages
+
+  %p.required
+    = f.label :title
+    = f.text_field :title
+
+  %p.required
+    = f.label :text
+    = f.text_area :text, :rows => 16, :cols => 60
+
+  %p.buttons
+    = f.submit

@@ -4,8 +4,13 @@ log/*.log
 tmp/*
 tmp/**/*
 coverage
-public/stylesheets/application.css
 public/cdn/_
+public/*.html
+public/**/*.html
+public/*/**/*.html
+public/*.json
+public/**/*.json
+public/*/**/*.json
 
 config/database.yml
 config/authentication.yml

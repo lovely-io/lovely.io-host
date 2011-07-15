@@ -12,10 +12,14 @@ module ApplicationHelper
   end
 
   def md(string='')
-    string = Redcarpet.new(string, :autolink, :filter_html, :no_image, :safelink).to_html
+    string = Redcarpet.new(string, *MD_OPTIONS).to_html
     MD_PATCHES.each{ |patch| string.gsub! *patch }
     string.html_safe
   end
+
+  MD_OPTIONS = [
+    :autolink, :filter_html, :no_image, :safelink, :no_intraemphasis
+  ]
 
   MD_PATCHES = [
     ["code>",        "tt>"     ],
