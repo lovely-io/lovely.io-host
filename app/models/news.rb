@@ -8,6 +8,8 @@ class News < ActiveRecord::Base
 
   before_validation :build_uri, :on => :create
 
+  scope :latest, order('news.created_at DESC')
+
   def self.find(id, *args)
     if args.empty? and id.is_a?(String) and id !=~ /^\d+$/
       find_by_uri(id) or raise(ActiveRecord::RecordNotFound)

@@ -12,8 +12,8 @@ module AuthenticationMocks
     controller.stub!(:current_user).and_return(@current_user)
   end
 
-  def admin!
-    logged_in!
+  def admin!(user=nil)
+    logged_in!(user)
     @current_user.stub!(:admin?).and_return(true)
   end
 
