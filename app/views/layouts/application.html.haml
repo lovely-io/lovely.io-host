@@ -11,6 +11,8 @@
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
 
+    = auto_discovery_link_tag :atom, news_index_path(:format => :atom), :title => "Lovely.IO News"
+
   %body{:class => body_class_name}
     %header
       %h1= link_to 'Lovely.IO', '/'
