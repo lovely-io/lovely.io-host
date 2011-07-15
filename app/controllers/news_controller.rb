@@ -1,4 +1,6 @@
 class NewsController < ApplicationController
+  caches_page :index, :show
+
   before_filter :require_admin, :except => [:index, :show]
   before_filter :find_news, :only => [:show, :edit, :update, :destroy]
 

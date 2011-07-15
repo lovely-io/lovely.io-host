@@ -9,4 +9,7 @@
 
       %article=md news.text.split('<cut>').first
 
+  - if @news.empty?
+    No news on this list yet
+
 = will_paginate @news
