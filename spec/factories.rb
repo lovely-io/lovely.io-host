@@ -22,3 +22,9 @@ Factory.define :version do |f|
   f.readme "Oh my dear, that's just lovely!"
   f.association :package, :factory => :package
 end
+
+Factory.define :news do |f|
+  f.sequence(:title) { |i| "News #{i}" }
+  f.text    "Some text"
+  f.association :author, :factory => :user
+end
