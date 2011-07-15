@@ -1,14 +1,2 @@
 %form#search{:action => packages_path, :method => :get}
   %input{ :type => 'text', :placeholder => "Search", :name => :search, :value => params[:search]}
-
-:javascript
-  (function() {
-    var form = document.getElementById('search');
-    search.onsubmit = function() {
-      if (this.search.value) {
-        document.location.href = "/packages/search/"+
-          encodeURIComponent(this.search.value);
-      }
-      return false;
-    };
-  })();
