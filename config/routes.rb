@@ -20,6 +20,9 @@ Lovelyio::Application.routes.draw do
     get :token
   end
 
+  get '/news(/page/:page)' => 'news#index'
+  resources :news
+
   # authentication routes
   match '/login'                   => 'sessions#new',     :as => :login
   match '/logout'                  => 'sessions#destroy', :as => :logout

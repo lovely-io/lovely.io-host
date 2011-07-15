@@ -4,11 +4,15 @@
     - main_content = yield
     - sidebar_content = yield(:sidebar)
     - @page_title ||= main_content.scan(/<h1>(.+?)<\/h1>/i)
+    - @page_title = 'Home' if @page_title.blank?
 
     %title= "Lovely.IO » #{@page_title}"
     %meta{ :charset => "utf-8" }
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
+
+    = auto_discovery_link_tag :atom, news_index_path(:format => :atom), :title => "Lovely.IO News"
+    = auto_discovery_link_tag :atom, updated_packages_path(:format => :atom), :title => "Lovely.IO Packages"
 
   %body{:class => body_class_name}
     %header
@@ -19,6 +23,8 @@
 
       %nav
         = link_to "Packages", packages_path
+        |
+        = link_to "News", news_index_path
         |
         = link_to "About", page_path(:about)
 
