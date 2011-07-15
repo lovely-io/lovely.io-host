@@ -2,4 +2,11 @@
 
 #news
   - @news.each do |news|
-    TODO: me
+    = div_for news do
+      %header
+        .date= news.created_at.to_s(:short)
+        .title= link_to news.title, news
+
+      %article=md news.text.split('<cut>').first
+
+= will_paginate @news
