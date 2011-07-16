@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   MD_OPTIONS = [
-    :autolink, :filter_html, :no_image, :safelink, :no_intraemphasis
+    :autolink, :filter_html, :no_image, :no_intraemphasis
   ]
 
   MD_PATCHES = [
