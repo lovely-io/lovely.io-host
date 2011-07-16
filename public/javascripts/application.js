@@ -24,12 +24,3 @@ if (document.location.href.indexOf('lovely.io')) {
   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 }
-
-/**
- * Discuss comments
- */
-if (document.location.href.indexOf('lovely.io')) {
-  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-  dsq.src = 'http://lovelyio.disqus.com/embed.js';
-  document.getElementsByTagName('head')[0].appendChild(dsq);
-}
