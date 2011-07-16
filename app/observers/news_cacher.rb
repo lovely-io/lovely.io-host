@@ -8,7 +8,7 @@ class NewsCacher < ActiveRecord::Observer
     clean_cache
   end
 
-  def after_udpate(news)
+  def after_update(news)
     clean_cache news
   end
 
@@ -21,7 +21,7 @@ protected
   def clean_cache(news=nil)
     system "rake app:clean:news #{
       news ? "NEWS_URI=#{news.uri}" : ''
-    } &2 > /dev/null"
+    } &2> /dev/null"
   end
 
 end
