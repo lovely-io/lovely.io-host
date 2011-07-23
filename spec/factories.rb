@@ -23,6 +23,12 @@ Factory.define :version do |f|
   f.association :package, :factory => :package
 end
 
+Factory.define :document do |f|
+  f.sequence(:path) { |i| "doc-#{i}" }
+  f.text "some text"
+  f.association :version, :factory => :version
+end
+
 Factory.define :news do |f|
   f.sequence(:title) { |i| "News #{i}" }
   f.text    "Some text"

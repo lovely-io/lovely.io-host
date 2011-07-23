@@ -31,15 +31,15 @@ class Version < ActiveRecord::Base
   end
 
   def readme
-    @doc ||= documents.index.first
+    @doc ||= documents.indeks.first
     @doc.text if @doc
   end
 
   def readme=(text)
     @doc = if new_record?
-      documents.index.build :text => text
+      documents.indeks.build :text => text
     else
-      documents.index.first.update_attributes :text => text
+      documents.indeks.first.update_attributes :text => text
     end
   end
 
