@@ -1,8 +1,6 @@
 class Version < ActiveRecord::Base
   belongs_to :package
 
-  attr_accessor :build
-
   has_many :documents,    :dependent => :destroy, :order => :path
   has_many :dependencies, :dependent => :destroy
   has_many :dependees,    :dependent => :destroy, :foreign_key => :dependency_id, :class_name => 'Dependency'
