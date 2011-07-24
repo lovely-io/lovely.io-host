@@ -55,12 +55,27 @@ describe Version do
     describe '.index method' do
       before do
         @version  = Factory.create(:version, :package_id => 1)
-        @document = Factory.create(:document, :version => @version, :path => 'index', :text => 'boo hoo')
+        @document = Factory.create(:document, :version => @version, :path => 'index')
       end
 
       it "should get found by the 'index' method" do
         Version.find(@version).documents.index.should == @document
       end
     end
+
+    describe 'clean up' do
+      before do
+        Document.delete_all
+
+        @version  = Factory.create(:version, :package_id => 1)
+        @document = Factory.create(:document, :version => @version)
+      end
+
+      it "should clean up the documents after a version was deleted" do
+        Version.find(@version).destroy
+        Document.count.should == 0
+      end
+    end
   end
+
 end
