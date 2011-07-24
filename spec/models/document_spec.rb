@@ -16,6 +16,11 @@ describe Document do
       @document.should have(1).error_on(:path)
     end
 
+    it "should fail with a malformed path" do
+      @document.path = 'bla bla bla'
+      @document.should have(1).error_on(:path)
+    end
+
     it "should fail with a non-uniq path" do
       Factory.create(:document, :version_id => @document.version_id, :path => @document.path)
       @document.should have(1).error_on(:path)

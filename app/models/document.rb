@@ -4,12 +4,13 @@ class Document < ActiveRecord::Base
   validates_presence_of   :path, :text
   validates_associated    :version
   validates_uniqueness_of :path, :scope => :version_id
-  validates_length_of     :text, :maximum => 250.kilobytes, :allow_blank => true
+  validates_format_of     :path, :with => /^[a-z0-9\/\-]+$/, :allow_blank => true
+  validates_length_of     :text, :maximum => 250.kilobytes,  :allow_blank => true
 
 
   module Assoc
     def index
-      where(:path => 'index').first
+      find_by_path('index')
     end
 
     def urls
