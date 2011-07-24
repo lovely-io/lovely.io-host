@@ -2,7 +2,7 @@ class Package < ActiveRecord::Base
   belongs_to :owner,    :class_name => 'User'
   has_many   :versions, :order => 'number ASC', :dependent => :destroy
 
-  attr_accessible :manifest, :build, :docs
+  attr_accessible :manifest, :build, :documents
 
   validates_presence_of   :owner_id, :name, :description
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
@@ -10,6 +10,8 @@ class Package < ActiveRecord::Base
   validates_length_of     :description, :maximum => 250.bytes, :allow_blank => true
   validates_exclusion_of  :name, :in => RESERVED_PACKAGE_NAMES, :message => "is reserved"
   validate                :manifest_check
+
+  before_validation       :transfer_manifest_data
 
   scope :recent,  order('packages.created_at DESC')
   scope :updated, order('packages.updated_at DESC')
@@ -28,19 +30,40 @@ class Package < ActiveRecord::Base
   end
 
   def version
-    @version
+    @version ||= versions.last
   end
 
   def version=(version)
-    @version = version
+    @version = if version.is_a?(String)
+      versions.find_by_number(version) or
+      versions.build(:number => version)
+    else
+      version
+    end
   end
 
   def dependencies
-    @dependencies
+    @dependencies || version.dependencies_hash if version
   end
 
   def dependencies=(hash)
     @dependencies = hash
+  end
+
+  def documents
+    @documents || version.documents if version
+  end
+
+  def documents=(hash)
+    @documents = hash
+  end
+
+  def build
+    @build || version.build if version
+  end
+
+  def build=(string)
+    @build = string
   end
 
   # properties mass-assignment via the package manifest
@@ -86,5 +109,13 @@ private
 
 
     errors.add(:manifest, "is malformed") if @malformed_manifest
+  end
+
+  def transfer_manifest_data
+    if @version
+      @version.dependencies_hash = @dependencies if @dependencies
+      @version.documents         = @documents    if @documents
+      @version.build             = @build        if @build
+    end
   end
 end

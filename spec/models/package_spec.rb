@@ -140,6 +140,8 @@ describe Package do
     end
   end
 
+=end
+
   describe "#name attribute as the primary key" do
     before do
       @package = Factory.create(:package)
@@ -172,21 +174,54 @@ describe Package do
       @p4 = Factory.create(:package)
 
       @deps = {
-        "#{@p1.name}" => "#{@p1.version}",
-        "#{@p2.name}" => "#{@p2.version}"
+        "#{@p1.name}" => "#{@p1.version.number}",
+        "#{@p2.name}" => "#{@p2.version.number}"
       }
 
       @package = Factory.create(:package, :dependencies => @deps)
     end
 
     it "should save the dependencies" do
-      package = Package.find(@package)
-      package.version = package.versions.first
-
-      package.dependencies.should == @deps.dup
+      @package = Package.find(@package)
+      @package.dependencies.should == @deps.dup
     end
   end
-=end
+
+  describe "build assignment/access" do
+    before do
+      @build_text = "Some build text"
+      @package = Factory.create(:package, :build => @build_text)
+      @package = Package.find(@package)
+    end
+
+    it "should save the build" do
+      @package.build.should == @build_text
+    end
+
+    it "should save it in the version" do
+      @package.versions.last.build.should == @build_text
+    end
+  end
+
+  describe "documents assignment/access" do
+    before do
+      @docs_hash = {
+        'index'    => 'index document',
+        'docs/boo' => 'docs/boo document'
+      }
+
+      @package = Factory.create(:package, :documents => @docs_hash)
+      @package = Package.find(@package)
+    end
+
+    it "should save the documentation" do
+      @package.documents.urls.sort.should == @docs_hash.keys.sort
+    end
+
+    it "should save the documents in the version record" do
+      @package.versions.last.documents.should == @package.documents
+    end
+  end
 
   describe "#manifest parsing" do
     before do
@@ -215,7 +250,7 @@ describe Package do
     end
 
     it "should assign the version number" do
-      @package.version.should == @manifest[:version]
+      @package.version.number.should == @manifest[:version]
     end
 
     it "should assign the dependencies list" do
