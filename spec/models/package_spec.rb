@@ -277,8 +277,6 @@ describe Package do
     end
   end
 
-=begin
-
   describe "#to_json" do
     before do
       @package = Factory.create(:package)
@@ -295,6 +293,7 @@ describe Package do
         'description'  => @package.description,
         'author'       => @package.owner.name,
         'license'      => @package.license,
+        'home_url'     => @package.home_url,
         'versions'     => @package.versions.map(&:number),
         'dependencies' => @package.dependencies || {},
         'created_at'   => @package.created_at.as_json,
@@ -302,5 +301,4 @@ describe Package do
       }
     end
   end
-=end
 end
