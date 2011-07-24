@@ -49,6 +49,18 @@ describe Version do
       @version.build = 'a' * 256.kilobytes
       @version.should have(1).error_on(:build)
     end
+  end
 
+  describe 'documents association' do
+    describe '.index method' do
+      before do
+        @version  = Factory.create(:version, :package_id => 1)
+        @document = Factory.create(:document, :version => @version, :path => 'index', :text => 'boo hoo')
+      end
+
+      it "should get found by the 'index' method" do
+        Version.find(@version).documents.index.should == @document
+      end
+    end
   end
 end

@@ -5,5 +5,10 @@ class Document < ActiveRecord::Base
   validates_uniqueness_of :path, :scope => :version_id
   validates_length_of     :text, :maximum => 250.kilobytes, :allow_blank => true
 
-  scope :indeks, where(:path => 'index')
+
+  module Assoc
+    def index
+      where(:path => 'index').first
+    end
+  end
 end
