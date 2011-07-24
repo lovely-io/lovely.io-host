@@ -7,10 +7,10 @@ class Version < ActiveRecord::Base
   has_many :dependent_versions, :through => :dependencies, :uniq => true
 
   validates_presence_of   :number, :build
-  validates_associated    :package
   validates_format_of     :number, :with => /^\d+\.\d+\.\d+(-[a-z0-9\.]+)?$/i, :allow_blank => true
   validates_uniqueness_of :number, :scope => :package_id, :allow_blank => true
   validates_length_of     :build,  :maximum => 250.kilobytes, :allow_blank => true
+  validate                :documents_check
 
   after_save :update_package_timestamps
 
@@ -35,7 +35,7 @@ class Version < ActiveRecord::Base
     if args[0].is_a?(Hash)
       documents.clear
       args[0].each do |path, text|
-        documents.build(:path => path, :text => text)
+        documents.build(:path => path.to_s, :text => text)
       end
     else
       super *args
@@ -43,6 +43,24 @@ class Version < ActiveRecord::Base
   end
 
 protected
+
+  def documents_check
+    errors.delete(:documents)
+
+    # transferring errors from the documents to this model
+    documents.each do |doc|
+      unless doc.valid?
+        doc.errors.each do |key, value|
+          errors.add("document '#{doc.path}'", "#{key} #{value}")
+        end
+      end
+    end
+
+    # ensuring that there is an index document
+    if documents.select{|d| d.path == 'index'}.size != 1
+      errors.add(:documents, "should have an index entry")
+    end
+  end
 
   def update_package_timestamps
     if package = Package.find_by_id(package_id)

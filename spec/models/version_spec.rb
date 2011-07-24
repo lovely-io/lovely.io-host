@@ -44,13 +44,34 @@ describe Version do
       @version.build = 'a' * 256.kilobytes
       @version.should have(1).error_on(:build)
     end
+
+    it "should fail without an index document" do
+      @version.documents = {}
+      @version.should have(1).error_on(:documents)
+    end
+
+    it "should pass document errors from documents" do
+      @version.documents = {
+        'index'        => 'a' * 256.kilobytes,
+        'docs/bla bla' => 'asdf',
+        'docs/okay'    => 'okay'
+      }
+
+      @version.should_not be_valid
+
+      @version.should have(1).error_on("document 'index'")
+      @version.should have(1).error_on("document 'docs/bla bla'")
+      @version.should have(0).error_on("document 'docs/okay'")
+    end
   end
 
   describe 'documents association' do
     describe '.index method' do
       before do
+        Document.delete_all
+
         @version  = Factory.create(:version, :package_id => 1)
-        @document = Factory.create(:document, :version => @version, :path => 'index')
+        @document = Document.last # already created index from the factory
       end
 
       it "should get found by the 'index' method" do
@@ -63,7 +84,7 @@ describe Version do
         Document.delete_all
 
         @version  = Factory.create(:version, :package_id => 1)
-        @document = Factory.create(:document, :version => @version)
+        Document.count.should == 1 # there is an index doc from the factory
       end
 
       it "should clean up the documents after a version was deleted" do
