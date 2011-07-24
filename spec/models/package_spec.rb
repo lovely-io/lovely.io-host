@@ -48,10 +48,10 @@ describe Package do
       @package.description = 'a' * 1.kilobyte
       @package.should have(1).error_on(:description)
     end
-=begin
+
     it "should fail without a version number" do
       @package.version = ''
-      @package.should have(2).error_on(:version)
+      @package.should have(1).error_on(:version)
     end
 
     it "should fail with a malformed number" do
@@ -65,20 +65,20 @@ describe Package do
     end
 
     it "should fail with too large builds" do
-      @package.build = 'a' * 500.kilobytes
+      @package.build = 'a' * 256.kilobytes
       @package.should have(1).error_on(:build)
     end
 
     it "should fail without a readme string" do
-      @package.readme = ''
-      @package.should have(1).error_on(:readme)
+      @package.documents = {}
+      @package.should have(1).error_on(:documents)
     end
 
     it "should fail with too large readme file" do
-      @package.readme = 'a' * 500.kilobytes
-      @package.should have(1).error_on(:readme)
+      @package.documents = {'index' => 'a' * 256.kilobytes}
+      @package.should have(1).error_on("document 'index'")
     end
-=end
+
   end
 =begin
   describe "#version assignment" do

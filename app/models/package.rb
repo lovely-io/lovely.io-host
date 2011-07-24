@@ -107,6 +107,13 @@ private
   def manifest_check
     errors.delete :versions # don't need this one anymore
 
+    if @version && !@version.valid?
+      @version.errors.each do |key, value|
+        errors.add(key == :number ? :version : key, value)
+      end
+    elsif !@version
+      errors.add(:version, "can't be blank")
+    end
 
     errors.add(:manifest, "is malformed") if @malformed_manifest
   end
