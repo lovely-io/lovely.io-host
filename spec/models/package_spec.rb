@@ -80,7 +80,18 @@ describe Package do
     end
 
   end
-=begin
+
+  describe "mass-assignment" do
+    before do
+      @user    = Factory.create(:user)
+      @package = Package.new(Factory.attributes_for(:package, :owner => @user))
+    end
+
+    it "should not assign the 'owner' reference" do
+      @package.owner.should be_nil
+    end
+  end
+
   describe "#version assignment" do
     before do
       @package = Package.new
@@ -92,55 +103,42 @@ describe Package do
     end
 
     it "should bypass the version number" do
-      @package.versions[0].number.should == '1.0.0'
+      @package.versions.last.number.should == '1.0.0'
     end
 
     it "should return the version number back" do
-      @package.version.should == '1.0.0'
-    end
-  end
-
-  describe "mass-assignment" do
-    before do
-      @user = Factory.create(:user)
-      @package = Package.new(Factory.attributes_for(:package, :owner => @user))
-    end
-
-    it "should not assign the 'owner' reference" do
-      @package.owner.should be_nil
+      @package.version.number.should == '1.0.0'
     end
   end
 
   describe "version switch" do
     before do
       @package = Factory.create(:package, {
-        :version => '1.0.0',
-        :build   => "Build 1",
-        :readme  => "Readme 1"
+        :version   => '1.0.0',
+        :build     => "Build 1",
+        :documents => {:index => "Readme 1"}
       })
 
-      @package.version = '2.0.0'
-      @package.build   = 'Build 2'
-      @package.readme  = 'Readme 2'
+      @package.version   = '2.0.0'
+      @package.build     = 'Build 2'
+      @package.documents = {:index => "Readme 2"}
       @package.save!
 
       @package = Package.find(@package)
     end
 
     it "should use the latest version by default" do
-      @package.version.should == '2.0.0'
-      @package.readme.should  == "Readme 2"
+      @package.version.number.should  == '2.0.0'
+      @package.documents.index.text.should == "Readme 2"
     end
 
     it "should use a previous build and readme when switched to another version" do
       @package.version = '1.0.0'
 
-      @package.version.should == '1.0.0'
-      @package.readme.should  == "Readme 1"
+      @package.version.number.should  == '1.0.0'
+      @package.documents.index.text.should == "Readme 1"
     end
   end
-
-=end
 
   describe "#name attribute as the primary key" do
     before do
