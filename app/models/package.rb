@@ -27,6 +27,22 @@ class Package < ActiveRecord::Base
     name
   end
 
+  def version
+    @version
+  end
+
+  def version=(version)
+    @version = version
+  end
+
+  def dependencies
+    @dependencies
+  end
+
+  def dependencies=(hash)
+    @dependencies = hash
+  end
+
   # properties mass-assignment via the package manifest
   MANIFEST_FIELDS = %w{
     name
@@ -55,6 +71,7 @@ class Package < ActiveRecord::Base
       'description'  => description,
       'author'       => owner.name,
       'license'      => license,
+      'home_url'     => home_url,
       'versions'     => versions.map(&:number),
       'dependencies' => dependencies || {},
       'created_at'   => created_at,

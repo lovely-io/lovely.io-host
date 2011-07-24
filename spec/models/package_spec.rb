@@ -186,6 +186,7 @@ describe Package do
       package.dependencies.should == @deps.dup
     end
   end
+=end
 
   describe "#manifest parsing" do
     before do
@@ -194,6 +195,8 @@ describe Package do
         :description  => "Some description",
         :version      => "1.2.3",
         :license      => "IDOYS",
+        :home_url     => "http://bla.bla.bla",
+        :owner_id     => "Hacking you!",
         :dependencies => {
           "pack1" => "1.2.3",
           "pack2" => "2.3.4"
@@ -223,6 +226,14 @@ describe Package do
       @package.license.should == @manifest[:license]
     end
 
+    it "should assign the home_url attribute" do
+      @package.home_url.should == @manifest[:home_url]
+    end
+
+    it "should not access properties that are not on the list" do
+      @package.owner_id.should_not == @manifest[:owner_id]
+    end
+
     it "should have no manifest errors with a valid manifest" do
       @package.should have(0).errors_on(:manifest)
     end
@@ -232,6 +243,8 @@ describe Package do
       @package.should have(1).error_on(:manifest)
     end
   end
+
+=begin
 
   describe "#to_json" do
     before do
