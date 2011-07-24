@@ -47,7 +47,6 @@ class PackagesController < ApplicationController
   end
 
   def create
-    puts "\n\n\n\n\n\n\n\n\n"
     unless @package = find_existing_package
       @package = Package.new(params[:package])
       @package.owner = current_user
