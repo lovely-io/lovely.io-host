@@ -1,10 +1,9 @@
 body > header, body > section, body > footer
-  padding: 0 2em
+  padding: 1.5em 10em
 
 body > header
   position: relative
-  padding-top: 1em
-  margin-bottom: 2em
+  background: #D2DDA3
 
   h1
     font-size: 4em
@@ -12,6 +11,7 @@ body > header
     padding: 0
     display: inline-block
     color: brown
+    margin-top: -0.2em
 
   h2
     margin: 0
@@ -19,19 +19,19 @@ body > header
     font-weight: normal
     font-style: italic
     font-size: 1.1em
-    color: grey
+    color: #444
     position: absolute
-    margin-top: -1em
+    margin-top: -1.2em
 
   nav
     position: absolute
-    bottom: 0
-    right: 2em
+    bottom: 1.5em
+    right: 10em
 
   form#search
     position: absolute
-    top: 2em
-    right: 2em
+    top: 1.5em
+    right: 10em
 
     input[type="text"]
       font-size: 80%
@@ -41,13 +41,13 @@ body > section
   padding-bottom: 6em
 
 body > sidebar ~ section
-  margin-right: 18.5em
+  margin-right: 19em
 
 body > sidebar
   float: right
   width: 16em
-  margin-right: 2em
-  margin-top: 4em
+  margin-right: 10em
+  margin-top: 5em
   background: #F4F9EC
   padding: .5em .8em
   border: 1px solid #D1D3BE
@@ -74,7 +74,11 @@ body > footer
   bottom: 0
   left: 0
   width: 100%
-  padding-bottom: 2em
-  padding-top: 2em
+  padding: 2em 0
   color: grey
+  text-indent: 10em
+  background: #D2DDA3
 
+  nav
+    float: right
+    margin-right: 10em

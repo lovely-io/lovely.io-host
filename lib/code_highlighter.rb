@@ -16,7 +16,7 @@ protected
     response.body = response.body.gsub /([ \t]+)<pre>(.+?)<\/pre>/im do
       code = $2.gsub "\n#{$1}", "\n"
 
-      "<pre>#{code.strip}</pre>".gsub /<pre>:([a-z]+)\s*/ do
+      "<pre>#{code.strip}</pre>".gsub /<pre>:([a-z]+)\s+/ do
         "<pre data-lang=\"#{$1}\">"
       end
     end
