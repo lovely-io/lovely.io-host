@@ -17,7 +17,7 @@
     %dt Versions
     %dd
       %ul
-        - @package.versions.each do |version|
+        - @package.versions.reverse.each do |version|
           %li{:class => params[:version] == version.number ? :current : nil}
             = link_to version.number, package_path(@package, :version => version.number)
             = "(#{version.updated_at.to_s(:short)})"
@@ -28,7 +28,9 @@
         %li
           = link_to "#{@package.name}.js", cdn_package_url(@package), :class => :cdn
           = "(1 day cache)"
-        %li= link_to "#{@package.name}-#{@package.version}.js", cdn_package_url(@package, @package.version), :class => :cdn
+
+        - @package.versions.reverse.each do |version|
+          %li= link_to "#{@package.name}-#{version.number}.js", cdn_package_url(@package, version.number), :class => :cdn
 
     %dt Dependencies
     %dd
@@ -40,5 +42,4 @@
             %li= link_to "#{package}-#{version}", package_path(Package.find_by_name(package), :version => version)
 
 
-
-= md @package.readme
+= md @package.documents.index.text

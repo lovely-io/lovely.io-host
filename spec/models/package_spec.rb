@@ -280,7 +280,7 @@ describe Package do
   describe "#to_json" do
     before do
       @package = Factory.create(:package)
-      @v1 = @package.versions.first
+      @v1 = @package.versions.last
       @v2 = Factory.create(:version, :package => @package)
       @v2 = Factory.create(:version, :package => @package)
 

@@ -37,7 +37,7 @@ class PackagesController < ApplicationController
     @package.version = if params[:version]
       @package.versions.find_by_number(params[:version]) or raise(NotFound)
     else
-      @package.versions.first
+      @package.versions.last
     end
 
     respond_to do |format|
@@ -47,6 +47,7 @@ class PackagesController < ApplicationController
   end
 
   def create
+    puts "\n\n\n\n\n\n\n\n\n"
     unless @package = find_existing_package
       @package = Package.new(params[:package])
       @package.owner = current_user

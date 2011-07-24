@@ -4,7 +4,7 @@ class Version < ActiveRecord::Base
   has_many :documents,    :dependent => :destroy, :order => :path, :extend => Document::Assoc
   has_many :dependencies, :dependent => :destroy
   has_many :dependees,    :dependent => :destroy, :foreign_key => :dependency_id, :class_name => 'Dependency'
-  has_many :dependent_versions, :through => :dependencies, :uniq => true
+  has_many :dependent_versions, :through => :dependencies, :uniq => true, :order => 'versions.number'
 
   validates_presence_of   :number, :build
   validates_format_of     :number, :with => /^\d+\.\d+\.\d+(-[a-z0-9\.]+)?$/i, :allow_blank => true
@@ -23,23 +23,26 @@ class Version < ActiveRecord::Base
   end
 
   def dependencies_hash=(hash)
-    self.dependent_versions = (hash||{}).map do |name, number|
+    (hash||{}).each do |name, number|
       if package = Package.find_by_name(name)
-        number = number.gsub /^[^\d]+/, '' # removing the '>=' and stuff
-        Version.find_by_package_id_and_number(package, number)
+        number  = number.gsub /^[^\d]+/, '' # removing the '>=' and stuff
+        if version = Version.find_by_package_id_and_number(package, number)
+          dependencies.build :dependent_version => version
+        end
       end
-    end.compact
+    end
   end
+
+  alias_method :documents_super, :documents=
 
   def documents=(*args)
     if args[0].is_a?(Hash)
-      documents.clear
-      args[0].each do |path, text|
+      args[0] = args[0].map do |path, text|
         documents.build(:path => path.to_s, :text => text)
       end
-    else
-      super *args
     end
+
+    documents_super *args
   end
 
 protected

@@ -102,6 +102,10 @@ class Package < ActiveRecord::Base
     }.to_json
   end
 
+  def save(*args)
+    super(*args) and (@version.save if args.empty? && @version)
+  end
+
 private
 
   def manifest_check

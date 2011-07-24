@@ -3,14 +3,14 @@ atom_feed do |feed|
   feed.updated @packages.first.updated_at if @packages.size > 0
 
   @packages.each do |package|
-    feed.entry(package) do |entry|
-      versions = package.versions.all
-      version  = versions.first
+    versions = package.versions.all
+    version  = versions.last
 
+    feed.entry(version) do |entry|
       entry.title "#{package.name} - #{version.number}"
       entry.content %Q{
         #{link_to(package.owner.name, user_url(package.owner))} just
-        #{package.updated_at > (package.created_at + 10) ? "updated" : "created"} the
+        #{version.updated_at > (version.created_at + 10) ? "updated" : "created"} the
         #{link_to(package.name, package_url(package))} package with version
         #{version.number}
       }.html_safe, :type => :html

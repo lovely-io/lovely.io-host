@@ -18,7 +18,9 @@ class StaticController < ApplicationController
   # CDN mockery
   def script
     @package = Package.find(params[:id])
-    @version = params[:version] ? @package.versions.find_by_number(params[:version]) : @package.versions.last
+    @version = (params[:version] ?
+      @package.versions.find_by_number(params[:version]) :
+      @package.versions.last) or raise NotFound
 
     render :js => @version.build
 

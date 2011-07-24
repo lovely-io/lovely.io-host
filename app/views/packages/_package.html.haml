@@ -1,6 +1,6 @@
 .package
   %header
-    = link_to "#{package.name} - #{package.version}", package
+    = link_to raw("#{highlight(package.name, params[:search])} - #{package.version.number}"), package
     = "(#{package.updated_at.to_s(:short)})"
 
   %article
