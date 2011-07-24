@@ -1,20 +1,19 @@
 class Package < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
-  has_many   :versions, :order => 'number DESC', :dependent => :destroy
+  has_many   :versions, :order => 'number ASC', :dependent => :destroy
 
   attr_accessible :name, :description, :license, :version, :build,
-    :readme, :dependencies, :manifest, :documentation, :home_url
+    :dependencies, :manifest, :documentation, :home_url
 
-  RESERVED_NAMES = %w(updated recent search page)
+  RESERVED_NAMES = %w(updated recent search page jquery mootools prototype)
 
   validates_presence_of   :owner_id, :name, :description, :version
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
   validates_uniqueness_of :name, :allow_blank => true
-  validates_length_of     :description,    :maximum => 250.bytes,     :allow_blank => true
-  validates_length_of     :build, :readme, :maximum => 250.kilobytes, :allow_blank => true
-  validates_exclusion_of :name, :in => RESERVED_NAMES, :message => "is reserved"
+  validates_length_of     :description,  :maximum => 250.bytes,     :allow_blank => true
 
-  before_validation :pass_data_to_version
+  validates_exclusion_of  :name, :in => RESERVED_NAMES, :message => "is reserved"
+
   after_validation  :pass_errors_from_version
 
   scope :recent,  order('packages.created_at DESC')
@@ -52,14 +51,6 @@ class Package < ActiveRecord::Base
 
   def build=(str)
     @build = str
-  end
-
-  def readme
-    @readme or @version.readme if @version
-  end
-
-  def readme=(str)
-    @readme = str
   end
 
   def dependencies
@@ -110,14 +101,6 @@ class Package < ActiveRecord::Base
   end
 
 private
-
-  def pass_data_to_version
-    if @version
-      @version.build  = @build
-      @version.readme = @readme
-      @version.dependencies_hash = @dependencies unless @dependencies.blank?
-    end
-  end
 
   def pass_errors_from_version
     if @version && !@version.valid?

@@ -3,16 +3,11 @@ require 'spec_helper'
 describe Version do
   describe "validation" do
     before do
-      @version = Version.new(Factory.attributes_for(:version, :package_id => 1))
+      @version = Factory.build(:version, :package_id => 1)
     end
 
     it "should pass with valid attributes" do
       @version.should be_valid
-    end
-
-    it "should fail without a package reference" do
-      @version.package_id = nil
-      @version.should have(1).error_on(:package_id)
     end
 
     it "should fail without a number" do
@@ -74,6 +69,42 @@ describe Version do
       it "should clean up the documents after a version was deleted" do
         Version.find(@version).destroy
         Document.count.should == 0
+      end
+    end
+
+    describe "via hash assignment" do
+      before do
+        Document.delete_all
+
+        @docs_hash = {
+          'index'    => 'index bla bla bla',
+          'docs/boo' => 'docs/boo bla bla bla'
+        }
+
+        @version = Factory.build(:version, :package_id => 1)
+        @version.documents = @docs_hash
+        @version.save!
+
+        @version = Version.find(@version)
+      end
+
+      it "should create two documents" do
+        @version.should have(2).documents
+      end
+
+      it "should have the defined urls" do
+        @version.documents.urls.sort.should == @docs_hash.keys.sort
+      end
+
+      it "should allow to update the docs as well" do
+        @version.documents = {
+          'index' => 'new'
+        }
+        @version.save!
+
+        @version = Version.find(@version)
+        @version.should have(1).document
+        @version.documents.index.text.should == 'new'
       end
     end
   end

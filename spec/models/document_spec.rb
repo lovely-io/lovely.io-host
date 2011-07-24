@@ -4,16 +4,11 @@ describe Document do
   describe "validation" do
     before do
       Document.destroy_all
-      @document = Document.new Factory.attributes_for(:document, :version_id => 1)
+      @document = Factory.build(:document, :version_id => 1)
     end
 
     it "should pass with valid attributes" do
       @document.should be_valid
-    end
-
-    it "should fail without the version-id" do
-      @document.version_id = nil
-      @document.should have(1).error_on(:version_id)
     end
 
     it "should fail without a path" do
