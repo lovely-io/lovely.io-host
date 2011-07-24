@@ -8,10 +8,8 @@ end
 
 Factory.define :package do |f|
   f.sequence(:name)    { |i| "package-#{i}" }
-  f.sequence(:version) { |i| "1.1.#{i}" }
   f.description "Package description"
   f.license     "MIT"
-  f.build       "Lovely('something', function() {});"
   f.association :owner, :factory => :user
 end
 

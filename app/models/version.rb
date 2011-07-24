@@ -8,7 +8,7 @@ class Version < ActiveRecord::Base
 
   validates_presence_of   :number, :build
   validates_format_of     :number, :with => /^\d+\.\d+\.\d+(-[a-z0-9\.]+)?$/i, :allow_blank => true
-  validates_uniqueness_of :number, :scope => :package_id, :allow_blank => true
+  validates_uniqueness_of :number, :scope => :package_id,     :allow_blank => true
   validates_length_of     :build,  :maximum => 250.kilobytes, :allow_blank => true
   validate                :documents_check
 
