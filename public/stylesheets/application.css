@@ -120,19 +120,13 @@ body > section {
   padding-bottom: 6em; }
 
 body > sidebar ~ section {
-  margin-right: 19em; }
+  margin-right: 18em; }
 
 body > sidebar {
   float: right;
   width: 16em;
   margin-right: 10em;
-  margin-top: 5em;
-  background: #f4f9ec;
-  padding: 0.5em 0.8em;
-  border: 1px solid #d1d3be;
-  border-radius: 0.25em;
-  -moz-border-radius: 0.25em;
-  -webkit-border-radius: 0.25em; }
+  margin-top: 2.2em; }
 
 body > sidebar h2 {
   margin: 0;
@@ -153,7 +147,7 @@ body > footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 2em 0;
+  padding: 1.5em 0;
   color: grey;
   text-indent: 10em;
   background: #d2dda3; }
