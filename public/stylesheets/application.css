@@ -251,7 +251,8 @@ span.status-confirmed, span.status-active, span.status-paid {
 
 div.half-width {
   width: 45%;
-  display: inline-block; }
+  display: inline-block;
+  vertical-align: top; }
 
 a.add, a.new, a.back, a.show, a.edit, a.delete, a.remove, a.info {
   padding-left: 20px;
@@ -330,6 +331,13 @@ img.avatar {
     #news .news header .date {
       float: right;
       color: #888888; }
+
+body.news-index a.rss {
+  float: right;
+  margin-top: -1.5em;
+  font-family: "OFL Sorts Mill Goudy TT", Georgia, serif;
+  font-size: 1.5em;
+  font-weight: bold; }
 
 body.news-show h1 .date {
   float: right;

@@ -6,7 +6,7 @@ atom_feed do |feed|
     versions = package.versions.all
     version  = versions.last
 
-    feed.entry(version) do |entry|
+    feed.entry(version, :url => package_url(package, :version => version.number)) do |entry|
       entry.title "#{package.name} - #{version.number}"
       entry.content %Q{
         #{link_to(package.owner.name, user_url(package.owner))} just

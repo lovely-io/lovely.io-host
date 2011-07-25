@@ -5,9 +5,15 @@
     - Package.recent.limit(10).each do |package|
       = render package
 
+  %p.bottom-links
+    = link_to "All packages", packages_path
+
 .half-width
   %h2 Updated Packages
 
   .packages
     - Package.updated.limit(10).each do |package|
       = render package
+
+  %p.bottom-links
+    = link_to "RSS Feed", updated_packages_path(:format => :atom)
