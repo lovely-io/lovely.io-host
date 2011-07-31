@@ -14,7 +14,8 @@ class PackagesController < ApplicationController
   end
 
   before_filter :require_login, :only => [:create, :destroy]
-  before_filter :find_package,  :only => [:show,   :destroy]
+  before_filter :find_package,  :only => [:show, :demo, :destroy]
+  before_filter :find_version,  :only => [:show, :demo]
 
   def index
     @packages = (params[:user_id] ? User.find(params[:user_id]).packages : Package)
@@ -34,16 +35,13 @@ class PackagesController < ApplicationController
   end
 
   def show
-    @package.version = if params[:version]
-      @package.versions.find_by_number(params[:version]) or raise(NotFound)
-    else
-      @package.versions.last
-    end
-
     respond_to do |format|
       format.html
       format.json { render :json => @package.to_json }
     end
+  end
+
+  def demo
   end
 
   def create
@@ -74,6 +72,14 @@ protected
 
   def find_package
     @package = Package.find(params[:id])
+  end
+
+  def find_version
+    @package.version = if params[:version]
+      @package.versions.find_by_number(params[:version]) or raise(NotFound)
+    else
+      @package.versions.last
+    end
   end
 
   def check_access

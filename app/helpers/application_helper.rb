@@ -1,4 +1,14 @@
 module ApplicationHelper
+  def javascript_include_core
+    if core = Package.find_by_name('core')
+      if version = core.versions.last
+        javascript_include_tag Rails.env == 'production' ?
+          "http://cdn.lovely.io/core-#{version.number}.js" :
+          "http://#{request.host_with_port}/core-#{version.number}.js"
+      end
+    end
+  end
+
   def flash_messages
     unless flash.empty?
       content_tag :div, flash.map{ |key, value|

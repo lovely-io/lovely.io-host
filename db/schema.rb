@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110723154649) do
+ActiveRecord::Schema.define(:version => 20110731073453) do
 
   create_table "dependencies", :force => true do |t|
     t.integer  "version_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20110723154649) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "build"
+    t.text     "demo"
   end
 
   add_index "versions", ["number"], :name => "index_versions_on_number"

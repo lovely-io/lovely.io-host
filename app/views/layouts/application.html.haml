@@ -9,8 +9,10 @@
 
     %title= "Lovely.IO » #{@page_title}"
     %meta{ :charset => "utf-8" }
-    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag    'application'
+    = javascript_include_core
     = javascript_include_tag 'application'
+    = yield :head
 
     = auto_discovery_link_tag :atom, news_index_path(:format => :atom), :title => "Lovely.IO News"
     = auto_discovery_link_tag :atom, updated_packages_path(:format => :atom), :title => "Lovely.IO Packages"
@@ -18,7 +20,7 @@
   %body{:class => body_class_name}
     %header
       %h1= link_to 'Lovely.IO', '/'
-      %h2 The Next Generation Front-Side Platform
+      %h2 The Next Generation of Front-Side
 
       = render 'layouts/search'
 
@@ -36,6 +38,7 @@
 
     %section
       = main_content
+      .clear
 
     %footer
       Copyright (C) 2011

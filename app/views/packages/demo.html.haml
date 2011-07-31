@@ -1,0 +1,18 @@
+= render 'sidebar'
+
+- if script = @package.demo.scan(/<script[^>]*?>(\s+Lovely\s*\(.*?)<\/script>/m)
+  - if script[0][0]
+    - script = script[0][0].strip
+    - # adding the exact version number so it go cached properly
+    - script.gsub! /(Lovely\s*\(\[[^\]]*?('|")(#{Regexp.escape(@package.name)}))(\2)/, "\\1-#{@package.version.number}\\4"
+
+    = content_for :head do
+      %script{:type => "text/javascript"}= script.html_safe
+
+- if body = @package.demo.scan(/<body[^>]*?>(.*?)<\/body>/m)
+  - if body[0][0]
+    - body = body[0][0].strip
+    - # nuking all the
+    - body.gsub! /<script[^>]*?>(\s+.*?)<\/script>/m, ''
+    - body.gsub! /<style[^>]*?>(\s+.*?)<\/style>/m, ''
+    = raw body.strip
