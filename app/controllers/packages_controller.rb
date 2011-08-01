@@ -3,7 +3,7 @@
 #       `lovely` CLI tool which works via JSON format
 #
 class PackagesController < ApplicationController
-  caches_page :index, :show
+  caches_page :index, :show, :demo
 
   # BUG: for some reason rails looses the `.html` extension
   #      when there is a version number at the end
