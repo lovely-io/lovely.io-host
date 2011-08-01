@@ -1,21 +1,17 @@
 class Package < ActiveRecord::Base
-  belongs_to :owner, :class_name => 'User'
-  has_many   :versions, :order => 'number DESC', :dependent => :destroy
+  belongs_to :owner,    :class_name => 'User'
+  has_many   :versions, :order => 'number ASC', :dependent => :destroy
 
-  attr_accessible :name, :description, :license, :version, :build,
-    :readme, :dependencies, :manifest, :documentation, :home_url
+  attr_accessible :manifest, :build, :documents, :demo
 
-  RESERVED_NAMES = %w(updated recent search page)
-
-  validates_presence_of   :owner_id, :name, :description, :version
+  validates_presence_of   :owner_id, :name, :description
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
   validates_uniqueness_of :name, :allow_blank => true
-  validates_length_of     :description,    :maximum => 250.bytes,     :allow_blank => true
-  validates_length_of     :build, :readme, :maximum => 250.kilobytes, :allow_blank => true
-  validates_exclusion_of :name, :in => RESERVED_NAMES, :message => "is reserved"
+  validates_length_of     :description, :maximum => 250.bytes, :allow_blank => true
+  validates_exclusion_of  :name, :in => RESERVED_PACKAGE_NAMES, :message => "is reserved"
+  validate                :manifest_check
 
-  before_validation :pass_data_to_version
-  after_validation  :pass_errors_from_version
+  before_validation       :transfer_manifest_data
 
   scope :recent,  order('packages.created_at DESC')
   scope :updated, order('packages.updated_at DESC')
@@ -34,40 +30,48 @@ class Package < ActiveRecord::Base
   end
 
   def version
-    @version ||= versions.first
-    @version.number if @version
+    @version ||= versions.last
   end
 
-  def version=(number)
-    @version = if number.is_a?(Version)
-      number
+  def version=(version)
+    @version = if version.is_a?(String)
+      versions.find_by_number(version) or
+      versions.build(:number => version)
     else
-      versions.find_by_number(number) or versions.build(:number => number)
+      version
     end
   end
 
-  def build
-    @build or @version.build if @version
-  end
-
-  def build=(str)
-    @build = str
-  end
-
-  def readme
-    @readme or @version.readme if @version
-  end
-
-  def readme=(str)
-    @readme = str
-  end
-
   def dependencies
-    @dependencies or @version.dependencies_hash if @version
+    @dependencies || version.dependencies_hash if version
   end
 
   def dependencies=(hash)
     @dependencies = hash
+  end
+
+  def documents
+    @documents || version.documents if version
+  end
+
+  def documents=(hash)
+    @documents = hash
+  end
+
+  def build
+    @build || version.build if version
+  end
+
+  def build=(string)
+    @build = string
+  end
+
+  def demo
+    @demo || version.demo if version
+  end
+
+  def demo=(string)
+    @demo = string
   end
 
   # properties mass-assignment via the package manifest
@@ -91,10 +95,6 @@ class Package < ActiveRecord::Base
     end
   end
 
-  def save(*args)
-    super(*args) and ((new_record? || !@version) ? true : @version.save)
-  end
-
   # better json export
   def to_json
     {
@@ -102,6 +102,7 @@ class Package < ActiveRecord::Base
       'description'  => description,
       'author'       => owner.name,
       'license'      => license,
+      'home_url'     => home_url,
       'versions'     => versions.map(&:number),
       'dependencies' => dependencies || {},
       'created_at'   => created_at,
@@ -109,25 +110,32 @@ class Package < ActiveRecord::Base
     }.to_json
   end
 
-private
-
-  def pass_data_to_version
-    if @version
-      @version.build  = @build
-      @version.readme = @readme
-      @version.dependencies_hash = @dependencies unless @dependencies.blank?
-    end
+  def save(*args)
+    super(*args) and (@version.save if args.empty? && @version)
   end
 
-  def pass_errors_from_version
+private
+
+  def manifest_check
+    errors.delete :versions # don't need this one anymore
+
     if @version && !@version.valid?
       @version.errors.each do |key, value|
         errors.add(key == :number ? :version : key, value)
       end
+    elsif !@version
+      errors.add(:version, "can't be blank")
     end
 
-    errors.delete :versions # don't need this one anymore
-
     errors.add(:manifest, "is malformed") if @malformed_manifest
+  end
+
+  def transfer_manifest_data
+    if @version
+      @version.dependencies_hash = @dependencies if @dependencies
+      @version.documents         = @documents    if @documents
+      @version.build             = @build        if @build
+      @version.demo              = @demo         if @demo
+    end
   end
 end

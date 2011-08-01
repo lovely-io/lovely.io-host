@@ -111,7 +111,7 @@ describe PackagesController do
         @package = Factory.create(:package, :owner => @user)
         Package.should_receive(:find).with(@package.id).and_return(@package)
 
-        @version = @package.versions.first
+        @version = @package.versions.last
       end
 
       it "should render 404 for a non-existing package" do

@@ -3,9 +3,7 @@ require 'spec_helper'
 describe Version do
   describe "validation" do
     before do
-      @package = Factory.create(:package)
-
-      @version = Version.new(Factory.attributes_for(:version, :package => @package))
+      @version = Factory.build(:version, :package_id => 1)
     end
 
     it "should pass with valid attributes" do
@@ -22,9 +20,14 @@ describe Version do
       @version.should have(1).error_on(:number)
     end
 
-    it "should fails with a non-uniq number" do
-      Factory.create(:version, :package_id => @package, :number => @version.number)
+    it "should fail with a non-uniq number" do
+      Factory.create(:version, @version.attributes)
       @version.should have(1).error_on(:number)
+    end
+
+    it "should pass if the same version number is used in other package" do
+      Factory.create(:version, @version.attributes.merge(:package_id => @version.package_id + 1))
+      @version.should be_valid
     end
 
     it "should allow '-smth' name suffixes" do
@@ -37,9 +40,94 @@ describe Version do
       @version.should have(1).error_on(:build)
     end
 
-    it "should fail without a readme doc" do
-      @version.readme = ''
-      @version.should have(1).error_on(:readme)
+    it "should fail if the build is too huge" do
+      @version.build = 'a' * 256.kilobytes
+      @version.should have(1).error_on(:build)
+    end
+
+    it "should fail without an index document" do
+      @version.documents = {}
+      @version.should have(1).error_on(:documents)
+    end
+
+    it "should pass document errors from documents" do
+      @version.documents = {
+        'index'        => 'a' * 256.kilobytes,
+        'docs/bla bla' => 'asdf',
+        'docs/okay'    => 'okay'
+      }
+
+      @version.should_not be_valid
+
+      @version.should have(1).error_on("document 'index'")
+      @version.should have(1).error_on("document 'docs/bla bla'")
+      @version.should have(0).error_on("document 'docs/okay'")
     end
   end
+
+  describe 'documents association' do
+    describe '.index method' do
+      before do
+        Document.delete_all
+
+        @version  = Factory.create(:version, :package_id => 1)
+        @document = Document.last # already created index from the factory
+      end
+
+      it "should get found by the 'index' method" do
+        Version.find(@version).documents.index.should == @document
+      end
+    end
+
+    describe 'clean up' do
+      before do
+        Document.delete_all
+
+        @version  = Factory.create(:version, :package_id => 1)
+        Document.count.should == 1 # there is an index doc from the factory
+      end
+
+      it "should clean up the documents after a version was deleted" do
+        Version.find(@version).destroy
+        Document.count.should == 0
+      end
+    end
+
+    describe "via hash assignment" do
+      before do
+        Document.delete_all
+
+        @docs_hash = {
+          'index'    => 'index bla bla bla',
+          'docs/boo' => 'docs/boo bla bla bla'
+        }
+
+        @version = Factory.build(:version, :package_id => 1)
+        @version.documents = @docs_hash
+        @version.save!
+
+        @version = Version.find(@version)
+      end
+
+      it "should create two documents" do
+        @version.should have(2).documents
+      end
+
+      it "should have the defined urls" do
+        @version.documents.urls.sort.should == @docs_hash.keys.sort
+      end
+
+      it "should allow to update the docs as well" do
+        @version.documents = {
+          'index' => 'new'
+        }
+        @version.save!
+
+        @version = Version.find(@version)
+        @version.should have(1).document
+        @version.documents.index.text.should == 'new'
+      end
+    end
+  end
+
 end

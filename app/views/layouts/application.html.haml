@@ -9,8 +9,10 @@
 
     %title= "Lovely.IO » #{@page_title}"
     %meta{ :charset => "utf-8" }
-    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag    'application'
+    = javascript_include_core
     = javascript_include_tag 'application'
+    = yield :head
 
     = auto_discovery_link_tag :atom, news_index_path(:format => :atom), :title => "Lovely.IO News"
     = auto_discovery_link_tag :atom, updated_packages_path(:format => :atom), :title => "Lovely.IO Packages"
@@ -18,16 +20,17 @@
   %body{:class => body_class_name}
     %header
       %h1= link_to 'Lovely.IO', '/'
-      %h2 The Front-Side Development Platform
+      %h2 The Next Generation of Front-Side
 
       = render 'layouts/search'
 
       %nav
         = link_to "Packages", packages_path
         |
-        = link_to "News", news_index_path
+        = link_to "Wiki", "http://github.com/MadRabbit/lovely.io/wiki"
         |
-        = link_to "About", page_path(:about)
+        = link_to "News", news_index_path
+
 
 
     - unless sidebar_content.blank?
@@ -35,7 +38,13 @@
 
     %section
       = main_content
+      .clear
 
     %footer
       Copyright (C) 2011
       = link_to "Nikolay Nemshilov", "http://st-on-it.blogspot.com"
+
+      %nav
+        = link_to "Terms of Use", page_path(:terms)
+        |
+        = link_to "About", page_path(:about)

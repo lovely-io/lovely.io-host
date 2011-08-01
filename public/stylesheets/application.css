@@ -8,16 +8,15 @@ html, body {
 
 html {
   height: 100%;
-  background: #d2dda3;
+  background: #f2f2e4;
   margin: 0;
-  padding: 0 10em; }
+  padding: 0; }
 
 body {
   min-height: 100%;
   min-width: 50em;
   margin: 0;
   padding: 0;
-  background: #f2f2e4;
   position: relative; }
 
 h1, h2, h3, h4, label, th, dt {
@@ -85,55 +84,51 @@ pre {
   -webkit-border-radius: 0.25em; }
 
 body > header, body > section, body > footer {
-  padding: 0 2em; }
+  padding: 1.5em 10em; }
 
 body > header {
   position: relative;
-  padding-top: 1em;
-  margin-bottom: 2em; }
+  background: #d2dda3; }
   body > header h1 {
     font-size: 4em;
     margin: 0;
     padding: 0;
     display: inline-block;
-    color: brown; }
+    color: brown;
+    margin-top: -0.2em; }
   body > header h2 {
     margin: 0;
     padding: 0;
     font-weight: normal;
     font-style: italic;
     font-size: 1.1em;
-    color: grey;
+    color: #444444;
     position: absolute;
-    margin-top: -1em; }
+    margin-top: -1.2em; }
   body > header nav {
     position: absolute;
-    bottom: 0;
-    right: 2em; }
+    bottom: 1.5em;
+    right: 10em; }
   body > header form#search {
     position: absolute;
-    top: 2em;
-    right: 2em; }
+    top: 1.5em;
+    right: 10em; }
     body > header form#search input[type="text"] {
       font-size: 80%; }
 
 body > section {
   padding-bottom: 6em; }
+  body > section .clear {
+    clear: both; }
 
 body > sidebar ~ section {
-  margin-right: 18.5em; }
+  margin-right: 18em; }
 
 body > sidebar {
   float: right;
   width: 16em;
-  margin-right: 2em;
-  margin-top: 4em;
-  background: #f4f9ec;
-  padding: 0.5em 0.8em;
-  border: 1px solid #d1d3be;
-  border-radius: 0.25em;
-  -moz-border-radius: 0.25em;
-  -webkit-border-radius: 0.25em; }
+  margin-right: 10em;
+  margin-top: 2.2em; }
 
 body > sidebar h2 {
   margin: 0;
@@ -154,9 +149,13 @@ body > footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding-bottom: 2em;
-  padding-top: 2em;
-  color: grey; }
+  padding: 1.5em 0;
+  color: grey;
+  text-indent: 10em;
+  background: #d2dda3; }
+  body > footer nav {
+    float: right;
+    margin-right: 10em; }
 
 .field_with_errors label {
   color: red; }
@@ -254,7 +253,8 @@ span.status-confirmed, span.status-active, span.status-paid {
 
 div.half-width {
   width: 45%;
-  display: inline-block; }
+  display: inline-block;
+  vertical-align: top; }
 
 a.add, a.new, a.back, a.show, a.edit, a.delete, a.remove, a.info {
   padding-left: 20px;
@@ -333,6 +333,13 @@ img.avatar {
     #news .news header .date {
       float: right;
       color: #888888; }
+
+body.news-index a.rss {
+  float: right;
+  margin-top: -1.5em;
+  font-family: "OFL Sorts Mill Goudy TT", Georgia, serif;
+  font-size: 1.5em;
+  font-weight: bold; }
 
 body.news-show h1 .date {
   float: right;

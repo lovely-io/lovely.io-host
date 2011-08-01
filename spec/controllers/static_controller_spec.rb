@@ -35,8 +35,13 @@ describe StaticController do
 
     describe "without a version number" do
       before do
-        Dir.should_receive(:[]).with("#{ASSETS_DIR}/123-*.js").and_return("123-0.0.0.js")
-        File.should_receive(:read).and_return("the build")
+        @package = Factory.create(:package)
+        @version = @package.version
+
+        Package.should_receive(:find).with('123').and_return(@package)
+        @package.versions.should_receive(:last).and_return(@version)
+        @version.should_receive(:build).and_return("the build")
+
         get :script, :id => '123'
       end
 
@@ -59,7 +64,12 @@ describe StaticController do
 
     describe "with a version number" do
       before do
-        File.should_receive(:read).with("#{ASSETS_DIR}/123-1.2.3.js").and_return("the build")
+        @package = Factory.create(:package)
+        @version = @package.version
+
+        Package.should_receive(:find).with('123').and_return(@package)
+        @package.versions.should_receive(:find_by_number).with('1.2.3').and_return(@version)
+        @version.should_receive(:build).and_return("the build")
 
         get :script, :id => '123', :version => '1.2.3'
       end
@@ -83,7 +93,8 @@ describe StaticController do
 
     describe "when a package doesn't exists" do
       before do
-        File.should_receive(:read).and_raise(StandardError)
+        Package.should_receive(:find).with('123').and_raise(ActiveRecord::RecordNotFound)
+
         get :script, :id => '123', :format => :js
       end
 

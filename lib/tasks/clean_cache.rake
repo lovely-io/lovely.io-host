@@ -37,19 +37,12 @@ namespace :app do
         "packages/page*",
         "packages/search*",
         "packages/recent*",
-        "packages/updated*"
+        "packages/updated*",
+        "users/*/packages*"
       ]
 
       if ENV['PACKAGE']
         nuke ["packages/#{ENV['PACKAGE']}*"]
-
-        if ENV['VERSION']
-          assets_dir = ASSETS_DIR.gsub("#{Rails.root}/public/")
-          nuke [
-            "#{assets_dir}/#{ENV['PACKAGE']}-#{ENV['VERSION']}.js",
-            "#{assets_dir}/#{ENV['PACKAGE']}/#{ENV['VERSION']}/"
-          ]
-        end
       end
     end
   end
