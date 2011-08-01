@@ -1,6 +1,7 @@
 class Version < ActiveRecord::Base
   belongs_to :package
 
+  has_many :images,       :dependent => :destroy
   has_many :documents,    :dependent => :destroy, :order => :path, :extend => Document::Assoc
   has_many :dependencies, :dependent => :destroy
   has_many :dependees,    :dependent => :destroy, :foreign_key => :dependency_id, :class_name => 'Dependency'
