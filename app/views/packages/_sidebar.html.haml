@@ -4,7 +4,7 @@
     %dt Name
     %dd= link_to @package.name, @package, :class => :package
 
-    - unless @package.demo.blank?
+    - if @package.documents.demo && controller.action_name != 'demo'
       %dt Demo
       %dd= link_to "Live Demo", package_demo_url(@package, :version => params[:version]), :class => :demo
 

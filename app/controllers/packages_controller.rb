@@ -42,6 +42,7 @@ class PackagesController < ApplicationController
   end
 
   def demo
+    raise NotFound if !@package.documents.demo
   end
 
   def create
