@@ -14,6 +14,10 @@ class Image < ActiveRecord::Base
     Base64.decode64(data)
   end
 
+  def raw_data=(src)
+    self.data = Base64.encode64(src)
+  end
+
 protected
 
   def mime_type_check

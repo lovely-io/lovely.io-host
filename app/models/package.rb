@@ -58,6 +58,14 @@ class Package < ActiveRecord::Base
     @documents = hash
   end
 
+  def images
+    @images || version.images if version
+  end
+
+  def images=(hash)
+    @images = images
+  end
+
   def build
     @build || version.build if version
   end
@@ -126,6 +134,7 @@ private
     if @version
       @version.dependencies_hash = @dependencies if @dependencies
       @version.documents         = @documents    if @documents
+      @version.images            = @images       if @images
       @version.build             = @build        if @build
     end
   end

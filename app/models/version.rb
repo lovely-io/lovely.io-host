@@ -35,6 +35,7 @@ class Version < ActiveRecord::Base
   end
 
   alias_method :documents_super, :documents=
+  alias_method :images_super,    :images=
 
   def documents=(*args)
     if args[0].is_a?(Hash)
@@ -44,6 +45,16 @@ class Version < ActiveRecord::Base
     end
 
     documents_super *args
+  end
+
+  def images=(*args)
+    if args[0].is_a?(Hash)
+      args[0] = args[0].map do |path, data|
+        images.build(:path => path.to_s, :data => data)
+      end
+    end
+
+    images_super *args
   end
 
 protected

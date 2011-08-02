@@ -126,6 +126,49 @@ describe Version do
         @version = Version.find(@version)
         @version.should have(1).document
         @version.documents.index.text.should == 'new'
+
+        Document.count.should == 1
+      end
+    end
+  end
+
+  describe "images association" do
+    describe "assignment via hash" do
+      before do
+        Image.delete_all
+
+        @images_hash = {
+          'img1.png' => 'some PNG data',
+          'img2.gif' => 'some GIF data'
+        }
+
+        @version = Factory.build(:version, :package_id => 1)
+        @version.images = @images_hash
+        @version.save!
+
+        @version = Version.find(@version)
+      end
+
+      it "should create two images" do
+        @version.should have(2).images
+      end
+
+      it "should create images with correct paths" do
+        @version.images.map(&:path).sort.should == @images_hash.keys.sort
+      end
+
+      it "should rebuild all images on the next assignment" do
+        @version.images = {
+          'img1.png' => 'new PNG data'
+        }
+        @version.save!
+
+        @version = Version.find(@version)
+        @version.should have(1).image
+        @version.images.first.path.should == 'img1.png'
+        @version.images.first.data.should == 'new PNG data'
+
+        Image.count.should == 1
       end
     end
   end
