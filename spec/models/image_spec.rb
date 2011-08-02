@@ -56,4 +56,43 @@ describe Image do
       @image.raw_data.should == "original data"
     end
   end
+
+  describe "#content_type" do
+    let(:image) { Factory.build(:image) }
+
+    it "should return correct type for .png" do
+      image.path = "test.png"
+      image.content_type.should == "image/png"
+    end
+
+    it "should return correct type for .gif" do
+      image.path = "test.gif"
+      image.content_type.should == "image/gif"
+    end
+
+    it "should return correct type for .jpeg" do
+      image.path = "test.jpeg"
+      image.content_type.should == "image/jpg"
+    end
+
+    it "should return correct type for .jpg" do
+      image.path = "test.jpg"
+      image.content_type.should == "image/jpg"
+    end
+
+    it "should return correct type for .svg" do
+      image.path = "test.svg"
+      image.content_type.should == "image/svg+xml"
+    end
+
+    it "should return correct type for .swf" do
+      image.path = "test.swf"
+      image.content_type.should == "application/x-shockwave-flash"
+    end
+
+    it "should return 'text/plain' for unknown types" do
+      image.path = "some.shit"
+      image.content_type.should == "text/plain"
+    end
+  end
 end

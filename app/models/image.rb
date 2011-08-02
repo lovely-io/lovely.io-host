@@ -18,6 +18,17 @@ class Image < ActiveRecord::Base
     self.data = Base64.encode64(src)
   end
 
+  def content_type
+    case (path || '').split('.').last
+      when 'png'         then "image/png"
+      when 'gif'         then "image/gif"
+      when 'jpg', 'jpeg' then "image/jpg"
+      when 'svg'         then "image/svg+xml"
+      when 'swf'         then "application/x-shockwave-flash"
+      else                    "text/plain"
+    end
+  end
+
 protected
 
   def mime_type_check
