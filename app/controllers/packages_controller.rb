@@ -46,7 +46,7 @@ class PackagesController < ApplicationController
   end
 
   def create
-    Package.cdn_url = "http://cdn.#{request.host_with_port}"
+    Package.cdn_url = "http://cdn.#{request.host_with_port.gsub('127.0.0.1', 'localhost')}"
 
     unless @package = find_existing_package
       @package = Package.new(params[:package])

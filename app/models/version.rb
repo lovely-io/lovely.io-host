@@ -100,12 +100,12 @@ protected
       path = path.slice(1, path.size) if path.starts_with?('/')
 
       self.build = self.build.gsub(/('|")[\/]*images\/#{Regexp.escape(path)}\1/) do |match|
+        p match
         "#{$1}#{cdn_url}/#{path}#{$1}"
       end
     end
 
     @just_patched = true
-
     save :validate => false
   end
 
