@@ -42,9 +42,12 @@ class PackagesController < ApplicationController
   end
 
   def demo
+    raise NotFound if !@package.documents.demo
   end
 
   def create
+    Package.cdn_url = "http://cdn.#{request.host_with_port.gsub('127.0.0.1', 'localhost')}"
+
     unless @package = find_existing_package
       @package = Package.new(params[:package])
       @package.owner = current_user

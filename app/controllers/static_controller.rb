@@ -6,6 +6,10 @@
 class StaticController < ApplicationController
   caches_page :page
 
+  before_filter :find_package_and_version, :only => [:script, :image]
+  after_filter  :set_expiration_date, :only => [:script, :image]
+
+  # static pages handler
   def page
     file = "#{::Rails.root}/app/views/pages/#{params[:id]}.html.haml"
     if File.exists?(file)
@@ -17,13 +21,31 @@ class StaticController < ApplicationController
 
   # CDN mockery
   def script
+    render :js => @version.build
+  end
+
+  # CDN images server
+  def image
+    @image = @version.images.find_by_path(params[:path]) or raise NotFound
+
+    send_data @image.raw_data, {
+      :type        => @image.content_type,
+      :filename    => File.basename(@image.path),
+      :disposition => 'inline'
+    }
+  end
+
+
+protected
+
+  def find_package_and_version
     @package = Package.find(params[:id])
     @version = (params[:version] ?
       @package.versions.find_by_number(params[:version]) :
       @package.versions.last) or raise NotFound
+  end
 
-    render :js => @version.build
-
+  def set_expiration_date
     expires_in params[:version] ? 1.year : 1.day, :public => true
   end
 

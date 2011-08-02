@@ -63,6 +63,18 @@ describe Version do
       @version.should have(1).error_on("document 'docs/bla bla'")
       @version.should have(0).error_on("document 'docs/okay'")
     end
+
+    it "should pass image errors from the images" do
+      @version.images = {
+        'boo.hoo' => 'some crap',
+        'img.png' => 'correct data'
+      }
+
+      @version.should_not be_valid
+
+      @version.should have(1).error_on("image 'boo.hoo'")
+      @version.should have(0).error_on("image 'img.png")
+    end
   end
 
   describe 'documents association' do
@@ -126,6 +138,76 @@ describe Version do
         @version = Version.find(@version)
         @version.should have(1).document
         @version.documents.index.text.should == 'new'
+
+        Document.count.should == 1
+      end
+    end
+  end
+
+  describe "images association" do
+    describe "assignment via hash" do
+      before do
+        Image.delete_all
+
+        @images_hash = {
+          'img1.png' => 'some PNG data',
+          'img2.gif' => 'some GIF data'
+        }
+
+        @version = Factory.build(:version, :package_id => 1)
+        @version.images = @images_hash
+        @version.save!
+
+        @version = Version.find(@version)
+      end
+
+      it "should create two images" do
+        @version.should have(2).images
+      end
+
+      it "should create images with correct paths" do
+        @version.images.map(&:path).sort.should == @images_hash.keys.sort
+      end
+
+      it "should rebuild all images on the next assignment" do
+        @version.images = {
+          'img1.png' => 'new PNG data'
+        }
+        @version.save!
+
+        @version = Version.find(@version)
+        @version.should have(1).image
+        @version.images.first.path.should == 'img1.png'
+        @version.images.first.data.should == 'new PNG data'
+
+        Image.count.should == 1
+      end
+    end
+
+    describe "build patch" do
+      it "should adjust the build text to refer the images on cdn" do
+        @package = Factory.create(:package)
+        @version = Factory.build(:version, :package => @package)
+        @version.images = {
+          'img/1.png' => 'some content',
+          '/img2.png' => 'some content'
+        }
+        @version.build = %Q{
+          'images/img/1.png'
+          "/images/img/1.png"
+          "images/img2.png"
+          '/images/img2.png'
+        }
+
+        Package.cdn_url = "http://cdn.test.com"
+        @version.save :validate => false
+
+        @version.build.should == %Q{
+          'http://cdn.test.com/#{@package.to_param}/#{@version.number}/img/1.png'
+          "http://cdn.test.com/#{@package.to_param}/#{@version.number}/img/1.png"
+          "http://cdn.test.com/#{@package.to_param}/#{@version.number}/img2.png"
+          'http://cdn.test.com/#{@package.to_param}/#{@version.number}/img2.png'
+        }
       end
     end
   end

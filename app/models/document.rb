@@ -12,6 +12,10 @@ class Document < ActiveRecord::Base
       find_by_path('index')
     end
 
+    def demo
+      find_by_path('demo')
+    end
+
     def urls
       all.map &:path
     end

@@ -2,7 +2,8 @@ class Package < ActiveRecord::Base
   belongs_to :owner,    :class_name => 'User'
   has_many   :versions, :order => 'number ASC', :dependent => :destroy
 
-  attr_accessible :manifest, :build, :documents, :demo
+  attr_accessible :manifest, :build, :documents, :images
+  cattr_accessor  :cdn_url
 
   validates_presence_of   :owner_id, :name, :description
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true
@@ -58,20 +59,20 @@ class Package < ActiveRecord::Base
     @documents = hash
   end
 
+  def images
+    @images || version.images if version
+  end
+
+  def images=(hash)
+    @images = hash
+  end
+
   def build
     @build || version.build if version
   end
 
   def build=(string)
     @build = string
-  end
-
-  def demo
-    @demo || version.demo if version
-  end
-
-  def demo=(string)
-    @demo = string
   end
 
   # properties mass-assignment via the package manifest
@@ -134,8 +135,8 @@ private
     if @version
       @version.dependencies_hash = @dependencies if @dependencies
       @version.documents         = @documents    if @documents
+      @version.images            = @images       if @images
       @version.build             = @build        if @build
-      @version.demo              = @demo         if @demo
     end
   end
 end

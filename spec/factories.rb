@@ -30,6 +30,12 @@ Factory.define :document do |f|
   f.association :version, :factory => :version
 end
 
+Factory.define :image do |f|
+  f.sequence(:path) { |i| "image-#{i}.png" }
+  f.data "some data"
+  f.association :version, :factory => :version
+end
+
 Factory.define :news do |f|
   f.sequence(:title) { |i| "News #{i}" }
   f.text    "Some text"
