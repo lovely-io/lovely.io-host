@@ -61,6 +61,7 @@ protected
 
   def documents_check
     errors.delete(:documents)
+    errors.delete(:images)
 
     # transferring errors from the documents to this model
     documents.each do |doc|
@@ -74,6 +75,15 @@ protected
     # ensuring that there is an index document
     if documents.select{|d| d.path == 'index'}.size != 1
       errors.add(:documents, "should have an index entry")
+    end
+
+    # transferring the image errors
+    images.each do |img|
+      unless img.valid?
+        img.errors.each do |key, value|
+          errors.add("image '#{img.path}'", "#{key} #{value}")
+        end
+      end
     end
   end
 

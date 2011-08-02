@@ -63,6 +63,18 @@ describe Version do
       @version.should have(1).error_on("document 'docs/bla bla'")
       @version.should have(0).error_on("document 'docs/okay'")
     end
+
+    it "should pass image errors from the images" do
+      @version.images = {
+        'boo.hoo' => 'some crap',
+        'img.png' => 'correct data'
+      }
+
+      @version.should_not be_valid
+
+      @version.should have(1).error_on("image 'boo.hoo'")
+      @version.should have(0).error_on("image 'img.png")
+    end
   end
 
   describe 'documents association' do
