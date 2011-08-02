@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801174346) do
+ActiveRecord::Schema.define(:version => 20110801184025) do
 
   create_table "dependencies", :force => true do |t|
     t.integer  "version_id"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(:version => 20110801174346) do
 
   add_index "documents", ["version_id", "path"], :name => "index_documents_on_version_id_and_path"
   add_index "documents", ["version_id"], :name => "index_documents_on_version_id"
+
+  create_table "images", :force => true do |t|
+    t.integer  "version_id"
+    t.string   "path"
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "images", ["version_id", "path"], :name => "index_images_on_version_id_and_path"
+  add_index "images", ["version_id"], :name => "index_images_on_version_id"
 
   create_table "news", :force => true do |t|
     t.integer  "author_id"

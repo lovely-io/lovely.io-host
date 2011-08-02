@@ -111,4 +111,85 @@ describe StaticController do
       end
     end
   end
+
+  describe "#image" do
+    describe "without a version number" do
+      before do
+        @package = Factory.create(:package)
+        @version = @package.version
+        @image   = Factory.build(:image)
+
+        Package.should_receive(:find).with('123').and_return(@package)
+        @package.versions.should_receive(:last).and_return(@version)
+        @version.images.should_receive(:find_by_path).
+          with('some/image.png').and_return(@image)
+
+        get :image, :id => '123', :path => 'some/image.png'
+      end
+
+      it "should send the 200 ok header" do
+        response.should be_ok
+      end
+
+      it "should send the image raw data" do
+        response.body.should == @image.raw_data
+      end
+
+      it "should send the correct content type" do
+        response.content_type.should == @image.content_type
+      end
+
+      it "should set an 1 day cache period" do
+        response.header['Cache-Control'].should == "max-age=#{1.day.to_i}, public"
+      end
+    end
+
+    describe "with a version number" do
+      before do
+        @package = Factory.create(:package)
+        @version = @package.version
+        @image   = Factory.build(:image)
+
+        Package.should_receive(:find).with('123').and_return(@package)
+        @package.versions.should_receive(:find_by_number).with('1.2.3').and_return(@version)
+        @version.images.should_receive(:find_by_path).
+          with('some/image.png').and_return(@image)
+
+        get :image, :id => '123', :version => '1.2.3', :path => 'some/image.png'
+      end
+
+      it "should send the 200 ok header" do
+        response.should be_ok
+      end
+
+      it "should send the image raw data" do
+        response.body.should == @image.raw_data
+      end
+
+      it "should send the correct content type" do
+        response.content_type.should == @image.content_type
+      end
+
+      it "should set an 1 year cache period" do
+        response.header['Cache-Control'].should == "max-age=#{1.year.to_i}, public"
+      end
+    end
+
+    describe "when a package doesn't exists" do
+      before do
+        Package.should_receive(:find).with('123').and_raise(ActiveRecord::RecordNotFound)
+
+        get :image, :id => '123', :path => 'some/image.png'
+      end
+
+      it "should send the 404 status" do
+        response.status.should == 404
+      end
+
+      it "should send an empty body" do
+        response.body.should be_empty
+      end
+    end
+
+  end
 end

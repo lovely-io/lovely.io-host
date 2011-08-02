@@ -23,6 +23,7 @@ protected
       format.html { render "pages/404", :status => 404 }
       format.json { render :json => {:errors => {404 => "not found"}}, :status => 404 }
       format.js   { render :js => "/* 404 Page is not found */", :status => 404 }
+      format.all  { render :text => '', :status => 404 }
     end
 
     false
@@ -32,6 +33,7 @@ protected
     respond_to do |format|
       format.html { render "pages/422", :status => 422 }
       format.json { render :json => {:errors => {:server => "access denied"}}, :status => 422 }
+      format.all  { render :text => '', :status => 422 }
     end
 
     false
