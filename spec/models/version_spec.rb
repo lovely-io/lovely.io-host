@@ -183,6 +183,33 @@ describe Version do
         Image.count.should == 1
       end
     end
+
+    describe "build patch" do
+      it "should adjust the build text to refer the images on cdn" do
+        @package = Factory.create(:package)
+        @version = Factory.build(:version, :package => @package)
+        @version.images = {
+          'img/1.png' => 'some content',
+          '/img2.png' => 'some content'
+        }
+        @version.build = %Q{
+          'images/img/1.png'
+          "/images/img/1.png"
+          "images/img2.png"
+          '/images/img2.png'
+        }
+
+        Package.cdn_url = "http://cdn.test.com"
+        @version.save :validate => false
+
+        @version.build.should == %Q{
+          'http://cdn.test.com/#{@package.to_param}/#{@version.number}/img/1.png'
+          "http://cdn.test.com/#{@package.to_param}/#{@version.number}/img/1.png"
+          "http://cdn.test.com/#{@package.to_param}/#{@version.number}/img2.png"
+          'http://cdn.test.com/#{@package.to_param}/#{@version.number}/img2.png'
+        }
+      end
+    end
   end
 
 end

@@ -3,6 +3,7 @@ class Package < ActiveRecord::Base
   has_many   :versions, :order => 'number ASC', :dependent => :destroy
 
   attr_accessible :manifest, :build, :documents
+  cattr_accessor  :cdn_url
 
   validates_presence_of   :owner_id, :name, :description
   validates_format_of     :name, :with => /^[a-z0-9][a-z0-9\-]*[a-z0-9]$/, :allow_blank => true

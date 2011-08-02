@@ -46,6 +46,8 @@ class PackagesController < ApplicationController
   end
 
   def create
+    Package.cdn_url = "http://cdn.#{request.host_with_port}"
+
     unless @package = find_existing_package
       @package = Package.new(params[:package])
       @package.owner = current_user
