@@ -281,30 +281,6 @@ a.info {
 div.pagination {
   margin-top: 1em; }
 
-body.sessions ul.providers {
-  margin: 0;
-  padding: 0;
-  list-style: none; }
-  body.sessions ul.providers li {
-    display: inline;
-    margin: 0;
-    padding: 0; }
-  body.sessions ul.providers a {
-    display: inline-block;
-    width: 128px;
-    height: 128px;
-    outline: none;
-    text-indent: -9999em;
-    margin-right: 0.5em; }
-  body.sessions ul.providers a.twitter {
-    background: url(/images/auth/twitter-128.png); }
-  body.sessions ul.providers a.facebook {
-    background: url(/images/auth/facebook-128.png); }
-  body.sessions ul.providers a.github {
-    background: url(/images/auth/github-128.png); }
-  body.sessions ul.providers a.google {
-    background: url(/images/auth/google-128.png); }
-
 body.users-show .avatar-block {
   float: left;
   margin-top: 1em; }
