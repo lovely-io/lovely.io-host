@@ -10,7 +10,7 @@
     %title= "Lovely.IO » #{@page_title}"
     %meta{ :charset => "utf-8" }
     = stylesheet_link_tag    'application'
-    = javascript_include_core
+    = javascript_include_cdn 'core', 'dom'
     = javascript_include_tag 'application'
     = yield :head
 
@@ -30,6 +30,8 @@
         = link_to "Wiki", "http://github.com/MadRabbit/lovely.io/wiki"
         |
         = link_to "News", news_index_path
+        |
+        = render 'layouts/userbar'
 
 
 

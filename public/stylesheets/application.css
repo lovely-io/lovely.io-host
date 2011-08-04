@@ -109,6 +109,8 @@ body > header {
     position: absolute;
     bottom: 1.5em;
     right: 10em; }
+    body > header nav #profile {
+      display: none; }
   body > header form#search {
     position: absolute;
     top: 1.5em;

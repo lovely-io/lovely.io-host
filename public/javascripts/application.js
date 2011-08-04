@@ -1,16 +1,23 @@
+var $ = Lovely.module('dom');
 /**
  * The search form handler
  */
-document.addEventListener('submit', function(event) {
-  if (event.target.id == 'search') {
-    event.preventDefault();
-    var value = event.target.search.value;
-    if (value) {
-      document.location.href = "/packages/search/"+
-        encodeURIComponent(value);
-    }
+$(document).delegate('#search', 'submit', function(event) {
+  event.stop();
+
+  document.location.href = event.target.attr('action') + "/" +
+    encodeURIComponent(event.target.input('search').value());
+});
+
+/**
+ * Updating the userbar
+ */
+$(function() {
+  if (document.cookie.indexOf('logged_in=true') != -1) {
+    $('a#profile').show();
+    $('a#login').hide();
   }
-}, false);
+});
 
 /**
  * GA handlers
