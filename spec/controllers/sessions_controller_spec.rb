@@ -37,6 +37,10 @@ describe SessionsController do
         flash[:notice].should_not be_empty
       end
 
+      it "should set the 'logged_in' cookie" do
+        cookies['logged_in'].should == 'true'
+      end
+
       it "should redirect to the root_url" do
         response.should redirect_to(root_path)
       end
@@ -68,6 +72,10 @@ describe SessionsController do
 
     it "should reset the current_user reference" do
       controller.send(:current_user).should be_nil
+    end
+
+    it "should remove the 'logged_in' cookie" do
+      cookies["logged_in"].should be_nil
     end
 
     it "should redirect to the root_url" do
