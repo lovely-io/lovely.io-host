@@ -1,2 +1,2 @@
-%form#search{:action => packages_path, :method => :get}
+%form#search{:action => packages_path + "/search", :method => :get}
   %input{ :type => 'text', :placeholder => "Search", :name => :search, :value => params[:search]}
