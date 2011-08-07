@@ -41,8 +41,10 @@ class Version < ActiveRecord::Base
   def documents=(*args)
     if args[0].is_a?(Hash)
       args[0] = args[0].map do |path, text|
-        documents.build(:path => path.to_s, :text => text)
-      end
+        unless text.blank?
+          documents.build(:path => path.to_s, :text => text)
+        end
+      end.compact
     end
 
     documents_super *args
@@ -100,7 +102,6 @@ protected
       path = path.slice(1, path.size) if path.starts_with?('/')
 
       self.build = self.build.gsub(/('|")[\/]*images\/#{Regexp.escape(path)}\1/) do |match|
-        p match
         "#{$1}#{cdn_url}/#{path}#{$1}"
       end
     end
