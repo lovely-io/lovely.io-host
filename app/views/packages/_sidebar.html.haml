@@ -34,7 +34,6 @@
       %ul
         %li
           = link_to "#{@package.name}.js", cdn_package_url(@package), :class => :cdn
-          = "(1 day cache)"
 
         - @package.versions.reverse.each do |version|
           %li= link_to "#{@package.name}-#{version.number}.js", cdn_package_url(@package, version.number), :class => :cdn
