@@ -1,5 +1,5 @@
 class Version < ActiveRecord::Base
-  MAX_IMAGES_COUNT = 5
+  MAX_IMAGES_COUNT = 8
 
   belongs_to :package
 
@@ -66,7 +66,6 @@ protected
 
   def documents_check
     errors.delete(:documents)
-
 
     # transferring errors from the documents to this model
     documents.each do |doc|
