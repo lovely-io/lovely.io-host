@@ -14,7 +14,7 @@ class PackagesController < ApplicationController
   end
 
   before_filter :require_login, :only => [:create, :destroy]
-  before_filter :find_package,  :only => [:show, :demo, :destroy]
+  before_filter :find_package,  :only => [:show, :demo, :changelog, :destroy]
   before_filter :find_version,  :only => [:show, :demo]
 
   def index
@@ -43,6 +43,10 @@ class PackagesController < ApplicationController
 
   def demo
     raise NotFound if !@package.documents.demo
+  end
+
+  def changelog
+    raise NotFound if !@package.documents.changelog
   end
 
   def create

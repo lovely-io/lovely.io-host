@@ -1,4 +1,6 @@
 class Version < ActiveRecord::Base
+  MAX_IMAGES_COUNT = 8
+
   belongs_to :package
 
   has_many :images,       :dependent => :destroy
@@ -11,7 +13,7 @@ class Version < ActiveRecord::Base
   validates_format_of     :number, :with => /^\d+\.\d+\.\d+(-[a-z0-9\.]+)?$/i, :allow_blank => true
   validates_uniqueness_of :number, :scope => :package_id,     :allow_blank => true
   validates_length_of     :build,  :maximum => 250.kilobytes, :allow_blank => true
-  validate                :documents_check
+  validate                :documents_check, :images_check
 
   after_save :patch_build_with_images
   after_save :update_package_timestamps
@@ -64,7 +66,6 @@ protected
 
   def documents_check
     errors.delete(:documents)
-    errors.delete(:images)
 
     # transferring errors from the documents to this model
     documents.each do |doc|
@@ -79,6 +80,10 @@ protected
     if documents.select{|d| d.path == 'index'}.size != 1
       errors.add(:documents, "should have an index entry")
     end
+  end
+
+  def images_check
+    errors.delete(:images)
 
     # transferring the image errors
     images.each do |img|
@@ -87,6 +92,10 @@ protected
           errors.add("image '#{img.path}'", "#{key} #{value}")
         end
       end
+    end
+
+    if images.size > MAX_IMAGES_COUNT
+      errors.add(:base, "Too many images, consider using sprites")
     end
   end
 

@@ -16,6 +16,10 @@ class Document < ActiveRecord::Base
       find_by_path('demo')
     end
 
+    def changelog
+      find_by_path('changelog')
+    end
+
     def urls
       all.map &:path
     end

@@ -11,6 +11,8 @@ Lovelyio::Application.routes.draw do
     end
   end
 
+  get '/packages/:id/changelog' => 'packages#changelog', :as => :package_changelog
+
   get '/packages/:id(/:version)/demo' => 'packages#demo', :as => :package_demo, :constraints => {
     :version => VERSION_RE
   }

@@ -45,6 +45,17 @@ describe Version do
       @version.should have(1).error_on(:build)
     end
 
+    it "should fail with too many images" do
+      images = {}
+      (Version::MAX_IMAGES_COUNT + 1).times do |i|
+        images["image#{i}.png"] = "some data"
+      end
+
+      @version.images = images
+
+      @version.should have(1).error_on(:base)
+    end
+
     it "should fail without an index document" do
       @version.documents = {}
       @version.should have(1).error_on(:documents)
