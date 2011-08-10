@@ -1,0 +1,3 @@
+%h1= "#{@package.name.underscore.camelize} Changelog"
+= render 'sidebar'
+= parse_changelog(@package.documents.changelog.text)
