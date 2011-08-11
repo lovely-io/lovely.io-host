@@ -1,6 +1,16 @@
 class ApplicationController < ActionController::Base
   include CodeHighlighter
 
+  #
+  # For some reason the code highlighting is getting
+  # kicked in before the code highlighting calls, although
+  # they seems defined first
+  #
+  def cache_page(*args)
+    highlight_code_blocks
+    super *args
+  end
+
   protect_from_forgery
 
 protected
