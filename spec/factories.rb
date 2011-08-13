@@ -19,8 +19,10 @@ end
 
 Factory.define :version do |f|
   f.sequence(:number) { |i| "1.0.#{i}" }
-  f.build  "Lovely('something', function() {});"
-  f.documents 'index' => 'boo hoo'
+  f.build      "Lovely('something', function() {});"
+  f.documents  'index' => 'boo hoo'
+  f.created_at Time.now
+  f.updated_at Time.now
   f.association :package, :factory => :package
 end
 
@@ -32,7 +34,9 @@ end
 
 Factory.define :image do |f|
   f.sequence(:path) { |i| "image-#{i}.png" }
-  f.data "some data"
+  f.data        "some data"
+  f.created_at  Time.now
+  f.updated_at  Time.now
   f.association :version, :factory => :version
 end
 
