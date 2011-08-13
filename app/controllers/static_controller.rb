@@ -46,7 +46,14 @@ protected
   end
 
   def set_expiration_date
-    expires_in params[:version] ? 1.year : 1.day, :public => true
+    ttl = params[:version] ? 1.year : 1.day
+
+    if item = @image || @version
+      headers['Last-Modified'] = item.updated_at.rfc2822
+      headers['Expires']       = (Time.now + ttl).rfc2822
+      headers['Cache-Control'] = "max-age=#{ttl.to_i}, public"
+      headers['ETag']          = "#{item.class.name}#{item.id}"
+    end
   end
 
 end
