@@ -7,7 +7,7 @@ class StaticController < ApplicationController
   caches_page :page
 
   before_filter :find_package_and_version, :only => [:script, :image]
-  after_filter  :set_expiration_date, :only => [:script, :image]
+  after_filter  :set_expiration_date,      :only => [:script, :image]
 
   # static pages handler
   def page
@@ -21,18 +21,22 @@ class StaticController < ApplicationController
 
   # CDN mockery
   def script
-    render :js => @version.build
+    if recently_modified?(@version)
+      render :js => @version.build
+    end
   end
 
   # CDN images server
   def image
     @image = @version.images.find_by_path(params[:path]) or raise NotFound
 
-    send_data @image.raw_data, {
-      :type        => @image.content_type,
-      :filename    => File.basename(@image.path),
-      :disposition => 'inline'
-    }
+    if recently_modified?(@image)
+      send_data @image.raw_data, {
+        :type        => @image.content_type,
+        :filename    => File.basename(@image.path),
+        :disposition => 'inline'
+      }
+    end
   end
 
 
@@ -45,15 +49,23 @@ protected
       @package.versions.last) or raise NotFound
   end
 
+  def recently_modified?(item)
+    stale?(:etag => etag(item), :last_modified => item.updated_at.utc, :public => true)
+  end
+
   def set_expiration_date
     ttl = params[:version] ? 1.year : 1.day
 
-    if item = @image || @version
-      headers['Last-Modified'] = item.updated_at.rfc2822
-      headers['Expires']       = (Time.now + ttl).rfc2822
+    if item = (@image || @version)
+      headers['Last-Modified'] = item.updated_at.utc.httpdate
+      headers['Expires']       = (Time.now + ttl).utc.httpdate
       headers['Cache-Control'] = "max-age=#{ttl.to_i}, public"
-      headers['ETag']          = "#{item.class.name}#{item.id}"
+      headers['ETag']          = etag(item)
     end
+  end
+
+  def etag(item)
+    Digest::MD5.hexdigest(ActiveSupport::Cache.expand_cache_key(item))
   end
 
 end

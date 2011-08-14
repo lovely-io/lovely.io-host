@@ -89,6 +89,18 @@ describe StaticController do
       it "should set an 1 year cache period" do
         response.header['Cache-Control'].should == "max-age=#{1.year.to_i}, public"
       end
+
+      it "should set the Last-Modified header" do
+        response.header['Last-Modified'].should == @version.updated_at.utc.httpdate
+      end
+
+      it "should set the Expires header" do
+        response.header['Expires'].should == (@version.updated_at + 1.year).utc.httpdate
+      end
+
+      it "should set the ETag header" do
+        response.header['ETag'].should_not be_blank
+      end
     end
 
     describe "when a package doesn't exists" do
@@ -108,6 +120,34 @@ describe StaticController do
 
       it "should send a JavaScript comment in the body" do
         response.body.should == "/* 404 Page is not found */"
+      end
+    end
+
+    describe "when If-Modified-Since header is present" do
+      before do
+        @package = Factory.create(:package)
+        @version = @package.version
+
+        Package.should_receive(:find).with('123').and_return(@package)
+        @package.versions.should_receive(:last).and_return(@version)
+
+        @version.updated_at = 2.months.ago
+
+        @request.env['HTTP_IF_MODIFIED_SINCE'] = 1.day.ago.utc.rfc2822
+
+        get :script, :id => '123'
+      end
+
+      it "should send 304 response back" do
+        response.status.should == 304
+      end
+
+      it "should set the correct last-modified header" do
+        response.headers['Last-Modified'].should == @version.updated_at.utc.httpdate
+      end
+
+      it "should send an empty body" do
+        response.body.should be_blank
       end
     end
   end
@@ -149,6 +189,7 @@ describe StaticController do
         @package = Factory.create(:package)
         @version = @package.version
         @image   = Factory.build(:image)
+        @image.updated_at = Time.now.dup
 
         Package.should_receive(:find).with('123').and_return(@package)
         @package.versions.should_receive(:find_by_number).with('1.2.3').and_return(@version)
@@ -172,6 +213,18 @@ describe StaticController do
 
       it "should set an 1 year cache period" do
         response.header['Cache-Control'].should == "max-age=#{1.year.to_i}, public"
+      end
+
+      it "should set the Last-Modified header" do
+        response.header['Last-Modified'].should == @image.updated_at.utc.httpdate
+      end
+
+      it "should set the Expires header" do
+        response.header['Expires'].should == (@image.updated_at + 1.year).utc.httpdate
+      end
+
+      it "should set the ETag header" do
+        response.header['ETag'].should_not be_blank
       end
     end
 
