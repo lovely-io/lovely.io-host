@@ -33,6 +33,17 @@ describe StaticController do
 
   describe "GET #script" do
 
+    def gzip(string)
+      require 'zlib'
+
+      io   = StringIO.new
+      gzip = Zlib::GzipWriter.new(io)
+      gzip << string
+      gzip.close
+
+      io.string
+    end
+
     describe "without a version number" do
       before do
         @package = Factory.create(:package)
@@ -50,7 +61,7 @@ describe StaticController do
       end
 
       it "should send the package build back" do
-        response.body.should == "the build"
+        response.body.should == gzip("the build")
       end
 
       it "should send the text/javascript content type" do
@@ -79,7 +90,7 @@ describe StaticController do
       end
 
       it "should send the specified version build" do
-        response.body.should == "the build"
+        response.body.should == gzip("the build")
       end
 
       it "should send the text/javascript content type" do

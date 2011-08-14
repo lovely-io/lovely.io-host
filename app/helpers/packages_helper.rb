@@ -6,11 +6,12 @@ module PackagesHelper
   end
 
   def gzipped_size(string)
-    stream = Zlib::Deflate.new(Zlib::DEFAULT_COMPRESSION)
-    result = stream.deflate(string, Zlib::FINISH)
-    stream.close
+    io   = StringIO.new
+    gzip = Zlib::GzipWriter.new(io)
+    gzip << string
+    gzip.close
 
-    number_to_human_size(result.size)
+    number_to_human_size(io.string.size)
   end
 
   def parse_changelog(text)

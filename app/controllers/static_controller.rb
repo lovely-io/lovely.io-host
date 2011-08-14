@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2011 Nikolay Nemshilov
 #
+require 'zlib'
 class StaticController < ApplicationController
   caches_page :page
 
@@ -22,7 +23,15 @@ class StaticController < ApplicationController
   # CDN mockery
   def script
     if recently_modified?(@version)
-      render :js => @version.build
+      # force gzipping the scripts coz CloudFront can't do that for us
+      headers['Content-Encoding'] = 'gzip'
+
+      io   = StringIO.new
+      gzip = Zlib::GzipWriter.new(io)
+      gzip << @version.build
+      gzip.close
+
+      render :js => io.string
     end
   end
 
