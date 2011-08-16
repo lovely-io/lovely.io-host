@@ -31,17 +31,9 @@ module PackagesHelper
         date = date ? date.to_s(:long) : title[0]
         user = user ? link_to(user.name, user, :class => :user) : title[1]
 
-
-
-        records = entry.gsub(title_re, '').split(/\s*\*\s*/)
-        records = records.slice(1, records.size).map do |entry|
-          content_tag :li, entry.strip
-        end
-
-
         output +=
           content_tag(:h2, (date + " - "+ user).html_safe) +
-          content_tag(:ul, records.join("\n").html_safe)
+          md(entry.gsub(title_re, ''))
       end
     end
 
