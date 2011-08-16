@@ -97,7 +97,7 @@ protected
 
   def find_existing_package
     if params[:package]
-      @package_name = if params[:package][:manifest]
+      @package_name = if !params[:package][:manifest].blank?
         @package_name = JSON.parse(params[:package][:manifest])['name']
       else
         params[:package][:name]
@@ -105,7 +105,10 @@ protected
 
       if @package_name && @package = Package.find_by_name(@package_name)
         check_access
+        new_name = params[:package].delete(:new_name) if params[:package]
+
         @package.attributes = params[:package]
+        @package.name       = new_name unless new_name.blank?
         return @package
       end
     end
