@@ -92,49 +92,6 @@ describe PackagesController do
         response.body.should == {:errors => @errors}.to_json
       end
     end
-
-    describe "package rename" do
-      before do
-        logged_in! @user
-
-        @package = Factory.create(:package, :name => 'old-name', :owner => @user)
-
-        Package.should_receive(:find_by_name).with(@package.name).and_return(@package)
-      end
-
-      it "should update the package's name when it's okay" do
-        post :create, :package => {:name => @package.name, :new_name => 'new-name'}
-
-        @package = Package.find(@package)
-        @package.name.should == 'new-name'
-
-        response.should be_ok
-        response.content_type.should == 'application/json'
-        response.body.should == {:url => package_url(@package)}.to_json
-      end
-
-      it "should send an error when the name is already taken" do
-        @other_package = Factory.create(:package, :name => 'a-new-name')
-
-        post :create, :package => {:name => @package.name, :new_name => 'a-new-name'}
-
-        Package.find(@package).name.should == 'old-name'
-
-        response.should be_ok
-        response.content_type.should == 'application/json'
-        response.body.should == {:errors => @package.errors}.to_json
-      end
-
-      it "should flip you off when you have no access to the package" do
-        logged_in! Factory.create(:user) # another user
-
-        post :create, :package => {:name => @package.name, :new_name => 'a-new-name'}
-
-        response.status.should == 422
-        response.should render_template('pages/422')
-      end
-    end
-
   end
 
   describe "DELETE #destroy" do
