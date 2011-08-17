@@ -39,4 +39,27 @@ module PackagesHelper
 
     output.html_safe
   end
+
+  def tags_list(tags, options={})
+    max  = 0
+    tags = tags.map do |tag|
+      packages_count = tag.packages.count
+      max = packages_count if max < packages_count
+      [tag.name, packages_count]
+    end
+
+    # weightening the list
+    tags.each do |tag|
+      tag[1] = (tag[1] / max.to_f * 10).to_i
+    end
+
+    options[:class] ||= ''
+    options[:class] << ' tags'
+
+    content_tag :ul, tags.map{ |tag|
+      content_tag :li, content_tag(:a, tag[0], {
+        :href => tagged_packages_path(tag[0]), :'data-weight' => tag[1]
+      }), :class => params[:tag] == tag[0] ? 'current' : nil
+    }.join("\n").html_safe, options
+  end
 end

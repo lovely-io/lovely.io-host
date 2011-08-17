@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801184025) do
+ActiveRecord::Schema.define(:version => 20110817081632) do
 
   create_table "dependencies", :force => true do |t|
     t.integer  "version_id"
@@ -70,6 +70,22 @@ ActiveRecord::Schema.define(:version => 20110801184025) do
   add_index "packages", ["name"], :name => "index_packages_on_name"
   add_index "packages", ["owner_id"], :name => "index_packages_on_owner_id"
   add_index "packages", ["updated_at"], :name => "index_packages_on_updated_at"
+
+  create_table "packages_tags", :id => false, :force => true do |t|
+    t.integer "package_id"
+    t.integer "tag_id"
+  end
+
+  add_index "packages_tags", ["package_id"], :name => "index_packages_tags_on_package_id"
+  add_index "packages_tags", ["tag_id"], :name => "index_packages_tags_on_tag_id"
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "email"

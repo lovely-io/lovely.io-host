@@ -79,6 +79,10 @@ describe Package do
       @package.should have(1).error_on("document 'index'")
     end
 
+    it "should transfer tags errors" do
+      @package.tags = 'some#stuff'
+      @package.should have(1).error_on("tag 'some#stuff'")
+    end
   end
 
   describe "mass-assignment" do
@@ -279,7 +283,7 @@ describe Package do
 
   describe "#to_json" do
     before do
-      @package = Factory.create(:package)
+      @package = Factory.create(:package, :tags => 'ones, twos')
       @v1 = @package.versions.last
       @v2 = Factory.create(:version, :package => @package)
       @v2 = Factory.create(:version, :package => @package)
@@ -295,6 +299,7 @@ describe Package do
         'license'      => @package.license,
         'home_url'     => @package.home_url,
         'versions'     => @package.versions.map(&:number),
+        'tags'         => @package.tags.map(&:name).join(','),
         'dependencies' => @package.dependencies || {},
         'created_at'   => @package.created_at.as_json,
         'updated_at'   => @package.updated_at.as_json

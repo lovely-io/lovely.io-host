@@ -15,6 +15,10 @@
     %dt Size
     %dd= "#{gzipped_size(@package.build)} (gzipped)"
 
+    - unless @package.tags.empty?
+      %dt Tags
+      %dd= @package.tags.map{|t| link_to t.name, tagged_packages_path(t.name) }.join(', ').html_safe
+
     %dt Author
     %dd= link_to @package.owner.name, @package.owner, :class => :user
 
