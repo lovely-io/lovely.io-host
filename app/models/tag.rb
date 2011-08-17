@@ -13,6 +13,14 @@ class Tag < ActiveRecord::Base
         super *args
       end
     end
+
+    def cleanup
+      Tag.all.each do |tag|
+        if tag.packages.count == 0
+          tag.destroy
+        end
+      end
+    end
   end
 
   # package association extension
