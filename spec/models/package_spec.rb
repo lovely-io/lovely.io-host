@@ -81,7 +81,7 @@ describe Package do
 
     it "should transfer tags errors" do
       @package.tags = 'some#stuff'
-      @package.should have(1).error_on("tag 'some#stuffs'")
+      @package.should have(1).error_on("tag 'some#stuff'")
     end
   end
 

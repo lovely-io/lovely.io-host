@@ -29,13 +29,13 @@ describe Tag do
     let(:package) { Factory.build(:package) }
 
     it "should create all tags on assignment" do
-      package.tags = " boobies, cookies, "
-      package.tags.map(&:name).should == ['boobies', 'cookies']
+      package.tags = " boobies, cookies, football "
+      package.tags.map(&:name).should == ['boobies', 'cookies', 'football']
     end
 
-    it "should downcase and pluralize all the tags" do
-      package.tags = "One, tWo, THree"
-      package.tags.map(&:name).should == ['ones', 'twos', 'threes']
+    it "should keep the tags case" do
+      package.tags = "STUFF, Thing"
+      package.tags.map(&:name).should == ['STUFF', 'Thing']
     end
 
     it "should reuse existing tags" do
@@ -48,13 +48,13 @@ describe Tag do
 
     it "should filter out the 'stl' tags unless the package owner is an admin" do
       package.tags = 'stl, one'
-      package.tags.map(&:name).should == ['ones']
+      package.tags.map(&:name).should == ['one']
     end
 
     it "should allow 'stl' tags for admin's packages" do
       package.owner = Factory.create(:user, :role => 'admin')
       package.tags  = 'stl, one'
-      package.tags.map(&:name).should == ['stl', 'ones']
+      package.tags.map(&:name).should == ['stl', 'one']
     end
   end
 end
