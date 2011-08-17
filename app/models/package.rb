@@ -1,6 +1,7 @@
 class Package < ActiveRecord::Base
   belongs_to :owner,    :class_name => 'User'
-  has_many   :versions, :order => 'number ASC', :dependent => :destroy
+  has_many   :versions, :order => 'versions.number ASC', :dependent => :destroy
+  has_many   :tags,     :order => 'tags.name', :uniq => true, :extend => Tag::Assoc
 
   attr_accessible :manifest, :build, :documents, :images
   cattr_accessor  :cdn_url
@@ -75,6 +76,15 @@ class Package < ActiveRecord::Base
     @build = string
   end
 
+  alias :tags_super :tags=
+  def tags=(list)
+    if list.is_a?(String)
+      tags.build_from_string(list)
+    else
+      tags_super list
+    end
+  end
+
   # properties mass-assignment via the package manifest
   MANIFEST_FIELDS = %w{
     name
@@ -83,6 +93,7 @@ class Package < ActiveRecord::Base
     description
     dependencies
     home_url
+    tags
   }
   def manifest=(json_string)
     begin
