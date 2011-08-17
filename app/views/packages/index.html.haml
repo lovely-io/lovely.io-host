@@ -23,3 +23,8 @@
         = link_to "Recently created", recent_packages_path
       %li{:class => params[:order] == 'updated' ? :current : nil}
         = link_to "Recently updated", updated_packages_path
+
+  %h2 Tags
+  %nav
+    = tags_list Tag.order('name').all, :class => 'weighted'
+

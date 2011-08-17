@@ -6,6 +6,14 @@ class Tag < ActiveRecord::Base
   validates_format_of     :name, :allow_blank => true, :with => /^[a-z0-9 ]+$/, :message => 'is malformed'
 
   class << self
+    def find(*args)
+      if args.size == 1 && args[0].is_a?(String) && !(args[0] =~ /^\d+$/)
+        find_by_name(args[0]) or raise ActiveRecord::RecordNotFound
+      else
+        super *args
+      end
+    end
+
     def normalize(name)
       name = name.strip.downcase
       name = name.pluralize if name != 'stl'
