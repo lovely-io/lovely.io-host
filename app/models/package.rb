@@ -1,7 +1,7 @@
 class Package < ActiveRecord::Base
   belongs_to :owner,    :class_name => 'User'
   has_many   :versions, :order => 'versions.number ASC', :dependent => :destroy
-  has_many   :tags,     :order => 'tags.name', :uniq => true, :extend => Tag::Assoc
+  has_and_belongs_to_many :tags, :order => 'tags.name', :uniq => true, :extend => Tag::Assoc
 
   attr_accessible :manifest, :build, :documents, :images
   cattr_accessor  :cdn_url
@@ -116,6 +116,7 @@ class Package < ActiveRecord::Base
       'license'      => license,
       'home_url'     => home_url,
       'versions'     => versions.map(&:number),
+      'tags'         => tags.map(&:name).join(','),
       'dependencies' => dependencies || {},
       'created_at'   => created_at,
       'updated_at'   => updated_at
