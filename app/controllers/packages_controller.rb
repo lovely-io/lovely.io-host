@@ -18,7 +18,9 @@ class PackagesController < ApplicationController
   before_filter :find_version,  :only => [:show, :demo]
 
   def index
-    @packages = (params[:user_id] ? User.find(params[:user_id]).packages : Package)
+    @packages = Package
+    @packages = User.find(params[:user_id]).packages if params[:user_id]
+    @packages = Tag.find(params[:tag]).packages if params[:tag]
     @packages = @packages.includes(:owner)
 
     @packages = @packages.recent  if params[:order] == 'recent'
