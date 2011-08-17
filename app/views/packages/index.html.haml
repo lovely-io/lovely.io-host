@@ -1,4 +1,8 @@
-- if params[:order] == 'recent'
+- if params[:tag]
+  %h1= "Packages Tagged: #{params[:tag]}"
+- elsif !params[:search].blank?
+  %h1 Search Result
+- elsif params[:order] == 'recent'
   %h1 Recently Created Packages
 - elsif params[:order] == 'updated'
   %h1 Recently Updated Packages
