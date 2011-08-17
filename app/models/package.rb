@@ -140,6 +140,17 @@ private
     end
 
     errors.add(:manifest, "is malformed") if @malformed_manifest
+
+    # transferring the tag errors
+    tags.each do |tag|
+      unless tag.valid?
+        tag.errors.each do |key, value|
+          errors.add("tag '#{tag.name}'", value)
+        end
+      end
+    end
+
+    errors.delete(:tags)
   end
 
   def transfer_manifest_data

@@ -79,6 +79,10 @@ describe Package do
       @package.should have(1).error_on("document 'index'")
     end
 
+    it "should transfer tags errors" do
+      @package.tags = 'some#stuff'
+      @package.should have(1).error_on("tag 'some#stuffs'")
+    end
   end
 
   describe "mass-assignment" do

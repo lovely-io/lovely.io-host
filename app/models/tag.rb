@@ -3,7 +3,7 @@ class Tag < ActiveRecord::Base
 
   validates_presence_of   :name
   validates_uniqueness_of :name, :allow_blank => true
-  validates_format_of     :name, :allow_blank => true, :with => /^[a-z0-9 ]+$/
+  validates_format_of     :name, :allow_blank => true, :with => /^[a-z0-9 ]+$/, :message => 'is malformed'
 
   class << self
     def normalize(name)
