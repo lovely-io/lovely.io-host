@@ -1,0 +1,17 @@
+= form_for @show do |f|
+  = f.error_messages
+
+  %p.required
+    = f.label :title
+    = f.text_field :title
+
+  %p.required
+    = f.label :text
+    = f.text_area :text, :rows => 20, :cols => 80
+
+  %p.required
+    = f.label :movie_url
+    = f.text_field :movie_url
+
+  %p.buttons
+    = f.submit

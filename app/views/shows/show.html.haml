@@ -1,0 +1,12 @@
+%h1
+  .date= @show.created_at.to_s(:short)
+  .title= @show.title
+
+%article
+  = link_to "Download", @show.movie_url, :class => :download, :title => "Download This Episode"
+  =md @show.text.gsub('<cut>', '')
+
+%p.bottom-links
+  = link_to "Recent Episodes", shows_path, :class => :back
+
+= disqus_comments
