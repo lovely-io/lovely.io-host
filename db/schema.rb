@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817081632) do
+ActiveRecord::Schema.define(:version => 20110820100329) do
 
   create_table "dependencies", :force => true do |t|
     t.integer  "version_id"
@@ -78,6 +78,18 @@ ActiveRecord::Schema.define(:version => 20110817081632) do
 
   add_index "packages_tags", ["package_id"], :name => "index_packages_tags_on_package_id"
   add_index "packages_tags", ["tag_id"], :name => "index_packages_tags_on_tag_id"
+
+  create_table "shows", :force => true do |t|
+    t.integer  "author_id"
+    t.string   "uri"
+    t.string   "title"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shows", ["author_id"], :name => "index_shows_on_author_id"
+  add_index "shows", ["uri"], :name => "index_shows_on_uri"
 
   create_table "tags", :force => true do |t|
     t.string   "name"

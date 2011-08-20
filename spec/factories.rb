@@ -46,6 +46,12 @@ Factory.define :news do |f|
   f.association :author, :factory => :user
 end
 
+Factory.define :show do |f|
+  f.sequence(:title) { |i| "Show #{i}" }
+  f.text    "Some text"
+  f.association :author, :factory => :user
+end
+
 Factory.define :tag do |f|
   f.sequence(:name) { |i| "tag#{i}" }
 end
