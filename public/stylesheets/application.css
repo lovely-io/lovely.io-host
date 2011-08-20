@@ -354,3 +354,40 @@ body.news-index a.rss {
 body.news-show h1 .date {
   float: right;
   color: #888888; }
+
+#shows .show {
+  margin-top: 1em;
+  margin-bottom: 2em; }
+  #shows .show header {
+    border-bottom: 1px solid #d1d3be;
+    font-size: 1.5em; }
+    #shows .show header .date {
+      float: right;
+      color: #888888; }
+
+body.shows-index a.rss {
+  float: right;
+  margin-top: -1.5em;
+  font-family: "OFL Sorts Mill Goudy TT", Georgia, serif;
+  font-size: 1.5em;
+  font-weight: bold; }
+
+body.shows-show h1 .date {
+  float: right;
+  color: #888888; }
+body.shows-show a.download {
+  float: right;
+  font-size: 150%;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #e2ed93;
+  border-radius: 0.25em;
+  padding: 0.5em 1em;
+  background: #d2dda3;
+  background: -moz-linear-gradient(top, #d2dda3 0%, #f2f2e4 50%, #f2f2e4 51%, #d2dda3 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d2dda3), color-stop(50%, #f2f2e4), color-stop(51%, #f2f2e4), color-stop(100%, #d2dda3));
+  background: -webkit-linear-gradient(top, #d2dda3 0%, #f2f2e4 50%, #f2f2e4 51%, #d2dda3 100%);
+  background: -o-linear-gradient(top, #d2dda3 0%, #f2f2e4 50%, #f2f2e4 51%, #d2dda3 100%);
+  background: -ms-linear-gradient(top, #d2dda3 0%, #f2f2e4 50%, #f2f2e4 51%, #d2dda3 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d2dda3', endColorstr='#d2dda3',GradientType=0 );
+  background: linear-gradient(top, #d2dda3 0%, #f2f2e4 50%, #f2f2e4 51%, #d2dda3 100%); }

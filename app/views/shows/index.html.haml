@@ -1,0 +1,16 @@
+%h1 Recent Episodes
+= link_to "RSS Feed", shows_path(:format => :atom), :class => :rss
+
+#shows
+  - @shows.each do |show|
+    = div_for show do
+      %header
+        .date= show.created_at.to_s(:short)
+        .title= link_to show.title, show
+
+      %article=md show.text.split('<cut>').first
+
+  - if @shows.empty?
+    No shows on this list yet
+
+= will_paginate @shows
