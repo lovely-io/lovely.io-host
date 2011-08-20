@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
   before_filter :find_show, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @show = Show.latest.paginate(:page => params[:page])
+    @shows = Show.latest.paginate(:page => params[:page])
   end
 
   def show
