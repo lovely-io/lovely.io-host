@@ -23,6 +23,11 @@ describe Show do
       show.text = ''
       show.should have(1).error_on(:text)
     end
+
+    it "should fail without a movie_url" do
+      show.movie_url = ''
+      show.should have(1).error_on(:movie_url)
+    end
   end
 
   describe '#uri' do

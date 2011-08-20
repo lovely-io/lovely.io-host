@@ -1,13 +1,13 @@
 class Show < ActiveRecord::Base
   belongs_to :author, :foreign_key => :author_id, :class_name => "User"
 
-  attr_accessible :title, :text
+  attr_accessible :title, :text, :movie_url
 
-  validates_presence_of   :title, :text
+  validates_presence_of   :title, :text, :movie_url
   validates_uniqueness_of :title, :uri, :allow_blank => true
 
   before_validation :build_uri, :on => :create
-  
+
   scope :latest, order('shows.created_at DESC')
 
   def self.find(id, *args)

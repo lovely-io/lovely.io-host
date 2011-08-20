@@ -48,7 +48,8 @@ end
 
 Factory.define :show do |f|
   f.sequence(:title) { |i| "Show #{i}" }
-  f.text    "Some text"
+  f.text      "Some text"
+  f.movie_url "some.url"
   f.association :author, :factory => :user
 end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820100329) do
+ActiveRecord::Schema.define(:version => 20110820102326) do
 
   create_table "dependencies", :force => true do |t|
     t.integer  "version_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20110820100329) do
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "movie_url"
   end
 
   add_index "shows", ["author_id"], :name => "index_shows_on_author_id"
