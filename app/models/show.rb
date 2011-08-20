@@ -7,6 +7,8 @@ class Show < ActiveRecord::Base
   validates_uniqueness_of :title, :uri, :allow_blank => true
 
   before_validation :build_uri, :on => :create
+  
+  scope :latest, order('shows.created_at DESC')
 
   def self.find(id, *args)
     if args.empty? and id.is_a?(String) and id !=~ /^\d+$/

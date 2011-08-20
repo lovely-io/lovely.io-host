@@ -30,6 +30,7 @@ Lovelyio::Application.routes.draw do
 
   get '/news(/page/:page)' => 'news#index'
   resources :news
+  resources :shows, :via => 'show'
 
   # authentication routes
   match '/login'                   => 'sessions#new',     :as => :login
