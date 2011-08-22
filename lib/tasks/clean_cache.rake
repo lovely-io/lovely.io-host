@@ -23,9 +23,15 @@ namespace :app do
       nuke ["news/#{ENV['NEWS_URI']}.html"] if ENV['NEWS_URI']
     end
 
+    desc "Cleans the shows feed cache"
+    task :shows do
+      nuke ["shows.*", "shows/page/"]
+      nuke ["shows/#{ENV['SHOW_URI']}.html"] if ENV['SHOW_URI']
+    end
+
     desc "Cleans the static pages cache"
     task :pages do
-      nuke ["index.html", "about.html"]
+      nuke ["index.html", "about.html", "terms.html"]
     end
 
     desc "Cleans the packages cache"
