@@ -2,7 +2,7 @@
 # The shows cache sweeper
 #
 class ShowsCacher < ActiveRecord::Observer
-  observe :shows
+  observe :show
 
   def after_create(show)
     clean_cache
