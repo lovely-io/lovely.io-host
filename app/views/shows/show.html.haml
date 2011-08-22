@@ -3,7 +3,7 @@
   .title= @show.title
 
 %article
-  = link_to "Download", @show.movie_url, :class => :download, :title => "Download This Episode"
+  = link_to "Download", @show.ogg_url, :class => :download, :title => "Download This Episode"
   =md @show.text.gsub('<cut>', '')
 
 %p.bottom-links

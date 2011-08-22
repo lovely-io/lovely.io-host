@@ -10,8 +10,21 @@
     = f.text_area :text, :rows => 20, :cols => 80
 
   %p.required
-    = f.label :movie_url
-    = f.text_field :movie_url
+    = f.label :src_url, "Source Code URL"
+    = f.text_field :src_url
+
+  %p.required
+    = f.label :mpg_url, "MP4 Movie URL"
+    = f.text_field :mpg_url
+
+  %p.required
+    = f.label :ogg_url, "OGV Movie URL"
+    = f.text_field :ogg_url
+
+  %p.required
+    = f.label :img_url, "Snapshot URL"
+    = f.text_field :img_url
+
 
   %p.buttons
     = f.submit
