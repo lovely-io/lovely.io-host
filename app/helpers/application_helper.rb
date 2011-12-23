@@ -4,7 +4,7 @@ module ApplicationHelper
       if package = Package.find_by_name(name)
         if version = package.versions.last
           javascript_include_tag(
-            "http://cdn.#{request.host_with_port}/#{package.name}-#{version.number}.js"
+            "http://cdn.#{request.host_with_port.gsub('www.', '')}/#{package.name}-#{version.number}.js"
           )
         end
       end

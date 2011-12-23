@@ -52,7 +52,7 @@ class PackagesController < ApplicationController
   end
 
   def create
-    Package.cdn_url = "http://cdn.#{request.host_with_port.gsub('127.0.0.1', 'localhost')}"
+    Package.cdn_url = "http://cdn.#{request.host_with_port.gsub('127.0.0.1', 'localhost')}.gsub('www.', '')"
 
     unless @package = find_existing_package
       @package = Package.new(params[:package])

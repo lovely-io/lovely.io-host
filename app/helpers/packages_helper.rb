@@ -2,7 +2,7 @@ require 'zlib'
 
 module PackagesHelper
   def cdn_package_url(package, version=nil)
-    super package, version, :host => "cdn.#{request.host_with_port}"
+    super package, version, :host => "cdn.#{request.host_with_port.gsub('www.', '')}"
   end
 
   def gzipped_size(string)
