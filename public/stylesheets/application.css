@@ -83,6 +83,13 @@ pre {
   -moz-border-radius: 0.25em;
   -webkit-border-radius: 0.25em; }
 
+@media only screen and (max-device-width: 1024px) {
+  body > header, body > section, body > footer {
+    padding-left: 1.5em;
+    padding-right: 1.5em; }
+
+  body > footer nav {
+    margin-right: 1.5em; } }
 body > header, body > section, body > footer {
   padding: 1.5em 10em; }
 
