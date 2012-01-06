@@ -84,10 +84,21 @@ body > footer
     margin-right: 10em
 
 
-@media only screen and (max-device-width: 1024px)
-  body > header, body > section, body > footer
-    padding-left:  1.5em
-    padding-right: 1.5em
+@media only screen and (max-device-width: 1024px), only screen and (max-device-width: 480px)
 
-  body > footer nav
-    margin-right: 1.5em
+  body > header, body > section
+    padding-left:  2em
+    padding-right: 2em
+
+  body > header
+    nav, form#search
+      right: 2em
+
+  body > sidebar
+    margin-right: 2em
+
+  body > footer
+    text-indent: 2em
+
+    nav
+      margin-right: 2em
