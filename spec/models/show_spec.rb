@@ -24,24 +24,9 @@ describe Show do
       show.should have(1).error_on(:text)
     end
 
-    it "should fail without a mpg_url" do
-      show.mpg_url = ''
-      show.should have(1).error_on(:mpg_url)
-    end
-
-    it "should fail without a ogg_url" do
-      show.ogg_url = ''
-      show.should have(1).error_on(:ogg_url)
-    end
-
-    it "should fail without a img_url" do
-      show.img_url = ''
-      show.should have(1).error_on(:img_url)
-    end
-
-    it "should fail without a src_url" do
-      show.src_url = ''
-      show.should have(1).error_on(:src_url)
+    it "should fail without a vimeo_id" do
+      show.vimeo_id = ''
+      show.should have(1).error_on(:vimeo_id)
     end
   end
 

@@ -4,19 +4,7 @@
 
 %article
   %p{:align => 'center'}
-    %video{:width => 768, :height => 576, :controls => "controls", :preload => "none", :poster => @show.img_url}
-      %source{:src => @show.ogg_url, :type => "video/ogg"}
-      %source{:src => @show.mpg_url, :type => "video/mp4"}
-      Your browser doesn't support HTML5 video
-
-  %p
-    %b Download:
-    = link_to "mpg", @show.mpg_url
-    ,
-    = link_to "ogg", @show.ogg_url
-
-    %b &nbsp; Source:
-    = link_to "source code", @show.src_url
+    = vimeo_video @show.vimeo_id
 
   =md @show.text.gsub('<cut>', '')
 

@@ -1,9 +1,9 @@
 class Show < ActiveRecord::Base
   belongs_to :author, :foreign_key => :author_id, :class_name => "User"
 
-  attr_accessible :title, :text, :mpg_url, :ogg_url, :src_url, :img_url
+  attr_accessible :title, :text, :vimeo_id
 
-  validates_presence_of   :title, :text, :mpg_url, :ogg_url, :src_url, :img_url
+  validates_presence_of   :title, :text, :vimeo_id
   validates_uniqueness_of :title, :uri, :allow_blank => true
 
   before_validation :build_uri, :on => :create
