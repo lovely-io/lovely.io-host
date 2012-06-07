@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Tag do
   describe "validation" do
-    let(:tag) { Factory.build(:tag) }
+    let(:tag) { FactoryGirl.build(:tag) }
 
     it "should pass with valid attributes" do
       tag.should be_valid
@@ -14,7 +14,7 @@ describe Tag do
     end
 
     it "should fail with a non-uniq name" do
-      Factory.create(:tag, :name => "some name")
+      FactoryGirl.create(:tag, :name => "some name")
       tag.name = "some name"
       tag.should have(1).error_on(:name)
     end
@@ -26,7 +26,7 @@ describe Tag do
   end
 
   describe "package association" do
-    let(:package) { Factory.build(:package) }
+    let(:package) { FactoryGirl.build(:package) }
 
     it "should create all tags on assignment" do
       package.tags = " boobies, cookies, football "
@@ -39,8 +39,8 @@ describe Tag do
     end
 
     it "should reuse existing tags" do
-      t1 = Factory.create(:tag, :name => "one")
-      t2 = Factory.create(:tag, :name => "two")
+      t1 = FactoryGirl.create(:tag, :name => "one")
+      t2 = FactoryGirl.create(:tag, :name => "two")
 
       package.tags = "one,two"
       package.tags.should == [t1, t2]
@@ -52,7 +52,7 @@ describe Tag do
     end
 
     it "should allow 'stl' tags for admin's packages" do
-      package.owner = Factory.create(:user, :role => 'admin')
+      package.owner = FactoryGirl.create(:user, :role => 'admin')
       package.tags  = 'stl, one'
       package.tags.map(&:name).should == ['stl', 'one']
     end

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe User do
   describe "validation" do
     before do
-      @user = Factory.create(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     it "should be invalid without a provider" do
@@ -46,7 +46,7 @@ describe User do
 
   describe "mass-assignment" do
     before do
-      @user = User.new(Factory.attributes_for(:user))
+      @user = User.new(FactoryGirl.attributes_for(:user))
     end
 
     it "should assign the email" do
@@ -107,7 +107,7 @@ describe User do
 
     describe "with existing user" do
       before do
-        @user = Factory.create(:user, :provider => @auth['provider'], :uid => @auth['uid'])
+        @user = FactoryGirl.create(:user, :provider => @auth['provider'], :uid => @auth['uid'])
       end
 
       it "should find that user by provider and an UID" do
@@ -169,7 +169,7 @@ describe User do
 
   describe "#new_auth_token!" do
     before do
-      @user = Factory.create(:user)
+      @user = FactoryGirl.create(:user)
       @token = @user.new_auth_token!
     end
 
@@ -190,7 +190,7 @@ describe User do
 
   describe ".find_by_auth_token" do
     before do
-      @user  = Factory.create(:user)
+      @user  = FactoryGirl.create(:user)
       @token = @user.new_auth_token!
     end
 

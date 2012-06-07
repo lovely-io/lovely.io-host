@@ -4,7 +4,7 @@ describe NewsController do
   include AuthenticationMocks
 
   before do
-    @news = Factory.create(:news)
+    @news = FactoryGirl.create(:news)
   end
 
   describe "GET #index" do

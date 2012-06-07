@@ -4,7 +4,7 @@ describe ShowsController do
   include AuthenticationMocks
 
   before do
-    @show = Factory.create(:show)
+    @show = FactoryGirl.create(:show)
   end
 
   describe "GET #index" do

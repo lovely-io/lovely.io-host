@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Version do
   describe "validation" do
     before do
-      @version = Factory.build(:version, :package_id => 1)
+      @version = FactoryGirl.build(:version, :package_id => 1)
     end
 
     it "should pass with valid attributes" do
@@ -21,12 +21,12 @@ describe Version do
     end
 
     it "should fail with a non-uniq number" do
-      Factory.create(:version, @version.attributes)
+      FactoryGirl.create(:version, @version.attributes)
       @version.should have(1).error_on(:number)
     end
 
     it "should pass if the same version number is used in other package" do
-      Factory.create(:version, @version.attributes.merge(:package_id => @version.package_id + 1))
+      FactoryGirl.create(:version, @version.attributes.merge(:package_id => @version.package_id + 1))
       @version.should be_valid
     end
 
@@ -93,7 +93,7 @@ describe Version do
       before do
         Document.delete_all
 
-        @version  = Factory.create(:version, :package_id => 1)
+        @version  = FactoryGirl.create(:version, :package_id => 1)
         @document = Document.last # already created index from the factory
       end
 
@@ -106,7 +106,7 @@ describe Version do
       before do
         Document.delete_all
 
-        @version  = Factory.create(:version, :package_id => 1)
+        @version  = FactoryGirl.create(:version, :package_id => 1)
         Document.count.should == 1 # there is an index doc from the factory
       end
 
@@ -125,7 +125,7 @@ describe Version do
           'docs/boo' => 'docs/boo bla bla bla'
         }
 
-        @version = Factory.build(:version, :package_id => 1)
+        @version = FactoryGirl.build(:version, :package_id => 1)
         @version.documents = @docs_hash
         @version.save!
 
@@ -165,7 +165,7 @@ describe Version do
           'img2.gif' => 'some GIF data'
         }
 
-        @version = Factory.build(:version, :package_id => 1)
+        @version = FactoryGirl.build(:version, :package_id => 1)
         @version.images = @images_hash
         @version.save!
 
@@ -197,8 +197,8 @@ describe Version do
 
     describe "build patch" do
       it "should adjust the build text to refer the images on cdn" do
-        @package = Factory.create(:package)
-        @version = Factory.build(:version, :package => @package)
+        @package = FactoryGirl.create(:package)
+        @version = FactoryGirl.build(:version, :package => @package)
         @version.images = {
           'img/1.png' => 'some content',
           '/img2.png' => 'some content'

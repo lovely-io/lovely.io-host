@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Package do
   describe "validation" do
     before do
-      @package = Factory.build(:package)
+      @package = FactoryGirl.build(:package)
 
-      @package.owner = Factory.create(:user)
+      @package.owner = FactoryGirl.create(:user)
     end
 
     it "should pass with valid attributes" do
@@ -28,7 +28,7 @@ describe Package do
     end
 
     it "should fail with a non-uniq name" do
-      Factory.create(:package, :name => @package.name)
+      FactoryGirl.create(:package, :name => @package.name)
       @package.should have(1).error_on(:name)
     end
 
@@ -87,8 +87,8 @@ describe Package do
 
   describe "mass-assignment" do
     before do
-      @user    = Factory.create(:user)
-      @package = Package.new(Factory.attributes_for(:package, :owner => @user))
+      @user    = FactoryGirl.create(:user)
+      @package = Package.new(FactoryGirl.attributes_for(:package, :owner => @user))
     end
 
     it "should not assign the 'owner' reference" do
@@ -117,7 +117,7 @@ describe Package do
 
   describe "version switch" do
     before do
-      @package = Factory.create(:package, {
+      @package = FactoryGirl.create(:package, {
         :version   => '1.0.0',
         :build     => "Build 1",
         :documents => {:index => "Readme 1"}
@@ -146,7 +146,7 @@ describe Package do
 
   describe "#name attribute as the primary key" do
     before do
-      @package = Factory.create(:package)
+      @package = FactoryGirl.create(:package)
     end
 
     it "should return the name as the param" do
@@ -170,17 +170,17 @@ describe Package do
 
   describe "dependencies" do
     before do
-      @p1 = Factory.create(:package)
-      @p2 = Factory.create(:package)
-      @p3 = Factory.create(:package)
-      @p4 = Factory.create(:package)
+      @p1 = FactoryGirl.create(:package)
+      @p2 = FactoryGirl.create(:package)
+      @p3 = FactoryGirl.create(:package)
+      @p4 = FactoryGirl.create(:package)
 
       @deps = {
         "#{@p1.name}" => "#{@p1.version.number}",
         "#{@p2.name}" => "#{@p2.version.number}"
       }
 
-      @package = Factory.create(:package, :dependencies => @deps)
+      @package = FactoryGirl.create(:package, :dependencies => @deps)
     end
 
     it "should save the dependencies" do
@@ -192,7 +192,7 @@ describe Package do
   describe "build assignment/access" do
     before do
       @build_text = "Some build text"
-      @package = Factory.create(:package, :build => @build_text)
+      @package = FactoryGirl.create(:package, :build => @build_text)
       @package = Package.find(@package)
     end
 
@@ -212,7 +212,7 @@ describe Package do
         'docs/boo' => 'docs/boo document'
       }
 
-      @package = Factory.create(:package, :documents => @docs_hash)
+      @package = FactoryGirl.create(:package, :documents => @docs_hash)
       @package = Package.find(@package)
     end
 
@@ -283,10 +283,10 @@ describe Package do
 
   describe "#to_json" do
     before do
-      @package = Factory.create(:package, :tags => 'ones, twos')
+      @package = FactoryGirl.create(:package, :tags => 'ones, twos')
       @v1 = @package.versions.last
-      @v2 = Factory.create(:version, :package => @package)
-      @v2 = Factory.create(:version, :package => @package)
+      @v2 = FactoryGirl.create(:version, :package => @package)
+      @v2 = FactoryGirl.create(:version, :package => @package)
 
       @package = Package.find(@package)
     end

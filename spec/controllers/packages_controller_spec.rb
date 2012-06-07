@@ -4,12 +4,12 @@ describe PackagesController do
   include AuthenticationMocks
 
   before do
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   describe "GET #index" do
     before do
-      @package = Factory.create(:package)
+      @package = FactoryGirl.create(:package)
       Package.stub!(:find).and_return([@package])
     end
 
@@ -28,7 +28,7 @@ describe PackagesController do
 
   describe "GET #show" do
     it "should render the packages/show if package exists" do
-      @package = Factory.create(:package)
+      @package = FactoryGirl.create(:package)
       Package.should_receive(:find).with('123').and_return(@package)
 
       get :show, :id => '123'
@@ -59,7 +59,7 @@ describe PackagesController do
       before do
         logged_in! @user
 
-        @package = Factory.create(:package)
+        @package = FactoryGirl.create(:package)
         @params  = {'package' => 'params'}
 
         Package.should_receive(:new).with(@params).and_return(@package)
@@ -108,7 +108,7 @@ describe PackagesController do
       before do
         logged_in! @user
 
-        @package = Factory.create(:package, :owner => @user)
+        @package = FactoryGirl.create(:package, :owner => @user)
         Package.should_receive(:find).with(@package.id).and_return(@package)
 
         @version = @package.versions.last
@@ -125,7 +125,7 @@ describe PackagesController do
       end
 
       it "should render 422 access-denied when accessing someone else's package" do
-        @package.owner = Factory.create(:user)
+        @package.owner = FactoryGirl.create(:user)
 
         delete :destroy, :id => @package.id
 

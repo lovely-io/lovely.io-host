@@ -4,7 +4,7 @@ describe UsersController do
   include AuthenticationMocks
 
   before do
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   describe "GET #index" do
@@ -96,7 +96,7 @@ describe UsersController do
 
     describe "attempt to edit another user" do
       before do
-        logged_in!(Factory.create(:user))
+        logged_in!(FactoryGirl.create(:user))
         User.should_receive(:find).with('the-id').and_return(@user)
 
         get :edit, :id => 'the-id'
@@ -162,7 +162,7 @@ describe UsersController do
 
     describe "attempt to edit another user" do
       before do
-        logged_in!(Factory.create(:user))
+        logged_in!(FactoryGirl.create(:user))
         User.should_receive(:find).with('the-id').and_return(@user)
         @user.should_not_receive(:update_attributes)
 

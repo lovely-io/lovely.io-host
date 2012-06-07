@@ -21,7 +21,7 @@ describe SessionsController do
     describe "with successful authentication" do
       before do
         @data = {'omniauth' => 'data'}
-        @user = Factory.create(:user)
+        @user = FactoryGirl.create(:user)
         User.should_receive(:find_or_create_by_auth).with(@data).and_return(@user)
 
         @request.env['omniauth.auth'] = @data
@@ -65,7 +65,7 @@ describe SessionsController do
 
   describe "GET #destroy" do
     before do
-      controller.send(:current_user=, Factory.create(:user))
+      controller.send(:current_user=, FactoryGirl.create(:user))
 
       get :destroy
     end

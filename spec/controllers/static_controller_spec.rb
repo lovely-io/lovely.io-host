@@ -46,7 +46,7 @@ describe StaticController do
 
     describe "without a version number" do
       before do
-        @package = Factory.create(:package)
+        @package = FactoryGirl.create(:package)
         @version = @package.version
 
         Package.should_receive(:find).with('123').and_return(@package)
@@ -75,7 +75,7 @@ describe StaticController do
 
     describe "with a version number" do
       before do
-        @package = Factory.create(:package)
+        @package = FactoryGirl.create(:package)
         @version = @package.version
 
         Package.should_receive(:find).with('123').and_return(@package)
@@ -136,7 +136,7 @@ describe StaticController do
 
     describe "when If-Modified-Since header is present" do
       before do
-        @package = Factory.create(:package)
+        @package = FactoryGirl.create(:package)
         @version = @package.version
 
         Package.should_receive(:find).with('123').and_return(@package)
@@ -166,9 +166,9 @@ describe StaticController do
   describe "#image" do
     describe "without a version number" do
       before do
-        @package = Factory.create(:package)
+        @package = FactoryGirl.create(:package)
         @version = @package.version
-        @image   = Factory.build(:image)
+        @image   = FactoryGirl.build(:image)
 
         Package.should_receive(:find).with('123').and_return(@package)
         @package.versions.should_receive(:last).and_return(@version)
@@ -197,9 +197,9 @@ describe StaticController do
 
     describe "with a version number" do
       before do
-        @package = Factory.create(:package)
+        @package = FactoryGirl.create(:package)
         @version = @package.version
-        @image   = Factory.build(:image)
+        @image   = FactoryGirl.build(:image)
         @image.updated_at = Time.now.dup
 
         Package.should_receive(:find).with('123').and_return(@package)

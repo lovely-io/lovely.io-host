@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Image do
   describe "validation" do
-    let(:image) { Factory.build(:image) }
+    let(:image) { FactoryGirl.build(:image) }
 
     it "should pass with valid attributes" do
       image.should be_valid
@@ -24,12 +24,12 @@ describe Image do
     end
 
     it "should fail with a non-uniq path" do
-      Factory.create(:image, :path => image.path, :version_id => image.version_id)
+      FactoryGirl.create(:image, :path => image.path, :version_id => image.version_id)
       image.should have(1).error_on(:path)
     end
 
     it "should allow same name for a different version" do
-      Factory.create(:image, :path => image.path, :version_id => image.version_id + 1)
+      FactoryGirl.create(:image, :path => image.path, :version_id => image.version_id + 1)
       image.should be_valid
     end
 
@@ -48,7 +48,7 @@ describe Image do
     before do
       require "base64"
 
-      @image = Factory.build(:image)
+      @image = FactoryGirl.build(:image)
       @image.data = Base64.encode64("original data")
     end
 
@@ -58,7 +58,7 @@ describe Image do
   end
 
   describe "#content_type" do
-    let(:image) { Factory.build(:image) }
+    let(:image) { FactoryGirl.build(:image) }
 
     it "should return correct type for .png" do
       image.path = "test.png"

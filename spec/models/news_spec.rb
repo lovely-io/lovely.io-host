@@ -4,7 +4,7 @@ describe News do
   describe 'validation' do
     before do
       @news = News.new
-      Factory.attributes_for(:news).each do |key, value|
+      FactoryGirl.attributes_for(:news).each do |key, value|
         @news.send("#{key}=", value)
       end
     end
@@ -19,7 +19,7 @@ describe News do
     end
 
     it "should fail with a non-uniq title" do
-      other_news = Factory.create(:news)
+      other_news = FactoryGirl.create(:news)
       @news.title = other_news.title
       @news.should have(1).error_on(:title)
     end
@@ -32,7 +32,7 @@ describe News do
 
   describe '#uri' do
     before do
-      @news = Factory.create(:news, :title => "Some very-important.news--")
+      @news = FactoryGirl.create(:news, :title => "Some very-important.news--")
     end
 
     it "should generate an uri out of the title" do

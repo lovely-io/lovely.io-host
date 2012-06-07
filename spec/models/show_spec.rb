@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Show do
   describe 'validation' do
-    let(:show) { Factory.build(:show) }
+    let(:show) { FactoryGirl.build(:show) }
 
     it "should pass with valid attributes" do
       show.should be_valid
@@ -14,7 +14,7 @@ describe Show do
     end
 
     it "should fail with a non-uniq title" do
-      other_news = Factory.create(:show)
+      other_news = FactoryGirl.create(:show)
       show.title = other_news.title
       show.should have(1).error_on(:title)
     end
@@ -31,7 +31,7 @@ describe Show do
   end
 
   describe '#uri' do
-    let(:show) { Factory.create(:show, :title => "Some very-cool.show--") }
+    let(:show) { FactoryGirl.create(:show, :title => "Some very-cool.show--") }
 
     it "should generate an uri out of the title" do
       show.uri.should == 'some-very-cool-show'
