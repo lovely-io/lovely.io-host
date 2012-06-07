@@ -26,7 +26,7 @@ class Tag < ActiveRecord::Base
   # package association extension
   module Assoc
     def build_from_string(string)
-      package   = proxy_owner
+      package   = @association.owner
       allow_stl = package.owner && package.owner.admin?
 
       tags = string.split(',').map do |tag|
