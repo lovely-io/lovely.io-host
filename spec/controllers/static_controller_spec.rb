@@ -11,7 +11,7 @@ describe StaticController do
         response.should be_ok
       end
 
-      it "should render 'pages/index'" do
+      it "should render 'pages/about'" do
         response.should render_template('pages/about')
       end
     end

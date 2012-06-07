@@ -109,13 +109,13 @@ describe PackagesController do
         logged_in! @user
 
         @package = FactoryGirl.create(:package, :owner => @user)
-        Package.should_receive(:find).with(@package.id).and_return(@package)
+        Package.should_receive(:find).with(@package.id.to_s).and_return(@package)
 
         @version = @package.versions.last
       end
 
       it "should render 404 for a non-existing package" do
-        Package.find(@package.id) # reseting the should_receive mock
+        Package.find(@package.id.to_s) # reseting the should_receive mock
         Package.should_receive(:find).with('9999').and_raise(ActiveRecord::RecordNotFound)
 
         delete :destroy, :id => '9999'

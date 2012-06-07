@@ -13,7 +13,7 @@ describe ShowsController do
     end
 
     it "should assign the @show variable" do
-      assigns[:show].should == [@show]
+      assigns[:shows].should == [@show]
     end
 
     it "should send the 200 ok status back" do
