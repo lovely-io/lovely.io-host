@@ -26,7 +26,7 @@ describe Version do
     end
 
     it "should pass if the same version number is used in other package" do
-      FactoryGirl.create(:version, @version.attributes.merge(:package_id => @version.package_id + 1))
+      FactoryGirl.create(:version, :package_id => 2)
       @version.should be_valid
     end
 
