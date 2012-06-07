@@ -1,9 +1,6 @@
-source 'http://rubygems.org'
+source :rubygems
 
-gem 'rails'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.3'
 
 gem 'sqlite3'
 
@@ -19,6 +16,12 @@ gem 'will_paginate'
 
 gem 'bcrypt-ruby'
 gem 'json'
+
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
 
 group :test do
   gem 'rspec'
