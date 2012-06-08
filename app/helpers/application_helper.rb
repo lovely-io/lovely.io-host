@@ -34,18 +34,19 @@ module ApplicationHelper
   end
 
   def md(string='')
-    string = Redcarpet.new(string, *MD_OPTIONS).to_html
-    MD_PATCHES.each{ |patch| string.gsub! *patch }
-    string.html_safe
+    MARKDOWN.render(string).html_safe
   end
 
-  MD_OPTIONS = [
-    :autolink, :filter_html, :no_image, :no_intraemphasis
-  ]
+  # allows to run greps on a text without huring h1,h2,h3,h4,a,pre,tt and so on tags content
+  RENDERER = LovelyRenderer.new(
+    filter_html:         true,
+    hard_wrap:           true)
 
-  MD_PATCHES = [
-    ["code>",        "tt>"     ],
-    ["<pre><tt>",    "<pre>"   ],
-    ["</tt></pre>",  "</pre>"  ]
-  ]
+  MARKDOWN = Redcarpet::Markdown.new(RENDERER,
+    no_intra_emphasis:   true,
+    parse_tables:        true,
+    fenced_code_blocks:  true,
+    autolink:            true,
+    space_after_headers: true,
+    superscript:         true)
 end

@@ -164,7 +164,6 @@ DEPENDENCIES
   redcarpet
   rspec
   rspec-rails
-  sass
   sass-rails
   sqlite3
   uglifier
