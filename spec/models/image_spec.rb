@@ -1,4 +1,6 @@
 require 'spec_helper'
+require "base64"
+require 'digest'
 
 describe Image do
   describe "validation" do
@@ -46,14 +48,20 @@ describe Image do
 
   describe "#raw_data" do
     before do
-      require "base64"
-
       @image = FactoryGirl.build(:image)
-      @image.data = Base64.encode64("original data")
+      @image.raw_data = 'original data'
+    end
+
+    it "should base64 encode the data" do
+      @image.data.should == Base64.encode64("original data")
     end
 
     it "should return the original data" do
       @image.raw_data.should == "original data"
+    end
+
+    it "should assign the image data SHA signature" do
+      @image.sha.should == Digest::SHA1.hexdigest(@image.data)
     end
   end
 

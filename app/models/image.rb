@@ -1,4 +1,5 @@
 require "base64"
+require "digest"
 
 class Image < ActiveRecord::Base
   belongs_to :version
@@ -8,7 +9,7 @@ class Image < ActiveRecord::Base
   validates_format_of     :path, :with  => /^[a-z0-9\/\-\._\/]+$/, :allow_blank => true
   validates_length_of     :data, :maximum => 250.kilobytes,        :allow_blank => true
 
-  validate :mime_type_check
+  validate    :mime_type_check
 
   def raw_data
     Base64.decode64(data)
@@ -16,6 +17,12 @@ class Image < ActiveRecord::Base
 
   def raw_data=(src)
     self.data = Base64.encode64(src)
+
+  end
+
+  def data=(data)
+    self.sha  = Digest::SHA1.hexdigest(data)
+    super data
   end
 
   def content_type

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120209121158) do
+ActiveRecord::Schema.define(:version => 20120608141325) do
 
   create_table "dependencies", :force => true do |t|
     t.integer  "version_id"
@@ -39,8 +40,10 @@ ActiveRecord::Schema.define(:version => 20120209121158) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "sha"
   end
 
+  add_index "images", ["sha"], :name => "index_images_on_sha"
   add_index "images", ["version_id", "path"], :name => "index_images_on_version_id_and_path"
   add_index "images", ["version_id"], :name => "index_images_on_version_id"
 
