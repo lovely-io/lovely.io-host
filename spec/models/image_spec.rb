@@ -98,6 +98,21 @@ describe Image do
       image.content_type.should == "application/x-shockwave-flash"
     end
 
+    it "should return correct type for .eot" do
+      image.path = "test.eot"
+      image.content_type.should == "application/vnd.ms-fontobject"
+    end
+
+    it "should return correct type for .ttf" do
+      image.path = 'test.ttf'
+      image.content_type.should == 'application/x-font-ttf'
+    end
+
+    it "should return correct type for .woff" do
+      image.path = 'test.woff'
+      image.content_type.should == 'application/x-font-woff'
+    end
+
     it "should return 'text/plain' for unknown types" do
       image.path = "some.shit"
       image.content_type.should == "text/plain"

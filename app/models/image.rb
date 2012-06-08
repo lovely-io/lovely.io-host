@@ -32,6 +32,9 @@ class Image < ActiveRecord::Base
       when 'jpg', 'jpeg' then "image/jpg"
       when 'svg'         then "image/svg+xml"
       when 'swf'         then "application/x-shockwave-flash"
+      when 'eot'         then "application/vnd.ms-fontobject"
+      when 'ttf'         then "application/x-font-ttf"
+      when 'woff'        then "application/x-font-woff"
       else                    "text/plain"
     end
   end
@@ -39,7 +42,7 @@ class Image < ActiveRecord::Base
 protected
 
   def mime_type_check
-    if path && !(path =~ /\.(png|gif|jpg|jpeg|swf|svg)$/)
+    if path && !(path =~ /\.(png|gif|jpg|jpeg|swf|svg|eot|ttf|woff)$/)
       errors.add(:base, "Unsupported image type")
     end
   end
