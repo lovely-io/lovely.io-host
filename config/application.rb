@@ -42,5 +42,7 @@ module Lovelyio
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.assets.enabled = false
   end
 end
