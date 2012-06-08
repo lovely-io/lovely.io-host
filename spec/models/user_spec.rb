@@ -95,7 +95,7 @@ describe User do
       @auth = {
         'provider'   => 'someprovider',
         'uid'        => 'someuid',
-        'user_info'  => {
+        'info'  => {
           'name'     => 'User Fullname',
           'location' => 'User Location',
           'image'    => 'http://avatar.url'
@@ -131,15 +131,15 @@ describe User do
         end
 
         it "should assign the user name" do
-          @user.name.should == @auth['user_info']['name']
+          @user.name.should == @auth['info']['name']
         end
 
         it "should assign the user's location" do
-          @user.location.should == @auth['user_info']['location']
+          @user.location.should == @auth['info']['location']
         end
 
         it "should assign the user's avatar url" do
-          @user.avatar_url.should == @auth['user_info']['image']
+          @user.avatar_url.should == @auth['info']['image']
         end
       end
 
@@ -147,13 +147,13 @@ describe User do
         it "should correctly set a twitter's user location" do
           @auth['provider'] = 'twitter'
           @user = User.find_or_create_by_auth(@auth)
-          @user.home_url.should == "http://twitter.com/#{@auth['user_info']['nickname']}"
+          @user.home_url.should == "http://twitter.com/#{@auth['info']['nickname']}"
         end
 
         it "should correctly set a github account location" do
           @auth['provider'] = 'github'
           @user = User.find_or_create_by_auth(@auth)
-          @user.home_url.should == "http://github.com/#{@auth['user_info']['nickname']}"
+          @user.home_url.should == "http://github.com/#{@auth['info']['nickname']}"
         end
 
         it "should correctly set a facebooker's external location" do

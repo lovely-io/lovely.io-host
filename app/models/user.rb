@@ -15,12 +15,12 @@ class User < ActiveRecord::Base
     create! do |user|
       user.uid        = auth['uid']
       user.provider   = auth['provider']
-      user.name       = auth['user_info']['name']
-      user.location   = auth['user_info']['location']
-      user.avatar_url = auth['user_info']['image']
+      user.name       = auth['info']['name']
+      user.location   = auth['info']['location']
+      user.avatar_url = auth['info']['image']
       user.home_url   = case auth['provider']
-        when 'github'   then "http://github.com/#{auth['user_info']['nickname']}"
-        when 'twitter'  then "http://twitter.com/#{auth['user_info']['nickname']}"
+        when 'github'   then "http://github.com/#{auth['info']['nickname']}"
+        when 'twitter'  then "http://twitter.com/#{auth['info']['nickname']}"
         when 'facebook' then "http://www.facebook.com/profile.php?id=#{auth['uid']}"
         else nil
       end

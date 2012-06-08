@@ -8,8 +8,7 @@ gem 'haml'
 gem 'sass'
 gem 'redcarpet'
 
-gem 'oa-core'
-gem 'oa-oauth'
+gem 'omniauth-twitter'
 
 gem 'dynamic_form'
 gem 'will_paginate'
