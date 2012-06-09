@@ -200,8 +200,8 @@ describe Version do
         @package = FactoryGirl.create(:package)
         @version = FactoryGirl.build(:version, :package => @package)
         @version.images = {
-          'img/1.png' => 'some content',
-          '/img2.png' => 'some content'
+          'img/1.png' => 'image 1 content',
+          '/img2.png' => 'image 2 content'
         }
         @version.build = %Q{
           'images/img/1.png'
@@ -214,10 +214,10 @@ describe Version do
         @version.save :validate => false
 
         @version.build.should == %Q{
-          'http://cdn.test.com/#{@package.to_param}/#{@version.number}/img/1.png'
-          "http://cdn.test.com/#{@package.to_param}/#{@version.number}/img/1.png"
-          "http://cdn.test.com/#{@package.to_param}/#{@version.number}/img2.png"
-          'http://cdn.test.com/#{@package.to_param}/#{@version.number}/img2.png'
+          'http://cdn.test.com/assets/#{@version.images.first.sha}'
+          "http://cdn.test.com/assets/#{@version.images.first.sha}"
+          "http://cdn.test.com/assets/#{@version.images.last.sha}"
+          'http://cdn.test.com/assets/#{@version.images.last.sha}'
         }
       end
     end
