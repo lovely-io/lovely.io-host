@@ -4,7 +4,7 @@
 html, body {
   font-family: "Droid Serif", sans-serif;
   font-size: 11pt;
-  color: #222222; }
+  color: rgba(0, 0, 0, 0.8); }
 
 html {
   height: 100%;
@@ -21,7 +21,7 @@ body {
 
 h1, h2, h3, h4, label, th, dt {
   font-family: "OFL Sorts Mill Goudy TT", Georgia, serif;
-  color: #333333; }
+  color: rgba(10, 100, 10, 0.9); }
 
 h1 {
   font-size: 2em;
@@ -48,7 +48,7 @@ p.required label:after {
 
 a {
   text-decoration: none;
-  color: brown; }
+  color: #900000; }
 
 a:hover {
   text-decoration: underline; }
@@ -88,13 +88,16 @@ body > header, body > section, body > footer {
 
 body > header {
   position: relative;
-  background: #d2dda3; }
+  background: rgba(0, 120, 0, 0.9);
+  box-shadow: 0 0 10px rgba(0, 20, 0, 0.9);
+  color: rgba(255, 255, 200, 0.7); }
+  body > header a {
+    color: #f2f2e4; }
   body > header h1 {
     font-size: 4em;
     margin: 0;
     padding: 0;
     display: inline-block;
-    color: brown;
     margin-top: -0.2em; }
   body > header h2 {
     margin: 0;
@@ -102,9 +105,9 @@ body > header {
     font-weight: normal;
     font-style: italic;
     font-size: 1.1em;
-    color: #444444;
     position: absolute;
-    margin-top: -1.2em; }
+    margin-top: -1.2em;
+    color: rgba(255, 255, 200, 0.7); }
   body > header nav {
     position: absolute;
     bottom: 1.5em;
@@ -152,9 +155,11 @@ body > footer {
   left: 0;
   width: 100%;
   padding: 1.5em 0;
-  color: grey;
+  color: rgba(255, 255, 200, 0.7);
   text-indent: 10em;
-  background: #d2dda3; }
+  background: rgba(10, 80, 10, 0.9); }
+  body > footer a {
+    color: #f2f2e4; }
   body > footer nav {
     float: right;
     margin-right: 10em; }
