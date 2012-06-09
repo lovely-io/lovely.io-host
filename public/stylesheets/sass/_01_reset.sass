@@ -1,11 +1,11 @@
-@import url(http://fonts.googleapis.com/css?family=Droid+Serif:regular,italic,bold,cyr)
-@import url(http://fonts.googleapis.com/css?family=OFL+Sorts+Mill+Goudy+TT)
-@import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono)
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold,cyr)
+@import url(http://fonts.googleapis.com/css?family=Dosis:regular,bold)
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono)
 
 html, body
-  font-family: 'Droid Serif', sans-serif
-  font-size: 11pt
-  color:     rgba(0,0,0,.8)
+  font-family: "Ubuntu", sans-serif
+  font-size:   11pt
+  color:       rgba(0,0,0,.8)
 
 html
   height: 100%
@@ -21,26 +21,30 @@ body
   position: relative
 
 h1, h2, h3, h4, label, th, dt
-  font-family: 'OFL Sorts Mill Goudy TT', Georgia, serif
+  font-family: 'Dosis', sans-serif
+  font-weight: 500
   color: rgba(10,100,10,.9)
 
 h1
-  font-size: 2em
+  font-size: 2.5em
   margin: 0
+
+h2
+  font-size: 1.7em
 
 h2, h3, h4
   margin-top: 1em
 
 dt
-  font-weight: bold
+  font-size: 1.1em
 
 dd
   margin-bottom: 1em
-  margin-left: 2em
+  margin-left: 1em
 
 label
-  font-weight: bold
   display: block
+  font-size: 110%
 
 p.required label:after
   content: '*'
@@ -49,7 +53,7 @@ p.required label:after
 
 a
   text-decoration: none
-  color: #900000
+  color: rgba(160,30,0,.9)
 
 a:hover
   text-decoration: underline
@@ -60,13 +64,10 @@ input[type="text"], input[type="password"], textarea
   background: #F4F9EC
   border: 1px solid #D1D3BE
   border-radius: .25em
-  -moz-border-radius: .25em
-  -webkit-border-radius: .25em
   padding: .125em .25em
 
 tt, pre
-  font-family: 'Droid Sans Mono', monospace
-  font-size: 95%
+  font-family: 'Ubuntu Mono', monospace
 
 tt
   display: inline-block
