@@ -36,9 +36,6 @@
     %dt CDN Links
     %dd
       %ul
-        %li
-          = link_to "#{@package.name}.js", cdn_package_url(@package), :class => :cdn
-
         - @package.versions.reverse.each do |version|
           %li= link_to "#{@package.name}-#{version.number}.js", cdn_package_url(@package, version.number), :class => :cdn
 
