@@ -256,4 +256,60 @@ describe StaticController do
     end
 
   end
+
+  describe "#sha" do
+    describe "with a version number" do
+      before do
+        @image   = FactoryGirl.build(:image)
+        @image.updated_at = Time.now.dup
+
+        Image.should_receive(:find_by_sha).with('123asdf').and_return(@image)
+
+        get :sha, :sha => '123asdf'
+      end
+
+      it "should send the 200 ok header" do
+        response.should be_ok
+      end
+
+      it "should send the image raw data" do
+        response.body.should == @image.raw_data
+      end
+
+      it "should send the correct content type" do
+        response.content_type.should == @image.content_type
+      end
+
+      it "should set an 1 year cache period" do
+        response.header['Cache-Control'].should == "max-age=#{1.year.to_i}, public"
+      end
+
+      it "should set the Last-Modified header" do
+        response.header['Last-Modified'].should == @image.updated_at.utc.httpdate
+      end
+
+      it "should set the Expires header" do
+        response.header['Expires'].should == (@image.updated_at + 1.year).utc.httpdate
+      end
+
+      it "should set the ETag header" do
+        response.header['ETag'].should_not be_blank
+      end
+    end
+
+    describe "when a package doesn't exists" do
+      before do
+        get :sha, :sha => 'nonexistingsha'
+      end
+
+      it "should send the 404 status" do
+        response.status.should == 404
+      end
+
+      it "should send an empty body" do
+        response.body.should be_empty
+      end
+    end
+
+  end
 end

@@ -44,8 +44,9 @@ Lovelyio::Application.routes.draw do
     :version => VERSION_RE
   }
   get '/:id(/:version)/:path' => "static#image", :as => :cdn_image, :constraints => {
-    :version => VERSION_RE, :path => /[\w\d\/\-\_\._]+\.(gif|png|jpg|jpeg|svg|swf)/i
+    :version => VERSION_RE, :path => /[\w\d\/\-\_\._]+\.(gif|png|jpg|jpeg|svg|swf|eot|ttf|woff)/i
   }
+  get '/assets-:sha' => "static#sha", :as => :cdn_asset
 
   # static pages
   get '/:id' => "static#page", :as => :page

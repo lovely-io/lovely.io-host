@@ -8,7 +8,7 @@ class StaticController < ApplicationController
   caches_page :page
 
   before_filter :find_package_and_version, :only => [:script, :image]
-  after_filter  :set_expiration_date,      :only => [:script, :image]
+  after_filter  :set_expiration_date,      :only => [:script, :image, :sha]
 
   # static pages handler
   def page
@@ -38,14 +38,14 @@ class StaticController < ApplicationController
   # CDN images server
   def image
     @image = @version.images.find_by_path(params[:path]) or raise NotFound
+    send_image
+  end
 
-    if recently_modified?(@image)
-      send_data @image.raw_data, {
-        :type        => @image.content_type,
-        :filename    => File.basename(@image.path),
-        :disposition => 'inline'
-      }
-    end
+  # CDN assets serving by a SHA signature
+  def sha
+    @image = Image.find_by_sha(params[:sha]) or raise NotFound
+    params[:version] = 'dummy' # force 1 year expiration time
+    send_image
   end
 
 
@@ -56,6 +56,16 @@ protected
     @version = (params[:version] ?
       @package.versions.find_by_number(params[:version]) :
       @package.versions.last) or raise NotFound
+  end
+
+  def send_image
+    if recently_modified?(@image)
+      send_data @image.raw_data, {
+        :type        => @image.content_type,
+        :filename    => File.basename(@image.path),
+        :disposition => 'inline'
+      }
+    end
   end
 
   def recently_modified?(item)
