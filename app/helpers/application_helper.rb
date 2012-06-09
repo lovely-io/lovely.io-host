@@ -39,13 +39,13 @@ module ApplicationHelper
 
   # allows to run greps on a text without huring h1,h2,h3,h4,a,pre,tt and so on tags content
   RENDERER = LovelyRenderer.new(
-    filter_html:         true)
+    :filter_html =>         true)
 
   MARKDOWN = Redcarpet::Markdown.new(RENDERER,
-    no_intra_emphasis:   true,
-    parse_tables:        true,
-    fenced_code_blocks:  true,
-    autolink:            true,
-    space_after_headers: true,
-    superscript:         true)
+    :no_intra_emphasis =>   true,
+    :parse_tables =>        true,
+    :fenced_code_blocks =>  true,
+    :autolink =>            true,
+    :space_after_headers => true,
+    :superscript =>         true)
 end
