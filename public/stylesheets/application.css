@@ -4,7 +4,8 @@
 html, body {
   font-family: "Ubuntu", sans-serif;
   font-size: 11pt;
-  color: rgba(0, 0, 0, 0.8); }
+  color: rgba(0, 0, 0, 0.8);
+  text-align: justify; }
 
 html {
   height: 100%;
@@ -90,6 +91,7 @@ body > header, body > section, body > footer {
 body > header {
   position: relative;
   background: rgba(0, 120, 0, 0.9);
+  background: rgba(10, 110, 10, 0.9);
   box-shadow: 0 0 10px rgba(0, 20, 0, 0.9);
   color: rgba(255, 255, 200, 0.7); }
   body > header a {
@@ -157,13 +159,17 @@ body > footer {
   width: 100%;
   padding: 1.5em 0;
   color: rgba(255, 255, 200, 0.7);
-  text-indent: 10em;
-  background: rgba(10, 80, 10, 0.9); }
+  font-size: 90%;
+  text-indent: 11em;
+  background: rgba(40, 90, 30, 0.4);
+  border-top: 1px solid rgba(40, 80, 30, 0.1); }
+  body > footer .content {
+    font-size: 90%; }
   body > footer a {
     color: #f2f2e4; }
   body > footer nav {
     float: right;
-    margin-right: 10em; }
+    margin-right: 11em; }
 
 @media only screen and (max-device-width: 1024px), only screen and (max-device-width: 480px) {
   body > header, body > section {
