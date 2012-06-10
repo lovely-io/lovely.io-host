@@ -1,6 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold,cyr);
-@import url(http://fonts.googleapis.com/css?family=Dosis:regular,bold);
-@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:regular,italic,bold,cyr);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic);
+@import url(http://fonts.googleapis.com/css?family=Dosis:400,700);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 html, body {
   font-family: "Ubuntu", sans-serif;
   font-size: 11pt;
@@ -98,7 +98,7 @@ body > header {
     color: #f2f2e4; }
   body > header h1 {
     font-size: 4.5em;
-    font-weight: bold;
+    font-weight: 700;
     margin: 0;
     padding: 0;
     display: inline-block;
@@ -376,9 +376,8 @@ ul.tags {
 body.news-index a.rss {
   float: right;
   margin-top: -1.5em;
-  font-family: "OFL Sorts Mill Goudy TT", Georgia, serif;
-  font-size: 1.5em;
-  font-weight: bold; }
+  font-family: "Dosis", sans-serif;
+  font-size: 2em; }
 
 body.news-show h1 .date {
   float: right;
@@ -397,9 +396,8 @@ body.news-show h1 .date {
 body.shows-index a.rss {
   float: right;
   margin-top: -1.5em;
-  font-family: "OFL Sorts Mill Goudy TT", Georgia, serif;
-  font-size: 1.5em;
-  font-weight: bold; }
+  font-family: "Dosis", sans-serif;
+  font-size: 2em; }
 
 body.shows-show {
   min-width: 800pt; }
