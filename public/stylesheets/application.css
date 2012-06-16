@@ -287,6 +287,9 @@ div.half-width {
   display: inline-block;
   vertical-align: top; }
 
+p.white-space {
+  height: 8em; }
+
 a.add, a.new, a.back, a.show, a.edit, a.delete, a.remove, a.info {
   padding-left: 20px;
   background: url(/images/icons/new.png) no-repeat left center;
