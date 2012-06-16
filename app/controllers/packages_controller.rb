@@ -3,7 +3,7 @@
 #       `lovely` CLI tool which works via JSON format
 #
 class PackagesController < ApplicationController
-  caches_page :index, :show, :demo
+  caches_page :index, :show, :demo, :changelog, :docs
 
   # BUG: for some reason rails looses the `.html` extension
   #      when there is a version number at the end
@@ -14,8 +14,8 @@ class PackagesController < ApplicationController
   end
 
   before_filter :require_login, :only => [:create, :destroy]
-  before_filter :find_package,  :only => [:show, :demo, :changelog, :destroy]
-  before_filter :find_version,  :only => [:show, :demo]
+  before_filter :find_package,  :only => [:show, :demo, :changelog, :docs, :destroy]
+  before_filter :find_version,  :only => [:show, :demo, :docs]
 
   def index
     @packages = Package
@@ -49,6 +49,13 @@ class PackagesController < ApplicationController
 
   def changelog
     raise NotFound if !@package.documents.changelog
+  end
+
+  def docs
+    if params[:doc_id].present?
+      @document = @package.documents.find_by_path("docs/#{params[:doc_id]}.md")
+      raise NotFound if !@document
+    end
   end
 
   def create

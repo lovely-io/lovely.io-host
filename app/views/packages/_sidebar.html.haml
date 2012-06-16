@@ -7,10 +7,12 @@
         %li= link_to "Main Page", @package, :class => :package
         - unless @package.home_url.blank?
           %li= link_to "Home Page", @package.home_url, :class => :home_page, :target => :_blank
-        - if @package.documents.changelog
-          %li= link_to "Changelog", package_changelog_url(@package), :class => :changelog
+        - if @package.documents.api.size > 0
+          %li= link_to "Documentation", package_docs_url(@package, :version => params[:version]), :class => :api
         - if @package.documents.demo
           %li= link_to "Live Demo", package_demo_url(@package, :version => params[:version]), :class => :demo
+        - if @package.documents.changelog
+          %li= link_to "Changelog", package_changelog_url(@package), :class => :changelog
 
     %dt Size
     %dd= "#{gzipped_size(@package.build)} (gzipped)"

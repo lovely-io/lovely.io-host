@@ -6,10 +6,13 @@ class Document < ActiveRecord::Base
   validates_format_of     :path, :with => /^[a-z0-9\/\.\-_]+$/, :allow_blank => true
   validates_length_of     :text, :maximum => 250.kilobytes,  :allow_blank => true
 
-
   module Assoc
     def index
       find_by_path('index')
+    end
+
+    def api
+      where("path LIKE 'docs/%'")
     end
 
     def demo

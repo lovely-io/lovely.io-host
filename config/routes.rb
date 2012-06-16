@@ -13,14 +13,11 @@ Lovelyio::Application.routes.draw do
     end
   end
 
-  get '/packages/:id/changelog' => 'packages#changelog', :as => :package_changelog
-
-  get '/packages/:id(/:version)/demo' => 'packages#demo', :as => :package_demo, :constraints => {
-    :version => VERSION_RE
-  }
-
-  get '/packages/:id(/:version)'   => 'packages#show',  :as => :package, :constraints => {
-    :version => VERSION_RE
+  get '/packages/:id/changelog'                 => 'packages#changelog', :as => :package_changelog
+  get '/packages/:id(/:version)/demo'           => 'packages#demo',      :as => :package_demo,      :constraints => { :version => VERSION_RE }
+  get '/packages/:id(/:version)'                => 'packages#show',      :as => :package,           :constraints => { :version => VERSION_RE }
+  get '/packages/:id(/:version)/docs(/:doc_id)' => 'packages#docs',      :as => :package_docs,      :constraints => {
+    :version => VERSION_RE, :doc_id => /[a-z0-9\-_\.]+/
   }
 
   resources :users
