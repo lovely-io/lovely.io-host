@@ -1,6 +1,8 @@
 - if @document
   %h1= @document.path.sub(/^docs\//, '').sub(/\.md$/, '')
 
+  = select_tag 'docs-index', options_for_select(api_docs_index(@package), request.path), :onchange => "document.location = this.value;"
+
   = api_doc_md @document.text
 
   %p.bottom-links
@@ -10,6 +12,5 @@
   %h1 Documentation Index
 
   %ul
-    - @package.documents.api.sort_by(&:path).each do |doc|
-      - doc_id = doc.path.sub(/^docs\//, '').sub(/\.md$/, '')
-      %li= link_to doc_id, package_docs_path(@package, :version => params[:version], :doc_id => doc_id)
+    - api_docs_index(@package).each do |item|
+      %li= link_to *item

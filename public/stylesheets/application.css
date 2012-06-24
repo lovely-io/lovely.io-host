@@ -413,6 +413,10 @@ body.shows-show {
     border-radius: 0.25em;
     box-shadow: 0em 0em 0.5em #aaaaaa; }
 
+select#docs-index {
+  float: right;
+  margin-top: -2.5em; }
+
 table.api-doc {
   border-collapse: collapse;
   border: none;

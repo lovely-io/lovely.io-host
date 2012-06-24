@@ -1,4 +1,17 @@
 module DocsHelper
+  #
+  # Builds a list of docname/urls list of documents in the package
+  #
+  def api_docs_index(package)
+    package.documents.api.sort_by(&:path).map do |doc|
+      doc_id  = doc.path.sub(/^docs\//, '').sub(/\.md$/, '')
+      doc_url = package_docs_path(@package, :version => params[:version], :doc_id => doc_id)
+
+      [doc_id, doc_url]
+    end
+  end
+
+
   API_DOC_RE = /(<pre[^>]+data-lang=)('|")([^'"]+)\-aside\2([^>]*)(>.+?<\/pre>)/
 
   #
