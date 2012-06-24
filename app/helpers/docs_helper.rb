@@ -44,9 +44,13 @@ private
   # Additional parsing for the documentation block
   #
   def api_doc_parse_docs(html)
-    html.gsub /<p>(\s*@(param|return|throws).+?)<\/p>/m do |match|
-      text = $1.dup
-      "<p>#{text}</p>"
+    html.gsub /<p>(\s*@[a-z]+.+?)<\/p>/m do |match|
+      text = $1.dup.gsub /(@[a-z]+\s*)(\{[^}]+\})?(\s*[^@]+)/m do |m|
+        "<div><strong>#{$1}</strong><em>#{$2}</em>#{$3}</div>"
+      end
+
+
+      "<p class='api'>#{text}</p>"
     end
   end
 
