@@ -1,0 +1,44 @@
+table.api-doc
+  border-collapse: collapse
+  border:          none
+  margin-top:      1em
+  position:        relative
+
+  td
+    margin:         0
+    padding:        1em
+    padding-bottom: 2em
+    vertical-align: top
+    text-align:     left
+
+
+    &:nth-child(1)
+      padding-left: 0
+
+    &:nth-child(2)
+      background:    #F4F9EC
+      border-left:   1px solid #D1D3BE
+      border-radius: 0 .5em .5em 0
+      padding-left:  .5em
+      max-width:      500px
+
+      pre
+        margin:     0
+        padding:    0
+        background: transparent
+        border:     none
+
+      .colorifier
+        background: transparent
+        border:     none
+        padding:    0
+        margin:     0
+        padding-bottom: .5em
+
+        .gutter
+          display: none
+
+    p:first-of-type
+      margin-top: 0
+    p:last-of-type
+      margin-bottom: 0

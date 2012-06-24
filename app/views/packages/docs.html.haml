@@ -1,7 +1,7 @@
 - if @document
   %h1= @document.path.sub(/^docs\//, '').sub(/\.md$/, '')
 
-  = md @document.text
+  = api_doc_md @document.text
 
   %p.bottom-links
     = link_to 'Index', package_docs_path(@package, :version => params[:version]), :class => :back

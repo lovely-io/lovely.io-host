@@ -3,12 +3,12 @@
 #
 class LovelyRenderer < Redcarpet::Render::HTML
 
-  CODE_LANG_RE = /\A:([a-z]+)/
+  CODE_LANG_RE = /\A:([a-z\-]+)/
 
   def block_code(code, language)
     code   ||= ''
     language = code.scan(CODE_LANG_RE)[0][0] rescue nil unless language
-    code     = code.gsub(CODE_LANG_RE, '').strip
+    code     = code.gsub(CODE_LANG_RE, '').sub(/\A\s*\n/, '').sub(/\s\Z/, '')
     code     = code.gsub("\n", '&#x000A;')
     code     = code.gsub("<", '&lt;')
     code     = code.gsub(">", '&gt;')
