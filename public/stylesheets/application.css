@@ -421,7 +421,10 @@ table.api-doc {
   border-collapse: collapse;
   border: none;
   margin-top: 1em;
-  position: relative; }
+  position: relative;
+  width: 100%; }
+  table.api-doc .colorifier .gutter {
+    display: none; }
   table.api-doc td {
     margin: 0;
     padding: 1em;
@@ -435,6 +438,7 @@ table.api-doc {
       border-left: 1px solid #d1d3be;
       border-radius: 0 0.5em 0.5em 0;
       padding-left: 0.5em;
+      width: 500px;
       max-width: 500px; }
       table.api-doc td:nth-child(2) pre {
         margin: 0;
@@ -447,8 +451,6 @@ table.api-doc {
         padding: 0;
         margin: 0;
         padding-bottom: 0.5em; }
-        table.api-doc td:nth-child(2) .colorifier .gutter {
-          display: none; }
     table.api-doc td p:first-of-type {
       margin-top: 0; }
     table.api-doc td p:last-of-type {
