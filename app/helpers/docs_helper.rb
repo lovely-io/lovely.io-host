@@ -11,8 +11,24 @@ module DocsHelper
     end
   end
 
+  def md(string='')
+    MARKDOWN.render(string).html_safe
+  end
 
-  API_DOC_RE = /(<pre[^>]+data-lang=)('|")([^'"]+)\-aside\2([^>]*)(>.+?<\/pre>)/
+  # allows to run greps on a text without huring h1,h2,h3,h4,a,pre,tt and so on tags content
+  RENDERER = LovelyRenderer.new(
+    :filter_html =>         true)
+
+  MARKDOWN = Redcarpet::Markdown.new(RENDERER,
+    :no_intra_emphasis =>   true,
+    :parse_tables =>        true,
+    :fenced_code_blocks =>  true,
+    :autolink =>            true,
+    :space_after_headers => true,
+    :superscript =>         true)
+
+
+  API_DOC_RE = /(<pre[^>]+data-lang=)('|")([^'"]+)\-aside\2([^>]*)(>.*?<\/pre>)/
 
   #
   # API docs formatted markdown
