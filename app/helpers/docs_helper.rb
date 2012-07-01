@@ -82,13 +82,21 @@ private
   #
   def api_docs_link(reference)
     reference.split('|').map do |token|
-      doc = @package.documents.api.detect do |doc|
-        doc.path.starts_with?("docs/#{token.underscore}.")
+      if token.include?('.')
+        package = Package.where(:name => token.slice(0, token.index('.'))).first
+        doc_pre = token.slice(token.index('.')+1, token.size)
+      else
+        package = @package
+        doc_pre = token
+      end
+
+      doc = package && package.documents.api.detect do |doc|
+        doc.path.starts_with?("docs/#{doc_pre.underscore}.")
       end
 
       if doc
         doc_id  = doc.path.sub(/^docs\//, '').sub(/\.md$/, '')
-        doc_url = package_docs_path(@package, :version => params[:version], :doc_id => doc_id)
+        doc_url = package_docs_path(package, :version => package == @package ? params[:version] : nil, :doc_id => doc_id)
       else
         doc_url = '#'
       end
