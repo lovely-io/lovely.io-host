@@ -49,7 +49,7 @@ module DocsHelper
   # API docs formatted markdown
   #
   def api_doc_md(doc)
-    html = md(@document.text)
+    html = md(doc.text)
 
     if html =~ API_DOC_RE
       table = []
@@ -66,6 +66,7 @@ module DocsHelper
       html = %Q{
         <table class="api-doc">#{
           table.map do |entry|
+            entry[0].gsub!(/<pre data-lang=('|")unspecified("|')>/, "<pre data-lang='#{doc.path.split('.')[1]||'unspecified'}'>")
             "<tr><td>"+entry[0]+"</td><td>"+entry[1]+"</td></tr>"
           end.join("\n")
         }</table>

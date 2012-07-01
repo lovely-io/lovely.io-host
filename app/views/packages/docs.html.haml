@@ -3,7 +3,7 @@
 
   = select_tag 'docs-index', options_for_select(api_docs_index(@package), request.path), :onchange => "document.location = this.value;"
 
-  = api_doc_md @document.text
+  = api_doc_md @document
 
   %p.bottom-links
     = link_to 'Index', package_docs_path(@package, :version => params[:version]), :class => :back
