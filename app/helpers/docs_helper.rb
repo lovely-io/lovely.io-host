@@ -20,7 +20,7 @@ module DocsHelper
       match = html.slice(index, html.size)[regex]
       index = index + match.size
 
-      if (html.index('</pre>', index) || html.size) > (html.index(/<pre[^>]*>/, index) || -1)
+      if (html.index('</pre>', index) || html.size) > (html.index(/<pre[^>]*>/, index) || html.size-1)
         html = html.slice(0, index - match.size) +
           api_docs_link(match.slice(1,match.size-2)) +
           html.slice(index, html.size)
