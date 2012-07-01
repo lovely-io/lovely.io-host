@@ -48,3 +48,16 @@ table.api-doc
       margin-top: 0
     p:last-of-type
       margin-bottom: 0
+
+    section.api
+      margin-top: 1em
+
+      a.api-ref
+        &:first-of-type:before, &:last-of-type:after
+          content: '{'
+          color:   #444
+
+        &:last-of-type:after
+          content: '}'
+
+

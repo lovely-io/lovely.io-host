@@ -455,3 +455,10 @@ table.api-doc {
       margin-top: 0; }
     table.api-doc td p:last-of-type {
       margin-bottom: 0; }
+    table.api-doc td section.api {
+      margin-top: 1em; }
+      table.api-doc td section.api a.api-ref:first-of-type:before, table.api-doc td section.api a.api-ref:last-of-type:after {
+        content: "{";
+        color: #444444; }
+      table.api-doc td section.api a.api-ref:last-of-type:after {
+        content: "}"; }

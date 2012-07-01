@@ -12,7 +12,22 @@ module DocsHelper
   end
 
   def md(string='')
-    MARKDOWN.render(string).html_safe
+    html  = MARKDOWN.render(string)
+    index = 0
+    regex = /\{([a-z\.\|]+)\}/i
+
+    while index = html.index(regex, index)
+      match = html.slice(index, html.size)[regex]
+      index = index + match.size
+
+      if (html.index('</pre>', index) || html.size) > (html.index(/<pre[^>]*>/, index) || -1)
+        html = html.slice(0, index - match.size) +
+          api_docs_link(match.slice(1,match.size-2)) +
+          html.slice(index, html.size)
+      end
+    end
+
+    html.html_safe
   end
 
   # allows to run greps on a text without huring h1,h2,h3,h4,a,pre,tt and so on tags content
@@ -63,6 +78,26 @@ module DocsHelper
 private
 
   #
+  # Generates the api-doc link by a standard reference
+  #
+  def api_docs_link(reference)
+    reference.split('|').map do |token|
+      doc = @package.documents.api.detect do |doc|
+        doc.path.starts_with?("docs/#{token.underscore}.")
+      end
+
+      if doc
+        doc_id  = doc.path.sub(/^docs\//, '').sub(/\.md$/, '')
+        doc_url = package_docs_path(@package, :version => params[:version], :doc_id => doc_id)
+      else
+        doc_url = '#'
+      end
+
+      link_to token, doc_url, :class => 'api-ref'
+    end.join('|')
+  end
+
+  #
   # Prepares the code block to be inserted into the api-doc table
   #
   def api_doc_parse_code(code_block)
@@ -79,7 +114,7 @@ private
       end
 
 
-      "<p class='api'>#{text}</p>"
+      "<section class='api'>#{text}</section>"
     end
   end
 
