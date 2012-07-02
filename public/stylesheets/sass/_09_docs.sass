@@ -12,16 +12,39 @@ table.api-doc
   .colorifier .gutter
     display: none
 
+  tr
+    a[name]
+      visibility: hidden
+
+    &:hover
+      a[name]
+        visibility: visible
+
   td
     margin:         0
     padding:        1em
     padding-bottom: 2em
     vertical-align: top
     text-align:     left
-
+    position: relative
 
     &:nth-child(1)
       padding-left: 0
+
+      a[name]
+        display:  block
+        position: absolute
+        left:     -2em
+        top:      .7em
+        width:    2.1em
+
+        &:hover
+          text-decoration: none
+
+        &:before
+          content: '\00B6'
+          font-size: 200%
+          color:     rgba(0,0,0,.25)
 
     &:nth-child(2)
       background:    #F4F9EC

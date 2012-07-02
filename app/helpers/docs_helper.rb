@@ -63,11 +63,12 @@ module DocsHelper
         html = html.slice(html.index(API_DOC_RE) + pre_block.size, html.size)
       end
 
+      name = 0
       html = %Q{
         <table class="api-doc">#{
           table.map do |entry|
             entry[0].gsub!(/<pre data-lang=('|")unspecified("|')>/, "<pre data-lang='#{doc.path.split('.')[1]||'unspecified'}'>")
-            "<tr><td>"+entry[0]+"</td><td>"+entry[1]+"</td></tr>"
+            "<tr><td><a href='#"+(name = name + 1).to_s+"' name='"+(name.to_s)+"'></a>"+entry[0]+"</td><td>"+entry[1]+"</td></tr>"
           end.join("\n")
         }</table>
       }.html_safe
