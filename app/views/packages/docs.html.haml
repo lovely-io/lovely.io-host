@@ -1,5 +1,5 @@
 - if @document
-  %h1= @document.path.sub(/^docs\//, '').sub(/\.md$/, '')
+  %h1= link_to(@package.name, @package) + ":"+ @document.path.sub(/^docs\//, '').sub(/\.md$/, '')
 
   = select_tag 'docs-index', options_for_select(api_docs_index(@package), request.path), :onchange => "document.location = this.value;"
 
