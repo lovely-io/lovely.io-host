@@ -426,9 +426,14 @@ table.api-doc {
   table.api-doc .colorifier .gutter {
     display: none; }
   table.api-doc tr a[name] {
-    visibility: hidden; }
+    opacity: 0;
+    -webkit-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    -ms-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    transition: opacity 0.4s; }
   table.api-doc tr:hover a[name] {
-    visibility: visible; }
+    opacity: 1; }
   table.api-doc td {
     margin: 0;
     padding: 1em;
