@@ -45,6 +45,7 @@ class StaticController < ApplicationController
   def sha
     @image = Image.find_by_sha(params[:sha]) or raise NotFound
     params[:version] = 'dummy' # force 1 year expiration time
+    headers['Access-Control-Allow-Origin'] = "*"
     send_image
   end
 
