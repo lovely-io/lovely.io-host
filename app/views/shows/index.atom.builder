@@ -8,7 +8,7 @@ atom_feed do |feed|
       entry.content %Q{
         #{md(show.text.split('<cut>').first)}
         <p>
-          <a href="#{show.movie_url}">Download This Episode</a>
+          <a href="#{show_url(show)}">Watch this episode</a>
         </p>
       }, :type => :html
       entry.updated show.updated_at.strftime("%Y-%m-%dT%H:%M:%SZ")
