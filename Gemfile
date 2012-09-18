@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 
@@ -26,5 +26,4 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
-  gem 'growl'
 end
