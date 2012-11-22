@@ -15,17 +15,23 @@ class CloudfrontInvalidator
   def invalidate(paths)
     date   = Time.now.strftime("%a, %d %b %Y %H:%M:%S %Z")
     digest = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), @aws_secret, date)).strip
-    uri    = URI.parse("https://cloudfront.amazonaws.com/2010-08-01/distribution/#{@distribution}/invalidation")
+    uri    = URI.parse("https://cloudfront.amazonaws.com/2012-05-05/distribution/#{@distribution}/invalidation")
 
     req = Net::HTTP::Post.new(uri.path)
     req.initialize_http_header({
-      'x-amz-date' => date,
-      'Content-Type' => 'text/xml',
+      'Date'          => date,
+      'Content-Type'  => 'text/xml',
       'Authorization' => "AWS %s:%s" % [@aws_account, digest]
     })
     req.body = %|
       <InvalidationBatch xmlns="http://cloudfront.amazonaws.com/doc/2012-05-05/">
-        #{paths.map{|p| '<Path>'+ p +'</Path>'}.join("\n")}
+        <Paths>
+            <Quantity>#{paths.size}</Quantity>
+            <Items>
+              #{paths.map{|p| '<Path>'+ p +'</Path>'}.join("\n    ")}
+            </Items>
+          </Paths>
+
         <CallerReference>#{Time.now.utc.to_i}</CallerReference>
       </InvalidationBatch>
     |
