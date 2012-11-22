@@ -24,12 +24,12 @@ module ApplicationHelper
   end
 
   def disqus_comments
-    return '' if Rails.env != 'production'
+    #return '' if Rails.env != 'production'
     content_tag(:div, '', :id => :disqus_thread) +
     content_tag(:script, %Q{
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       dsq.src = 'http://lovelyio.disqus.com/embed.js';
       document.getElementsByTagName('head')[0].appendChild(dsq);
-    }, :type => 'text/javascript')
+    }.html_safe, :type => 'text/javascript')
   end
 end
