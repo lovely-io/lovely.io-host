@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def disqus_comments
-    #return '' if Rails.env != 'production'
+    return '' if Rails.env != 'production'
     content_tag(:div, '', :id => :disqus_thread) +
     content_tag(:script, %Q{
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
