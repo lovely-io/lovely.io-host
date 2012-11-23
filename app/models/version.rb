@@ -102,15 +102,12 @@ protected
   def patch_build_with_images
     return unless package && Package.cdn_url && !@just_patched
 
-    cdn_url = Package.cdn_url
-    cdn_url = cdn_url.slice(0, cdn_url.size - 2) if cdn_url.ends_with?('/')
-
     images.each do |image|
       path = image.path
       path = path.slice(1, path.size) if path.starts_with?('/')
 
       self.build = self.build.gsub(/('|")\/?images\/#{Regexp.escape(path)}(\\?\1)/) do |match|
-        "#{$1}#{cdn_url}/assets/#{image.sha}#{$2}"
+        "#{$1}/assets/#{image.sha}#{$2}"
       end
     end
 
