@@ -1,3 +1,44 @@
+%h1 Everything You Always Wanted On The Front-Side
+
+%h2 Asynchronous Architecture
+
+%pre{:"data-lang" => "html"}
+  <!-- get the 3k core synchroniously -->
+  <script src="http://cdn.lovely.io/core.js"></script>
+  <script type="text/javascript">
+  = "  Lovely(['module-1', 'module-2', 'module-3'], function(m1, m2, m3) {"
+  = "    // load everything else asynchronously!"
+  = "  });"
+  </script>
+
+%h2 Fully Micromodules Based Design
+
+%pre{:"data-lang" => "js"}
+  = %Q[Lovely(['dom-1.2.3', 'ajax-2.3.4'], function($, Ajax) {]
+  = %Q[\n  // Load only what you really need!\n});]
+
+%h2 Automatic Dependencies Handling
+
+%pre{:"data-lang" => "js"}
+  = %Q[Lovely(['complicated-widget-that-depends-on-something-1.2.3'], function(ComplicatedWidget) {]
+  = %Q[\n  // all dependecies are handled automatically]
+  = %Q[!\n  var widget = new ComplicatedWidget();\n});]
+
+%h2 Zero Hassle Styles/Images Delivery
+
+%pre{:"data-lang" => "js"}
+  = %Q[Lovely(['ui-2.3.4'], function(UI) {]
+  = %Q[\n  var icon = new UI.Icon('delete');\n  icon.insertTo('#my-element');\n  // it all will be right there!\n});]
+
+
+%p
+  And much much more! See the <a href="https://github.com/MadRabbit/lovely.io/wiki/Quick-Start">Quick Start</a>,
+  <a href="https://github.com/MadRabbit/lovely.io/wiki">Wiki</a> and our very own
+  <a href="/show">TV Show</a> for more details!
+
+
+
+
 .half-width
   %h2 New Packages
 
