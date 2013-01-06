@@ -1,0 +1,48 @@
+body > header > nav .live
+  color:       yellow
+  display:     inline-block
+  position:    relative
+  -webkit-animation: bounce 2.5s infinite
+
+@-webkit-keyframes bounce
+  0%
+    bottom: 0px
+  10%
+    bottom: .5em
+  20%
+    bottom: 0px
+
+
+#live-demo
+
+  textarea
+    display: block
+    width:   99%
+    height:  12em
+
+  button:first-of-type
+    float: right
+
+  #test
+    position: relative
+    background: #F4F9EC
+    border: 1px solid #D1D3BE
+    border-radius: .25em
+    padding: .125em .25em
+    min-height: 4em
+    margin-top: 2em
+
+    &:before
+      content: "Hi I'm #test DIV"
+      font-size: 2em
+      color: rgba(0,0,0,.3)
+      position: absolute
+      left: .1em
+      top: .1em
+
+    &.result, &.error
+      &:before
+        display: none
+
+    &.error
+      color: red

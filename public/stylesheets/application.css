@@ -484,3 +484,45 @@ table.api-doc {
         color: #444444; }
       table.api-doc td section.api a.api-ref:last-of-type:after {
         content: "}"; }
+
+body > header > nav .live {
+  color: yellow;
+  display: inline-block;
+  position: relative;
+  -webkit-animation: bounce 2.5s infinite; }
+
+@-webkit-keyframes bounce {
+  0% {
+    bottom: 0px; }
+
+  10% {
+    bottom: 0.5em; }
+
+  20% {
+    bottom: 0px; } }
+
+#live-demo textarea {
+  display: block;
+  width: 99%;
+  height: 12em; }
+#live-demo button:first-of-type {
+  float: right; }
+#live-demo #test {
+  position: relative;
+  background: #f4f9ec;
+  border: 1px solid #d1d3be;
+  border-radius: 0.25em;
+  padding: 0.125em 0.25em;
+  min-height: 4em;
+  margin-top: 2em; }
+  #live-demo #test:before {
+    content: "Hi I'm #test DIV";
+    font-size: 2em;
+    color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    left: 0.1em;
+    top: 0.1em; }
+  #live-demo #test.result:before, #live-demo #test.error:before {
+    display: none; }
+  #live-demo #test.error {
+    color: red; }

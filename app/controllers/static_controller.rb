@@ -12,8 +12,8 @@ class StaticController < ApplicationController
 
   # static pages handler
   def page
-    file = "#{::Rails.root}/app/views/pages/#{params[:id]}.html.haml"
-    if File.exists?(file)
+    file = "#{::Rails.root}/app/views/pages/#{params[:id]}.html"
+    if File.exists?(file + ".haml") or File.exists?(file + ".erb")
       render "pages/#{params[:id]}"
     else
       raise NotFound
