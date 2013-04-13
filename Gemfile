@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
@@ -7,7 +7,7 @@ gem 'sqlite3'
 gem 'haml'
 gem 'redcarpet'
 
-gem 'omniauth-twitter'
+gem 'omniauth-github'
 
 gem 'dynamic_form'
 gem 'will_paginate'
