@@ -214,10 +214,10 @@ describe Version do
         @version.save :validate => false
 
         @version.build.should == %Q{
-          'http://cdn.test.com/assets/#{@version.images.first.sha}'
-          "http://cdn.test.com/assets/#{@version.images.first.sha}"
-          "http://cdn.test.com/assets/#{@version.images.last.sha}"
-          'http://cdn.test.com/assets/#{@version.images.last.sha}'
+          '/assets/#{@version.images.first.sha}'
+          "/assets/#{@version.images.first.sha}"
+          "/assets/#{@version.images.last.sha}"
+          '/assets/#{@version.images.last.sha}'
         }
       end
     end
