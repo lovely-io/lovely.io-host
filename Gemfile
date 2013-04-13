@@ -6,6 +6,7 @@ gem 'sqlite3'
 
 gem 'haml'
 gem 'redcarpet'
+gem 'sass-rails'
 
 gem 'omniauth-github'
 
@@ -14,12 +15,6 @@ gem 'will_paginate'
 
 gem 'bcrypt-ruby'
 gem 'json'
-
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
 
 group :test do
   gem 'rspec'

@@ -1,60 +1,151 @@
-%h1 Everything You Always Wanted On The Front-Side
+.punch-line
+  .half-width
+    %h1 Forget The Installation!
 
-%h2 Asynchronous Architecture
+    %p
+      Lovely.IO is a centralized repository of front-side packages
 
-%pre{:"data-lang" => "html"}
-  &lt;!-- get the 3k core synchroniously --&gt;
-  &lt;script src="http://cdn.lovely.io/core.js"&gt;&lt;/script&gt;
-  &lt;script type="text/javascript"&gt;
-  = "  Lovely(['module-1', 'module-2', 'module-3'], function(m1, m2, m3) {"
-  = "    // load everything else asynchronously!"
-  = "  });"
-  &lt;/script&gt;
+    %p
+      Just say which packages you need and you'll get them!
 
-%h2 Fully Micromodules Based Design
-
-%pre{:"data-lang" => "js"}
-  = %Q[Lovely(['dom-1.2.3', 'ajax-2.3.4'], function($, Ajax) {]
-  = %Q[\n  // Load only what you really need!\n});]
-
-%h2 Automatic Dependencies Handling
-
-%pre{:"data-lang" => "js"}
-  = %Q[Lovely(['complicated-widget-that-depends-on-something-1.2.3'], function(ComplicatedWidget) {]
-  = %Q[\n  // all dependecies are handled automatically]
-  = %Q[!\n  var widget = new ComplicatedWidget();\n});]
-
-%h2 Zero Hassle Styles/Images Delivery
-
-%pre{:"data-lang" => "js"}
-  = %Q[Lovely(['ui-2.3.4'], function(UI) {]
-  = %Q[\n  var icon = new UI.Icon('delete');\n  icon.insertTo('#my-element');\n  // it all will be right there!\n});]
+  .half-width
+    %pre{:"data-lang" => "html"}
+      :preserve
+        &lt;script src="http://cdn.lovely.io/core.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript"&gt;
+          Lovely(['dom', 'ajax', 'fx'], function($, Ajax, Fx) {
+            // you're ready to rock!
+          });
+        &lt;/script&gt;
 
 
-%p
-  And much much more! See the <a href="https://github.com/MadRabbit/lovely.io/wiki/Quick-Start">Quick Start</a>,
-  <a href="https://github.com/MadRabbit/lovely.io/wiki">Wiki</a> and our very own
-  <a href="/show">TV Show</a> for more details!
+.punch-line
+  .half-width
+    %pre{:"data-lang" => "js"}
+      :preserve
+        Lovely(['mines-game-1.0.2'], function(Game) {
+          var game = new Game();
+          game.insertTo(document.body);
+        });
+
+  .half-width
+    %h1 Forget Dependencies!
+
+    %p
+      Lovely.IO automatically resolves all the dependencies for you!
+
+
+.punch-line
+  .half-width
+    %h1 Forget The Assets Hassle!
+
+    %p
+      Lovely.IO automatically handles all the assets.
+
+    %p
+      All styles, images, etc. They're just there!
+
+  .half-width
+    %pre{:"data-lang" => "js"}
+      :preserve
+        Lovely(['ui-2.3.4'], function(UI) {
+          var icon = new UI.Icon('delete');
+          icon.insertTo('#my-element');
+
+          // all styles are already there!
+        });
+
+.punch-line
+  .half-width
+    %a.thmb{:href => "/images/pages/landing-benchmark.png", :"data-zoom" => ""}<
+      %img{:src => "/images/pages/landing-benchmark-thmb.png", :style => "height: 7em;"}
+
+    :javascript
+      Lovely(['zoom'], function() {});
+
+  .half-width
+    %h1 Enjoy The DOM Speed!
+
+    %p
+      Lovely.IO DOM package is build on a new architecture
+
+    %p
+      It uses dom-wrappers, which are much, much faster!
+
+.punch-line
+  .half-width
+    %h1 Enjoy The Loading Speed!
+
+    %p
+      Lovely.IO is build upon AMD structure
+
+    %p
+      And it uses CloudFront to deliver the packages!
+
+  .half-width
+    %a.thmb{:href => "/images/pages/landing-loading.png", :"data-zoom" => ""}<
+      %img{:src => "/images/pages/landing-loading.png", :style => "height: 7em;"}
+
+.punch-line
+  .half-width
+    %pre{:"data-lang" => 'coffee'}
+      :preserve
+        LoginForm = Form.inherit
+          send: ->
+            @$super() if @valid()
+
+          valid: ->
+            @values()['username'] && @values()['password']
+
+  .half-width
+    %h1 Be Civilized On Front-Side!
+
+    %p
+      Lovely.IO uses OOP dom-wrappers at it's core
+
+    %p
+      Which allows you to write clean and maintanable code
+
+
+.punch-line
+  .half-width
+    %h1 Be Part Of It!
+
+    %p
+      Lovely.IO is an open and fully automated repository
+
+    %p
+      Anyone can share their packages in here!
+
+  .half-width
+    %pre{:"data-lang" => "shell"}
+      :preserve
+        $ npm install lovely -g
+        $
+        $ lovely new my-awesome-package
+        $ cd my-awesome-package
+        $ ...
+        $ lovely publish
 
 
 
+.packages-block
+  .half-width
+    %h2 New Packages
 
-.half-width
-  %h2 New Packages
+    .packages
+      - Package.recent.limit(10).each do |package|
+        = render package
 
-  .packages
-    - Package.recent.limit(10).each do |package|
-      = render package
+    %p.bottom-links
+      = link_to "All packages", packages_path
 
-  %p.bottom-links
-    = link_to "All packages", packages_path
+  .half-width
+    %h2 Updated Packages
 
-.half-width
-  %h2 Updated Packages
+    .packages
+      - Package.updated.limit(10).each do |package|
+        = render package
 
-  .packages
-    - Package.updated.limit(10).each do |package|
-      = render package
-
-  %p.bottom-links
-    = link_to "RSS Feed", updated_packages_path(:format => :atom)
+    %p.bottom-links
+      = link_to "RSS Feed", updated_packages_path(:format => :atom)

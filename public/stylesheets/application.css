@@ -283,12 +283,35 @@ span.status-confirmed, span.status-active, span.status-paid {
   color: green; }
 
 div.half-width {
-  width: 45%;
+  width: 48%;
   display: inline-block;
   vertical-align: top; }
 
+div.half-width:nth-of-type(2) {
+  margin-left: 3%; }
+
 p.white-space {
   height: 8em; }
+
+.punch-line {
+  margin-bottom: 2em; }
+
+.punch-line h1 {
+  font-weight: 700;
+  margin-top: .15em;
+  opacity: .9; }
+
+.punch-line a.thmb {
+  display: inline-block;
+  margin: 0;
+  margin-top: 1em;
+  padding: 0; }
+
+.punch-line a.thmb img {
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: .25em; }
 
 a.add, a.new, a.back, a.show, a.edit, a.delete, a.remove, a.info {
   padding-left: 20px;
