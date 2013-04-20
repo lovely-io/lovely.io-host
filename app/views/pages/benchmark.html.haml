@@ -1,6 +1,10 @@
 %h1 DOM Speed Benchmark
 
 %p
+  <b>Disclamer</b> this benchmark uses the #{link_to "kick-ass package", package_path("kick-ass")}
+  to test the library's performance. All source code at the package's GitHub repo.
+
+%p
   #start.lui-button Start The Test!
 
 %p
@@ -22,11 +26,12 @@
       test.insertTo('#test-container');
 
       test.on('finish', function() {
-        $('#start').removeClass('buzy');
+        $('#start').hide();
       });
 
       $('#start').on('click', function() {
-        !this.hasClass('busy') && test.start();
+        this.hasClass('lui-button') && test.start();
+        this.removeClass('lui-button').html('Working...');
       });
     });
   });
