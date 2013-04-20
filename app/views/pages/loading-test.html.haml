@@ -1,0 +1,80 @@
+%h1 Content Delivery Speed Test
+
+%p
+  <b>Disclamer:</b> Lovely.IO is AMD based and loads 4 files by using the following layout
+
+%pre.lovely-io{:"data-lang" => "html"}
+  :preserve
+    &lt;html>
+      &lt;head>
+        &lt;script src="http://cdn.lovely.io/core-1.4.1.js">&lt;/script>
+        &lt;script>
+          Lovely(['dom-1.4.3', 'ajax-1.1.4', 'fx-1.1.1'], function() {});
+        &lt;/script>
+      &lt;/head>
+    &lt;/html>
+
+%p
+  For jQuery delivery we use the googleapis hosting with the following layout
+
+%pre.jquery{:"data-lang" => "html"}
+  :preserve
+    &lt;html>
+      &lt;head>
+        &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">&lt;/script>
+      &lt;/head>
+    &lt;/html>
+
+%p
+  #frames-container
+  #results-container
+    .result
+      %h2 Lovely
+      %ul.lovely
+
+    .result
+      %h2 jQuery
+      %ul.jquery
+
+%p
+  #start
+    %a{"href" => "#"} <b>Start The Test!</b>
+    %span{"style" => 'opacity: 0.7'} (don't forget to clean up the browser's cache first!)
+
+
+:css
+  #frames-container {
+    position: absolute;
+    top: -20em;
+  }
+  #results-container .result {
+    display: inline-block;
+    vertical-align: top;
+    width:   20em;
+  }
+
+:javascript
+  Lovely(['dom'], function($) {
+    $(document).delegate('#start', 'click', function(e) {
+      e.preventDefault();
+
+      if (!this.find('a')) return;
+
+      this.html('Working...');
+
+      $('#frames-container').html(
+        '<iframe src="test/load-lovely.html"></iframe>' +
+        '<iframe src="test/load-jquery.html"></iframe>'
+      );
+
+      this.hide();
+    });
+
+    window.loading_log = function(lib, what, time) {
+      $('#results-container ul.'+ lib).append(
+        "<li>"+ what + " in: " + time + "ms</li>"
+      );
+    }
+  });
+
+
