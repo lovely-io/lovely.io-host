@@ -23,8 +23,8 @@
   .half-width
     %pre{:"data-lang" => "js"}
       :preserve
-        Lovely(['mines-game-1.0.2'], function(Game) {
-          var game = new Game();
+        Lovely(['mines-game-1.0.2'], function(MinesGame) {
+          var game = new MinesGame();
           game.insertTo(document.body);
         });
 
@@ -32,7 +32,7 @@
     %h1 Forget Dependencies!
 
     %p
-      Lovely.IO automatically resolves all the dependencies for you!
+      Lovely.IO automatically #{ link_to "resolves all the dependencies", package_demo_path('mines-game')} for you!
 
 
 .punch-line
@@ -40,7 +40,7 @@
     %h1 Forget The Assets Hassle!
 
     %p
-      Lovely.IO automatically handles all the assets.
+      Lovely.IO #{ link_to "automatically handles all the assets", package_demo_path('ui')}.
 
     %p
       All styles, images, etc. They're just there!
@@ -80,7 +80,7 @@
       Lovely.IO is build upon AMD structure
 
     %p
-      And it uses CloudFront for #{link_to "quick packages delivery!", "/loading-test"}
+      And it uses CloudFront for #{link_to "fast packages delivery!", "/loading-test"}
 
   .half-width
     %a.thmb{:href => "/images/pages/landing-loading.png", :"data-zoom" => ""}<

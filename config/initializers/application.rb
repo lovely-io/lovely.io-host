@@ -6,6 +6,6 @@ RESERVED_PACKAGE_NAMES = %w(
   jquery mootools prototype rightjs undesrcore zepto
   sizzle tables casting ui-core
   autocompleter billboard calendar colorpicker
-  dialog in-edit lightbox rater resizable rte selectable
+  in-edit lightbox rater resizable rte selectable
   slider sortable tabs tags tooltips
 )
