@@ -86,7 +86,7 @@ pre {
   -webkit-border-radius: 0.25em; }
 
 body > header, body > section, body > footer {
-  padding: 1.5em 10em; }
+  padding: 1.5em 10%; }
 
 body > header {
   position: relative;

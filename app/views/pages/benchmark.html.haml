@@ -1,0 +1,33 @@
+%h1 DOM Speed Benchmark
+
+%p
+  #start.lui-button Start The Test!
+
+%p
+  #test-container
+
+%p.white-space
+
+:javascript
+  Lovely(["kick-ass", "dom", "ui"], function(KickAss, $) {
+    $(function() {
+      var test = new KickAss({
+        libs: [
+          'lovely-1.4.3',
+          'jquery-1.9.1',
+          'jquery-2.0.0'
+        ]
+      });
+
+      test.insertTo('#test-container');
+
+      test.on('finish', function() {
+        $('#start').removeClass('buzy');
+      });
+
+      $('#start').on('click', function() {
+        !this.hasClass('busy') && test.start();
+      });
+    });
+  });
+
