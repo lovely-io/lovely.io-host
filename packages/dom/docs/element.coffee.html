@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:element.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:element.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee" selected="selected">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Defines the basic dom-element wrapper</p>
+
+<p>Copyright (C) 2011-2013 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Element extends Wrapper</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>|<a href="#" class="api-ref">HTMLElement</a> tag name or a raw dom-element
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> new element options
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> instance</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (element, options)-&gt;&#x000A;    # making a dom-element by the tag-name&#x000A;    if typeof(element) is 'string'&#x000A;      element = elements_cache[element] || (elements_cache[element] = document.createElement(element))&#x000A;      element = element.cloneNode(false)&#x000A;&#x000A;    Wrapper.call(this, element)&#x000A;&#x000A;    if `options != null`&#x000A;      for key of options&#x000A;        switch key&#x000A;          when 'id'    then @_.id        = options[key]&#x000A;          when 'html'  then @_.innerHTML = options[key]&#x000A;          when 'class' then @_.className = options[key]&#x000A;          when 'style' then @style         options[key]&#x000A;          when 'on'    then @on            options[key]&#x000A;          else              @attr     key, options[key]&#x000A;&#x000A;    return this</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>making the Element to automatically generate the dom-collection
+methods for the <a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> class with the following principle</p>
+
+<p>if this is an element&#39;s mutating method and it returns a
+reference to the element itself, then this method will be called
+on all the elements in the collection.</p>
+
+<p>on the other hand, if this is a getter method and it returns
+some value that is different from the element itself, then
+the collection method will return the result of that method
+call on the <em>first</em> element in the collection</p>
+</td><td><pre data-lang='coffee'>Element.include = (hash)-&gt;&#x000A;  Class.include.apply(this, arguments)&#x000A;&#x000A;  for name, method of hash&#x000A;    do (name)-&gt;&#x000A;      unless name of core.List.prototype&#x000A;        NodeList.prototype[name] = -&gt;&#x000A;          for element, i in @&#x000A;            result = element[name].apply(element, arguments)&#x000A;            return result if i is 0 and result isnt element&#x000A;&#x000A;          # returning null if there are no items on the list&#x000A;          # in case the user asked for data, otherwise returning&#x000A;          # the search itself so that the user could chain the calls&#x000A;          return if @length is 0 then null else @</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Resolves any sort of element&#39;s reference into an <a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> instance</p>
+<pre data-lang='js'>Element.resolve('#css-rule');&#x000A;Element.resolve(document.getElementById('my-element'));&#x000A;Element.resolve(new Element('div'));&#x000A;Element.resolve($('#css-rule'));</pre>
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>|<a href="#" class="api-ref">HTMLElement</a>|<a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a>|<a href="/packages/dom/docs/node_list.coffee" class="api-ref">dom.NodeList</a>
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> wrapper or <tt>null</tt></div></section>
+</td><td><pre data-lang='coffee'>Element.resolve = (element)-&gt;&#x000A;  if element instanceof Element&#x000A;    return element&#x000A;  else if typeof(element) is 'string'&#x000A;    element = $(element)[0]&#x000A;  else if element instanceof NodeList&#x000A;    element = element[0]&#x000A;  else if `element != null && element.nodeType === 1`&#x000A;    return wrap(element)&#x000A;&#x000A;  return element || null&#x000A;&#x000A;&#x000A;# private&#x000A;# the dom-elements cache, for quicker instantiation&#x000A;elements_cache = {}</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

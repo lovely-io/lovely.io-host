@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Timer Demo</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+<script type='text/javascript'>Lovely(["timer-1.0.1", "dom"], function(Timer, $) {
+        $(function() {
+          var t1 = new Timer().insertTo('#standard .timer').start();
+          var t2 = new Timer({hours: true}).insertTo('#with-hours .timer').start();
+          var t3 = new Timer({milli: true, period: 50}).insertTo('#milli .timer').start();
+
+          $('#standard a.start').on("click", function() { t1.start(); return false; });
+          $('#standard a.stop').on("click",  function() { t1.stop();  return false; });
+          $('#standard a.reset').on("click", function() { t1.reset(); return false; });
+
+          $('#with-hours a.start').on("click", function() { t2.start(); return false; });
+          $('#with-hours a.stop').on("click",  function() { t2.stop();  return false; });
+          $('#with-hours a.reset').on("click", function() { t2.reset(); return false; });
+
+          $('#milli a.start').on("click", function() { t3.start(); return false; });
+          $('#milli a.stop').on("click",  function() { t3.stop();  return false; });
+          $('#milli a.reset').on("click", function() { t3.reset(); return false; });
+        });
+      });</script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-demo'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/timer" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io-games/tree/master/timer" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/timer/1.0.1/demo" class="demo">Live Demo</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>621 Bytes (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/Games">Games</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/timer/1.0.2">1.0.2</a>
+(17 Aug 13:18)
+</li>
+<li class='current'>
+<a href="/packages/timer/1.0.1">1.0.1</a>
+(07 Aug 09:39)
+</li>
+<li>
+<a href="/packages/timer/1.0.0">1.0.0</a>
+(31 Jul 09:46)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/timer-1.0.2.js" class="cdn">timer-1.0.2.js</a></li>
+<li><a href="http://cdn.lovely.io/timer-1.0.1.js" class="cdn">timer-1.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/timer-1.0.0.js" class="cdn">timer-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.0.0">dom-1.0.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Timer Demo</h1>
+
+    <h2>Standard Timer</h2>
+    <div id="standard">
+      <p class="timer"></p>
+      <p>
+        <a href="" class="start">Start</a> |
+        <a href="" class="stop">Stop</a>   |
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+    <h2>Timer With Hours</h2>
+    <div id="with-hours">
+      <p class="timer"></p>
+      <p>
+        <a href="" class="start">Start</a> |
+        <a href="" class="stop">Stop</a>   |
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+    <h2>Timer With Milliseconds</h2>
+    <div id="milli">
+      <p class="timer"></p>
+      <p>
+        <a href="" class="start">Start</a> |
+        <a href="" class="stop">Stop</a>   |
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

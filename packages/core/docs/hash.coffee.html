@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » core:hash.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/core">core</a>:hash.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/core/docs/class.coffee">class.coffee</option>
+<option value="/packages/core/docs/events.coffee">events.coffee</option>
+<option value="/packages/core/docs/hash.coffee" selected="selected">hash.coffee</option>
+<option value="/packages/core/docs/list.coffee">list.coffee</option>
+<option value="/packages/core/docs/lovely.coffee">lovely.coffee</option>
+<option value="/packages/core/docs/main.coffee">main.coffee</option>
+<option value="/packages/core/docs/options.coffee">options.coffee</option>
+<option value="/packages/core/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Hash is a little inheritable wrapper over Object
+to handle key-value things</p>
+
+<p><strong>NOTE</strong>: Hash filters all the lists like keys/values
+      and so one by the <tt>hasOwnProperty</tt> check</p>
+
+<p><strong>NOTE</strong>: For every instance method, there is a corresponding
+      class level method, that does the same thing but
+      works with raw javascript objects. f.e.</p>
+<pre data-lang='coffee'>new Hash({a:1}).merge({b:2}) # -&gt; new Hash(a:1, b:2)&#x000A;Hash.merge({a:1}, {b:2})     # -&gt; {a:1, b:2}</pre>
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Hash&#x000A;  _: null # the real object reference</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>basic constructor</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> some object
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (object)-&gt;&#x000A;    @_ = object || {}&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Making <tt>Hash.include</tt> to automatically generate
+class level methods that will work with raw
+JavaScript objects. They are all the same
+the <tt>Hash.prototype</tt> ones, but they always
+take and return raw objects</p>
+</td><td><pre data-lang='coffee'>Hash.include = (params)-&gt;&#x000A;  Class.include.apply(Hash, arguments)&#x000A;&#x000A;  for name of params&#x000A;    do (name)-&gt;&#x000A;      Hash[name] = -&gt;&#x000A;        args = A(arguments)&#x000A;        hash = new Hash(args.shift())&#x000A;        args = hash[name].apply(hash, args)&#x000A;        args = args._ if args instanceof Hash&#x000A;        args&#x000A;&#x000A;&#x000A;# the actual Hash methods&#x000A;Hash.include</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Returns the list of keys in the object</p>
+
+<section class='api'><div><strong>@return </strong><em></em>Array of keys</div></section>
+</td><td><pre data-lang='coffee'>  keys: -&gt;&#x000A;    key for own key of this._</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Returns a list of values for the object</p>
+
+<section class='api'><div><strong>@return </strong><em></em>Array of keys</div></section>
+</td><td><pre data-lang='coffee'>  values: -&gt;&#x000A;    value for own key, value of this._</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Chesks if the object is empty</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  empty: -&gt;&#x000A;    for own key of this._&#x000A;      return no&#x000A;    yes</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Creates a complete clone of the the Hash</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> clone</div></section>
+</td><td><pre data-lang='coffee'>  clone: -&gt; this.merge()</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Loops through every key-value pair in the list</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> callback
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> optional scope
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> this</div></section>
+</td><td><pre data-lang='coffee'>  forEach: (callback, scope) -&gt;&#x000A;    object = this._&#x000A;&#x000A;    for own key, value of object&#x000A;      callback.call(scope, key, value, object)&#x000A;&#x000A;    this</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Maps results of calls on the callback function
+with every key-value pairs in the hash</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> callback
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> optional scope
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Array</a> result of calls</div></section>
+</td><td><pre data-lang='coffee'>  map: (callback, scope) -&gt;&#x000A;    object = this._; result = []&#x000A;&#x000A;    for own key, value of object&#x000A;      result.push(callback.call(scope, key, value, object))&#x000A;&#x000A;    result</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Creates a new hash by filtering out the original one</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> callback
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> optional scope
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> new</div></section>
+</td><td><pre data-lang='coffee'>  filter: (callback, scope) -&gt;&#x000A;    object = this._; data = {}&#x000A;&#x000A;    for own key, value of object&#x000A;      if callback.call(scope, key, value, object)&#x000A;        data[key] = object[key]&#x000A;&#x000A;    new Hash(data)</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Creates a new hash by rejecting some values out the original one</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> callback
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> optional scope
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> new</div></section>
+</td><td><pre data-lang='coffee'>  reject: (callback, scope) -&gt;&#x000A;    object = this._; data = {}&#x000A;&#x000A;    for own key, value of object&#x000A;      if !callback.call(scope, key, value, object)&#x000A;        data[key] = object[key]&#x000A;&#x000A;    new Hash(data)</pre></td></tr>
+<tr><td><a href='#12' name='12'></a>
+<p>Creates a new Hash by merging the content of the current
+hash with all the incomming ones</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> or <a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> to merge
+....
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> new</div></section>
+</td><td><pre data-lang='coffee'>  merge: -&gt;&#x000A;    args = A(arguments); data = {}&#x000A;&#x000A;    args.unshift(this._) # starting with hash own data&#x000A;&#x000A;    while args.length &gt; 0&#x000A;      object = args.shift()&#x000A;      object = object._ if object instanceof Hash&#x000A;&#x000A;      for own key, value of object&#x000A;        data[key] = if isObject(value) && !(value instanceof Class) then Hash.merge(&#x000A;          (if key of data then data[key] else {}), value&#x000A;        ) else object[key]&#x000A;&#x000A;    new Hash(data)</pre></td></tr>
+<tr><td><a href='#13' name='13'></a>
+<p>Converts the Hash into a plain object</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Object</a> plain object</div></section>
+</td><td><pre data-lang='coffee'>  toObject: -&gt; this._</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/core/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

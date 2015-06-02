@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » fx:element.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/fx">fx</a>:element.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/fx/1.0.3/docs/colors.coffee">colors.coffee</option>
+<option value="/packages/fx/1.0.3/docs/element.coffee" selected="selected">element.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx.coffee">fx.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/attr.coffee">fx/attr.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/fade.coffee">fx/fade.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/highlight.coffee">fx/highlight.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/scroll.coffee">fx/scroll.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/slide.coffee">fx/slide.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/style.coffee">fx/style.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/twin.coffee">fx/twin.coffee</option>
+<option value="/packages/fx/1.0.3/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The DOM Element extensions for a quick fx calls</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Element.include</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Starts the Fx.Style on this element</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> end styles
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx-options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  animate: (style, options)-&gt;&#x000A;    new Fx.Style(@, options).start(style)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Stops all ongoing effects on this element</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  stopFx: -&gt;&#x000A;    Fx_cancel_all(@)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Makes the element to appear with given fx</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional fx name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  show: (fx, options)-&gt;&#x000A;    call_with_fx(@, fx, options, @$super, 'show')</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Hides the element with given Fx</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional fx name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  hide: (fx, options)-&gt;&#x000A;    call_with_fx(@, fx, options, @$super, 'hide')</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Toggles the element style optionally with the Fx</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional fx name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  toggle: (fx, options)-&gt;&#x000A;    call_with_fx(@, fx, options, @$super, 'toggle')</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Removes the element, optionally with the Fx</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional fx name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  remove: (fx, options)-&gt;&#x000A;    call_with_fx(@, fx, options, @$super, 'remove')</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Runs the Fx.Fade effect on the element</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> &#39;in&#39;, &#39;out&#39; or &#39;toggle&#39; (default)
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  fade: (direction, options)-&gt;&#x000A;    new Fx.Fade(@, options).start(direction)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Runs the Fx.Slide effect on the element</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> &#39;in&#39;, &#39;out&#39; or &#39;toggle&#39; (default)
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  slide: (direction, options)-&gt;&#x000A;    new Fx.Slide(@, options).start(direction)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Runs the Fx.Highlight on the element</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> start color
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> end color
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  highlight: (start_color, end_color, options)-&gt;&#x000A;    new Fx.Highlight(@, options).start(start_color, end_color)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Calls a smooth scroll on the ellement when asked</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> scrolling position
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx-options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/1.0.3/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  scroll: (position, options)-&gt;&#x000A;    if isObject(options)&#x000A;      new Fx.Scroll(@, options).start(position)&#x000A;    else&#x000A;      super(position, options)&#x000A;    return @&#x000A;&#x000A;&#x000A;# private&#x000A;&#x000A;call_with_fx = (element, fx, options, original, method)-&gt;&#x000A;  if !(method is 'show' and element.visible()) and !(method is 'hide' and element.hidden())&#x000A;    if typeof(fx) is 'string'&#x000A;      fx = fx[0].toUpperCase() + fx.slice(1)&#x000A;      fx = new Fx[fx](element, options)&#x000A;      fx.on('finish', -&gt; element.remove()) if method is 'remove'&#x000A;      fx.start()&#x000A;    else&#x000A;      original.call(element)&#x000A;&#x000A;  return element</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/fx/1.0.3/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

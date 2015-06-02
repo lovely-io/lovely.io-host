@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>tag:lovely.io,2005:/show</id>
+  <link type="text/html" href="http://lovely.io" rel="alternate"/>
+  <link type="application/atom+xml" href="http://lovely.io/show.atom" rel="self"/>
+  <title>Lovely.IO Episodes</title>
+  <updated>2012-11-26T10:09:35Z</updated>
+  <entry>
+    <id>tag:lovely.io,2005:Show/7</id>
+    <published>2012-11-26T10:09:35Z</published>
+    <updated>2012-11-26T10:09:35Z</updated>
+    <link type="text/html" href="http://lovely.io/show/how-to-participate" rel="alternate"/>
+    <title>How To Participate</title>
+    <content type="html">
+        &lt;p&gt;Hey folks, the new episode of our fabulous show is here!&lt;/p&gt;
+
+&lt;p&gt;Today we&amp;#39;re talking about participation in the project. I&amp;#39;m explaining the project structure, how to install everything, how to make changes and so on.&lt;/p&gt;
+
+&lt;p&gt;Enjoy and don&amp;#39;t be shy to ask questions!&lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href="http://lovely.io/show/how-to-participate"&gt;Watch this episode&lt;/a&gt;
+        &lt;/p&gt;
+      </content>
+    <updated>2012-11-26T10:09:35Z</updated>
+    <author>
+      <name>Nikolay Nemshilov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:lovely.io,2005:Show/6</id>
+    <published>2012-11-19T13:48:59Z</published>
+    <updated>2012-11-19T13:48:59Z</updated>
+    <link type="text/html" href="http://lovely.io/show/multileveled-mvc-in-action" rel="alternate"/>
+    <title>Multileveled MVC in Action</title>
+    <content type="html">
+        &lt;p&gt;Hey fellas!&lt;/p&gt;
+
+&lt;p&gt;The new episode of the lovely.io show is here!&lt;/p&gt;
+
+&lt;p&gt;Today we&amp;#39;re digging into something awesome that&amp;#39;s called &amp;quot;multileveled MVC&amp;quot; and building the mines game in JavaScript and LovelyIO&lt;/p&gt;
+
+&lt;p&gt;All the source code of the episode can be found &lt;a href="https://github.com/MadRabbit/lovely.io-show/tree/master/E006"&gt;over here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Enjoy!&lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href="http://lovely.io/show/multileveled-mvc-in-action"&gt;Watch this episode&lt;/a&gt;
+        &lt;/p&gt;
+      </content>
+    <updated>2012-11-19T13:48:59Z</updated>
+    <author>
+      <name>Nikolay Nemshilov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:lovely.io,2005:Show/5</id>
+    <published>2012-11-04T16:52:39Z</published>
+    <updated>2012-11-04T16:52:39Z</updated>
+    <link type="text/html" href="http://lovely.io/show/mvc-is-everywhere" rel="alternate"/>
+    <title>MVC Is Everywhere</title>
+    <content type="html">
+        &lt;p&gt;Hey folks,&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re back with a new episode! &lt;/p&gt;
+
+&lt;p&gt;This time I&amp;#39;m talking about MVC stuff, modularity and basic application structure of lovely.io based projects.&lt;/p&gt;
+
+&lt;p&gt;Enjoy the show, and let me know if you have any questions!&lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href="http://lovely.io/show/mvc-is-everywhere"&gt;Watch this episode&lt;/a&gt;
+        &lt;/p&gt;
+      </content>
+    <updated>2012-11-04T16:52:39Z</updated>
+    <author>
+      <name>Nikolay Nemshilov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:lovely.io,2005:Show/4</id>
+    <published>2012-10-15T14:47:32Z</published>
+    <updated>2012-10-15T14:47:32Z</updated>
+    <link type="text/html" href="http://lovely.io/show/you-first-dom-wrapper" rel="alternate"/>
+    <title>You First Dom Wrapper</title>
+    <content type="html">
+        &lt;p&gt;Hey fellas,&lt;/p&gt;
+
+&lt;p&gt;We have a new episode of our hilarious show. This time we will go deeper inside of the dom-wrappers architecture and convert the spaghetti code from our last episode into some more or less decent object oriented code.&lt;/p&gt;
+
+&lt;p&gt;As per usual, you can find all the source code of this episode in this &lt;a href="https://github.com/MadRabbit/lovely.io-show"&gt;github repo&lt;/a&gt; and you can ask questions over here &lt;a href="https://twitter.com/nemshilov"&gt;@nemshilov&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href="http://lovely.io/show/you-first-dom-wrapper"&gt;Watch this episode&lt;/a&gt;
+        &lt;/p&gt;
+      </content>
+    <updated>2012-10-15T14:47:32Z</updated>
+    <author>
+      <name>Nikolay Nemshilov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:lovely.io,2005:Show/3</id>
+    <published>2012-10-07T13:40:03Z</published>
+    <updated>2012-10-07T13:40:03Z</updated>
+    <link type="text/html" href="http://lovely.io/show/a-simple-rails-app-case" rel="alternate"/>
+    <title>A Simple Rails App Case</title>
+    <content type="html">
+        &lt;p&gt;Hey good folks of Earth,&lt;/p&gt;
+
+&lt;p&gt;Good to see you here again. It was more than a year since the last episode, the basic reason for this, is that i wanted to wait a bit before ideas of ditching IE8 support will get more widely accepted, and I also wanted to smooth some edges out of the whole lovely.io workflow, and stuff like that.&lt;/p&gt;
+
+&lt;p&gt;So, today we&amp;#39;re getting back on the air with a new episode. And today I&amp;#39;m going to show how to use lovely.io on practice. There is nothing really advanced, just a bunch of pretty much generic use cases, just to give you a feel of how it all gets together.&lt;/p&gt;
+
+&lt;p&gt;I hope you enjoy it. And thanks for stopping by and giving it a go.&lt;/p&gt;
+
+&lt;h2&gt;&lt;/h2&gt;
+
+&lt;p&gt;Cheers,
+Nik&lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href="http://lovely.io/show/a-simple-rails-app-case"&gt;Watch this episode&lt;/a&gt;
+        &lt;/p&gt;
+      </content>
+    <updated>2012-10-07T13:40:03Z</updated>
+    <author>
+      <name>Nikolay Nemshilov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:lovely.io,2005:Show/2</id>
+    <published>2011-08-23T13:14:50Z</published>
+    <updated>2013-02-05T00:09:43Z</updated>
+    <link type="text/html" href="http://lovely.io/show/making-a-simple-package" rel="alternate"/>
+    <title>Making A Simple Package</title>
+    <content type="html">
+        &lt;p&gt;This show explains how to install &lt;tt&gt;lovely&lt;/tt&gt; CLI tools an how to make and publish a simple package for lovely.io&lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href="http://lovely.io/show/making-a-simple-package"&gt;Watch this episode&lt;/a&gt;
+        &lt;/p&gt;
+      </content>
+    <updated>2013-02-05T00:09:43Z</updated>
+    <author>
+      <name>Nikolay Nemshilov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:lovely.io,2005:Show/1</id>
+    <published>2011-08-20T11:44:42Z</published>
+    <updated>2013-01-05T22:14:50Z</updated>
+    <link type="text/html" href="http://lovely.io/show/show-me-some-love" rel="alternate"/>
+    <title>Show Me Some Love</title>
+    <content type="html">
+        &lt;p&gt;Hi everyone!&lt;/p&gt;
+
+&lt;p&gt;This is the pilot episode of our screencast about lovely.io. We talk about the project&amp;#39;s goals and basic principles, also show you some awesome things it can do.&lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href="http://lovely.io/show/show-me-some-love"&gt;Watch this episode&lt;/a&gt;
+        &lt;/p&gt;
+      </content>
+    <updated>2013-01-05T22:14:50Z</updated>
+    <author>
+      <name>Nikolay Nemshilov</name>
+    </author>
+  </entry>
+</feed>

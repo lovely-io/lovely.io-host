@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » UI Standard Widgets Demo</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+<script type='text/javascript'>Lovely(['ui-1.1.1'], function(UI) {
+        var $ = Lovely.module('dom');
+        $(function() {
+          ['add', 'edit', 'delete', 'reply'].forEach(function(type) {
+            new UI.Button(type, {'class': 'lui-button-'+ type}).insertTo('#buttons-demo');
+            new UI.Icon({'class': 'lui-icon-'+ type}).insertTo('#icons-demo')
+          });
+
+          new UI.Spinner().insertTo('#spinners-demo');
+          new UI.Spinner({size: 3}).insertTo('#spinners-demo');
+          new UI.Spinner({size: 8, 'class': 'green'}).insertTo('#spinners-demo');
+
+          new UI.Locker().insertTo('#locker-demo');
+          new UI.Locker({size: 6}).insertTo('#tight-space-locker');
+
+          $('#modal-demo1').on('click', function(event) { event.stop();
+            new UI.Modal({html: "HTML Hello World!"}).show();
+          });
+          $('#modal-demo2').on('click', function(event) { event.stop();
+            new UI.Modal({html: "HTML + "}).insert("Insert Hello World!").show();
+          });
+          $('#modal-demo3').on('click', function(event) { event.stop();
+            new UI.Modal({html: "Boo!"}).update("Update Hello World!").show();
+          });
+          $('#modal-demo4').on('click', function(event) { event.stop();
+            new UI.Modal({html: "Hello Non Lock!", nolock: true}).show();
+          });
+        });
+      });</script>
+<style type='text/css'>.lui-button.red {
+        background-color: #ecc;
+      }
+      .lui-button.blue {
+        background-color: #cce;
+      }
+      .lui-button.green {
+        background-color: #cec;
+      }
+      #icons-demo .lui-icon {
+        margin-right: .25em;
+      }
+      #spinners-demo .lui-spinner {
+        margin-right: .5em;
+      }
+      #locker-demo {
+        position: relative;
+        width: 40em;
+      }
+      #tight-space-locker {
+        position: relative;
+        width:    5em;
+        height:   5em;
+      }
+      div.lui-modal div.lui-inner {
+        background: pink;
+        padding: 1em;
+      }</style>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-demo'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/ui" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io/tree/master/ui/core" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/ui/1.1.1/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/ui/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>3.04 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/UI">UI</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/ui/2.1.2">2.1.2</a>
+(12 Oct 07:16)
+</li>
+<li>
+<a href="/packages/ui/2.1.1">2.1.1</a>
+(02 Oct 05:52)
+</li>
+<li>
+<a href="/packages/ui/2.1.0">2.1.0</a>
+(02 Oct 05:47)
+</li>
+<li>
+<a href="/packages/ui/2.0.1">2.0.1</a>
+(02 Jul 07:21)
+</li>
+<li>
+<a href="/packages/ui/2.0.0">2.0.0</a>
+(14 Jun 05:44)
+</li>
+<li>
+<a href="/packages/ui/1.2.0">1.2.0</a>
+(04 Jun 03:35)
+</li>
+<li>
+<a href="/packages/ui/1.1.2">1.1.2</a>
+(05 May 07:39)
+</li>
+<li class='current'>
+<a href="/packages/ui/1.1.1">1.1.1</a>
+(04 May 11:33)
+</li>
+<li>
+<a href="/packages/ui/1.1.0">1.1.0</a>
+(04 May 09:38)
+</li>
+<li>
+<a href="/packages/ui/1.0.1">1.0.1</a>
+(25 Mar 14:58)
+</li>
+<li>
+<a href="/packages/ui/1.0.0">1.0.0</a>
+(24 Mar 13:55)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/ui-2.1.2.js" class="cdn">ui-2.1.2.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-2.1.1.js" class="cdn">ui-2.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-2.1.0.js" class="cdn">ui-2.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-2.0.1.js" class="cdn">ui-2.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-2.0.0.js" class="cdn">ui-2.0.0.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-1.2.0.js" class="cdn">ui-1.2.0.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-1.1.2.js" class="cdn">ui-1.1.2.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-1.1.1.js" class="cdn">ui-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-1.1.0.js" class="cdn">ui-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-1.0.1.js" class="cdn">ui-1.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/ui-1.0.0.js" class="cdn">ui-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.2.0">dom-1.2.0</a></li>
+<li><a href="/packages/fx/1.0.3">fx-1.0.3</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>UI Standard Widgets Demo</h1>
+
+    <h2>Plain Buttons</h2>
+    <p>
+      <input type="button" class="lui-button" value="Input" />
+      <a href="" class="lui-button">Link</a>
+      <button class="lui-button">Button</button>
+    </p>
+
+    <h2>Disabled Buttons</h2>
+    <p>
+      <input type="button" class="lui-button" disabled="disabled" value="Input" />
+      <a href="" class="lui-button" disabled="disabled">Link</a>
+      <button class="lui-button" disabled="disabled">Button</button>
+    </p>
+
+    <h2>Painted Buttons</h2>
+    <p>
+      <input type="button" class="lui-button red" value="Input" />
+      <a href="" class="lui-button blue">Link</a>
+      <button class="lui-button green">Button</button>
+    </p>
+
+    <h2>Buttons With Icons</h2>
+    <p>
+      <a href="" class="lui-button lui-button-add">Add</a>
+      <a href="" class="lui-button lui-button-edit">Edit</a>
+      <a href="" class="lui-button lui-button-delete">Delete</a>
+      <a href="" class="lui-button lui-button-reply">Reply</a>
+    </p>
+    <p>
+      <a href="" class="lui-button lui-button-star">Star</a>
+      <a href="" class="lui-button lui-button-play">Play</a>
+      <a href="" class="lui-button lui-button-back">Back</a>
+      <a href="" class="lui-button lui-button-forward">Foward</a>
+    </p>
+    <p>
+      <a href="" class="lui-button lui-button-like">Like</a>
+      <a href="" class="lui-button lui-button-ok">Okay</a>
+      <a href="" class="lui-button lui-button-cancel">Cancel</a>
+      <a href="" class="lui-button lui-button-help">Help</a>
+    </p>
+
+    <h2>Programmatically Created Buttons</h2>
+    <p>
+      <div id="buttons-demo"></div>
+    </p>
+
+    <h2>Basic Icons</h2>
+    <p>
+      <i class="lui-icon lui-icon-add"></i>
+      <i class="lui-icon lui-icon-edit"></i>
+      <i class="lui-icon lui-icon-delete"></i>
+      <i class="lui-icon lui-icon-reply"></i>
+      <i class="lui-icon lui-icon-star"></i>
+      <i class="lui-icon lui-icon-like"></i>
+      <i class="lui-icon lui-icon-ok"></i>
+      <i class="lui-icon lui-icon-cancel"></i>
+    </p>
+    <p>
+      <i class="lui-icon lui-icon-back"></i>
+      <i class="lui-icon lui-icon-forward"></i>
+      <i class="lui-icon lui-icon-previous"></i>
+      <i class="lui-icon lui-icon-previous2"></i>
+      <i class="lui-icon lui-icon-next2"></i>
+      <i class="lui-icon lui-icon-next"></i>
+      <i class="lui-icon lui-icon-help"></i>
+    </p>
+
+    <h2>Programmatically Created Icons</h2>
+    <p>
+      <div id="icons-demo"></div>
+    </p>
+
+    <h2>Spinners</h2>
+    <p>
+      <div id="spinners-demo"></div>
+    </p>
+
+    <h2>Simple Locker</h2>
+    <p>
+      <div id="locker-demo">
+        <p>
+          Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.
+        </p>
+        <p>
+          No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum
+        </p>
+      </div>
+    </p>
+
+    <h2>Tight Space Locker</h2>
+    <p>
+      <div id="tight-space-locker">
+        Boo hoo
+      </div>
+    </p>
+
+    <h2>Modal Screen</h2>
+    <p>
+      <a href="#" id="modal-demo1">Modal{html: Hello World!}</a> |
+      <a href="#" id="modal-demo2">Modal#insert test</a> |
+      <a href="#" id="modal-demo3">Modal#update test</a> |
+      <a href="#" id="modal-demo4">Modal{nolock: true}</a>
+    </p>
+
+
+
+    <p class="white-space"></p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

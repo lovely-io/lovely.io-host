@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Nanny</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/nanny" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/nanny" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/nanny/1.1.2/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/nanny/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>1.82 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/UI">UI</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li class='current'>
+<a href="/packages/nanny/1.1.2">1.1.2</a>
+(12 Aug 06:05)
+</li>
+<li>
+<a href="/packages/nanny/1.1.1">1.1.1</a>
+(12 Aug 06:00)
+</li>
+<li>
+<a href="/packages/nanny/1.1.0">1.1.0</a>
+(08 Jun 08:41)
+</li>
+<li>
+<a href="/packages/nanny/1.0.0">1.0.0</a>
+(29 May 03:35)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/nanny-1.1.2.js" class="cdn">nanny-1.1.2.js</a></li>
+<li><a href="http://cdn.lovely.io/nanny-1.1.1.js" class="cdn">nanny-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/nanny-1.1.0.js" class="cdn">nanny-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/nanny-1.0.0.js" class="cdn">nanny-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.2.0">dom-1.2.0</a></li>
+<li><a href="/packages/ui/1.2.0">ui-1.2.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Nanny</h1>
+
+<p>Nanny is a little package that will help you to create UI walkthroughs</p>
+
+<h2>Usage Basics</h2>
+
+<p>Firstly you&#39;ll need to add <tt>data-nanny-html</tt> attributes to the blocks where you want
+the helper texts to appear</p>
+<pre data-lang='html'>    &lt;div data-nanny-html="This block does some useful thing"&gt;&#x000A;      Very useful block of stuff&#x000A;    &lt;/div&gt;&#x000A;    &lt;div data-nanny-html="This block does something else"&gt;&#x000A;      Some other block&#x000A;    &lt;/div&gt;</pre>
+<p>You also can specify at which side of your block the popup should appear</p>
+<pre data-lang='html'>    &lt;div data-nanny-html="..." data-nanny-position="left"&gt;....&lt;/div&gt;&#x000A;    &lt;div data-nanny-html="..." data-nanny-position="bottom"&gt;....&lt;/div&gt;</pre>
+<p>Once you&#39;re done with that, just initialize the <tt>Nanny</tt> object through the <tt>Lovely</tt>
+interface and call the <tt>Nanny#start()</tt> method</p>
+<pre data-lang='js'>    Lovely(['nanny-1.0.0'], function(Nanny) {&#x000A;      // when you're ready&#x000A;      var nanny = new Nanny({options: 'here'});&#x000A;      nanny.start();&#x000A;    });</pre>
+<p>This will start showing the helper texts over the marked blocks</p>
+
+<h2>Specifying The Order</h2>
+
+<p>If you need the popups to appear in a specific order, add the <tt>data-nanny-order</tt> attribute
+with some numbers</p>
+<pre data-lang='html'>    &lt;div data-nanny-html="..." data-nanny-order="1"&gt;&lt;/div&gt;&#x000A;    &lt;div data-nanny-html="..." data-nanny-order="2"&gt;&lt;/div&gt;</pre>
+<p><strong>NOTE</strong> all items that don&#39;t have the <tt>order</tt> attribute will be pushed to the end of the
+list giving the priority to the items with numbers.</p>
+
+<h2>Options</h2>
+
+<ul>
+<li><tt>scope</tt>      (document.body)  - working scope element</li>
+<li><tt>timeout</tt>    (4000)           - how long each piece should hang. set to <tt>false</tt> if you want to disable auto-switching</li>
+<li><tt>position</tt>   (&#39;top&#39;)          - default message position</li>
+<li><tt>loop</tt>       (true)           - whether to loop or not through the helpers</li>
+<li><tt>html</tt>       (&#39;&#39;)             - default html content</li>
+<li><tt>fxName</tt>     (&#39;fade&#39;)         - name of the visual effect to use</li>
+<li><tt>fxDuration</tt> (&#39;normal&#39;)       - visual effect duration</li>
+<li><tt>showNext</tt>   (true)           - show the &#39;next&#39; link or not</li>
+<li><tt>scroll</tt>     (true)           - autoscroll the window to the popups</li>
+</ul>
+
+<h2>API Reference</h2>
+
+<p>The <tt>Nanny</tt> class is inherited from the standard <tt>dom.Element</tt> class and has all the same API.
+Plus it has two additional methods for starting and stopping the popups show</p>
+
+<ul>
+<li><tt>#start()</tt> - to start the show</li>
+<li><tt>#stop()</tt> - is for stopping the show</li>
+</ul>
+
+<h2>Events</h2>
+
+<p><tt>Nanny</tt> objects fire the following list of events</p>
+
+<ul>
+<li><tt>show</tt> - when it appears at a marked block</li>
+<li><tt>hide</tt> - when it gets hidden</li>
+<li><tt>start</tt> - when the show starts</li>
+<li><tt>stop</tt> - when the show get stopped</li>
+</ul>
+
+<h2>Copyright And License</h2>
+
+<p>This project is released under the terms of the MIT license</p>
+
+<p>Copyright (C) 2012 Nikolay Nemshilov</p>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

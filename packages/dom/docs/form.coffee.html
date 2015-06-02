@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:form.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:form.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee" selected="selected">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The forms specific dom-wrapper</p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Form extends Element</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor</p>
+<pre data-lang='js'>new Form(raw_dom_form)&#x000A;new Form(method: 'post', action: '/some.url')</pre>
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">HTMLFormElement</a>|<a href="#" class="api-ref">Object</a> raw dom-form or a set of options
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> options
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/form.coffee" class="api-ref">Form</a> this</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (element, options) -&gt;&#x000A;    if !element or (!isElement(element) and isObject(element))&#x000A;      options = element || {}&#x000A;      element = 'form'&#x000A;      remote  = 'remote' of options&#x000A;      delete(options.remote)&#x000A;&#x000A;    super(element, options)&#x000A;&#x000A;    @remotize() if remote and @remotize&#x000A;&#x000A;    return @&#x000A;&#x000A;&#x000A;# making the methods with NodeList shortcuts&#x000A;Form.include = Element.include&#x000A;&#x000A;Form.include</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Returns the form elements as an array of extended units</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> list of elements</div></section>
+</td><td><pre data-lang='coffee'>  elements: -&gt;&#x000A;    @find('input,button,select,textarea')</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Returns the list of all the input elements on the form</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> list of elements</div></section>
+</td><td><pre data-lang='coffee'>  inputs: -&gt;&#x000A;    @elements().filter (input)-&gt;&#x000A;      !(input._.type in ['submit', 'button', 'reset', 'image', null])</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Accessing an input by name</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> name
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/input.coffee" class="api-ref">Input</a> field</div></section>
+</td><td><pre data-lang='coffee'>  input: (name)-&gt;&#x000A;    inputs = @find "*[name=\"#{name}\"]"&#x000A;&#x000A;    if inputs.length isnt 0 && inputs[0]._.type is 'radio'&#x000A;      inputs&#x000A;    else&#x000A;      inputs[0]</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Focuses on the first input element on the form (if any)</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/form.coffee" class="api-ref">Form</a> this</div></section>
+</td><td><pre data-lang='coffee'>  focus: -&gt;&#x000A;    for element in @inputs()&#x000A;      element.focus(); break;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Removes focus out of all the form elements</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/form.coffee" class="api-ref">Form</a> this</div></section>
+</td><td><pre data-lang='coffee'>  blur: -&gt;&#x000A;    @elements().forEach('blur')&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>disables all the elements on the form</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/form.coffee" class="api-ref">Form</a> this</div></section>
+</td><td><pre data-lang='coffee'>  disable: -&gt;&#x000A;    @elements().forEach('disable')&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>enables all the elements on the form</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/form.coffee" class="api-ref">Form</a> this</div></section>
+</td><td><pre data-lang='coffee'>  enable: -&gt;&#x000A;    @elements().forEach('enable')&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>returns the list of the form values</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Object</a> values</div></section>
+</td><td><pre data-lang='coffee'>  values: -&gt;&#x000A;    values = {}&#x000A;&#x000A;    @inputs().forEach (element)-&gt;&#x000A;      input = element._&#x000A;      name  = input.name&#x000A;      hash  = values&#x000A;      keys  = name.match(/[^\[]+/g)&#x000A;&#x000A;      if !input.disabled and name and (!(input.type in ['checkbox', 'radio']) || input.checked)&#x000A;        # getting throught the smth[smth][smth][] in the name&#x000A;        while keys.length &gt; 1&#x000A;          key  = keys.shift()&#x000A;          key  = key.substr(0, key.length-1) if key[key.length-1] is ']'&#x000A;          hash = (hash[key] or= (if keys[0] is ']' then [] else {}))&#x000A;&#x000A;        key  = keys.shift()&#x000A;        key  = key.substr(0, key.length-1) if key[key.length-1] is ']'&#x000A;&#x000A;        if key is '' # an array&#x000A;          hash.push(element.value())&#x000A;        else&#x000A;          hash[key] = element.value()&#x000A;&#x000A;      return # nothing&#x000A;&#x000A;    return values</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Delegating the submit method</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/form.coffee" class="api-ref">Form</a> this</div></section>
+</td><td><pre data-lang='coffee'>  submit: -&gt;&#x000A;    @_.submit()&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#12' name='12'></a>
+<p>Delegating the &#39;reset&#39; method</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/form.coffee" class="api-ref">Form</a> this</div></section>
+</td><td><pre data-lang='coffee'>  reset: -&gt;&#x000A;    @_.reset()&#x000A;    return @</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

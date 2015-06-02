@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Dialog</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/dialog" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io/tree/master/ui/dialog" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/dialog/1.2.2/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/dialog/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>2.09 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/UI">UI</a>, <a href="/tags/dialog">dialog</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li class='current'>
+<a href="/packages/dialog/1.2.2">1.2.2</a>
+(11 Oct 09:57)
+</li>
+<li>
+<a href="/packages/dialog/1.2.1">1.2.1</a>
+(02 Jul 07:22)
+</li>
+<li>
+<a href="/packages/dialog/1.2.0">1.2.0</a>
+(14 Jun 05:45)
+</li>
+<li>
+<a href="/packages/dialog/1.1.0">1.1.0</a>
+(05 May 07:39)
+</li>
+<li>
+<a href="/packages/dialog/1.0.0">1.0.0</a>
+(04 May 11:44)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/dialog-1.2.2.js" class="cdn">dialog-1.2.2.js</a></li>
+<li><a href="http://cdn.lovely.io/dialog-1.2.1.js" class="cdn">dialog-1.2.1.js</a></li>
+<li><a href="http://cdn.lovely.io/dialog-1.2.0.js" class="cdn">dialog-1.2.0.js</a></li>
+<li><a href="http://cdn.lovely.io/dialog-1.1.0.js" class="cdn">dialog-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/dialog-1.0.0.js" class="cdn">dialog-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/ajax/1.1.4">ajax-1.1.4</a></li>
+<li><a href="/packages/ui/2.1.1">ui-2.1.1</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Dialog</h1>
+
+<p>This module provides the standard UI dialog solution</p>
+
+<h2>Basic Usage</h2>
+
+<p>Hook up the Dialog in any standard way and use it as a class</p>
+<pre data-lang='javascript'>Lovely(['dialog-1.1.0'], function(Dialog) {&#x000A;  new Dialog(title: "Hello", html: "Hello world!").show();&#x000A;});</pre>
+<h2>Available Options</h2>
+
+<ul>
+<li><tt>nolock</tt> - <tt>false</tt> - show the screen lock or not</li>
+<li><tt>showHelp</tt> - <tt>false</tt> - show the help buttons or not</li>
+<li><tt>showHeader</tt> - <tt>true</tt> - show the header block or not</li>
+<li><tt>showButtons</tt> - <tt>true</tt> - show the bottom buttons block or not</li>
+<li><tt>onlyOk</tt> - <tt>false</tt> - show the <tt>Okay</tt> button only</li>
+<li><tt>title</tt> - <tt>null</tt> - title text</li>
+<li><tt>html</tt>  - <tt>null</tt> - default html content</li>
+<li><tt>icon</tt> - <tt>null</tt> - UI-core icon name without the <tt>lui-icon-</tt> prefix</li>
+<li><tt>url</tt> - <tt>null</tt> - an url address to load via ajax</li>
+<li><tt>ajax</tt> - <tt>null</tt> - ajax options (when the <tt>url</tt> option is specified)</li>
+</ul>
+
+<h2>Events List</h2>
+
+<p>The <tt>Dialog</tt> units fire the following events</p>
+
+<ul>
+<li><tt>show</tt> - when the dialog appears</li>
+<li><tt>hide</tt> - when the dialog gets hidden</li>
+<li><tt>load</tt> - when the dialog gets loaded via ajax</li>
+</ul>
+
+<h2>API reference</h2>
+
+<p>The <tt>Dialog</tt> unit is inherited from the <tt>dom.Element</tt> class and has all the standard
+methods. The only difference is that all the content changing methods like <tt>Element#append</tt>
+<tt>Element#update</tt>, <tt>Element#load</tt> <em>are redirected</em> to the dialog body.</p>
+
+<p>Also <tt>Dialog</tt> units have additional bidirectional method <tt>#title</tt> to work with the
+dialog&#39;s header caption.</p>
+
+<h2>Standard Dialog Subclasses</h2>
+
+<p>Along with the basic <tt>Dialog</tt> class, this package provides a number of standard dialog subclasses</p>
+
+<ul>
+<li><tt>Dialog.Alert</tt></li>
+<li><tt>Dialog.Confirm</tt></li>
+<li><tt>Dialog.Prompt</tt></li>
+<li><tt>Dialog.Info</tt></li>
+</ul>
+
+<p>All three of them are inherited from the basic <tt>Dialog</tt> class and can be used the same way</p>
+<pre data-lang='javascript'>Lovely(['dialog-1.1.0'], function(Dialog) {&#x000A;  new Dialog.Alert({html: "Danger!"}).show();&#x000A;  new Dialog.Confirm({html: "Are you sure?"}).show();&#x000A;  new Dialog.Prompt().show();&#x000A;});</pre>
+<p>The <tt>Dialog.Prompt</tt> class also can accept the <tt>type</tt> option to define the input field type,
+it can be one of those <tt>text</tt>, <tt>password</tt> or <tt>textarea</tt></p>
+
+<p>Also the <tt>ok</tt> event fired from a <tt>Dialog.Prompt</tt> object has additional <tt>value</tt> attribute,
+which contains the input field value.</p>
+<pre data-lang='javascript'>new Dialog.Prompt().on('ok', function(event) {&#x000A;  console.log('You entered: '+ event.value);&#x000A;});</pre>
+<h2>Copyright And License</h2>
+
+<p>This project is released under the terms of the MIT license</p>
+
+<p>Copyright (C) 2012 Nikolay Nemshilov</p>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

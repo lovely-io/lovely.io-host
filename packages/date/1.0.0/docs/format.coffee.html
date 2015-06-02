@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » date:format.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/date">date</a>:format.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/date/1.0.0/docs/format.coffee" selected="selected">format.coffee</option>
+<option value="/packages/date/1.0.0/docs/i18n.coffee">i18n.coffee</option>
+<option value="/packages/date/1.0.0/docs/main.coffee">main.coffee</option>
+<option value="/packages/date/1.0.0/docs/parse.coffee">parse.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Formats the date according to the POSIX pattern</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> pattern (POSIX)
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">String</a> formatted Date</div></section>
+</td><td><pre data-lang='coffee'>Date.prototype.format = (pattern)-&gt;&#x000A;  day    = @getDay()&#x000A;  month  = @getMonth()&#x000A;  date   = @getDate()&#x000A;  year   = @getFullYear()&#x000A;  hour   = @getHours()&#x000A;  minute = @getMinutes()&#x000A;  second = @getSeconds()&#x000A;&#x000A;  hour_ampm = if hour == 0 then 12 else if hour &lt; 13 then hour else hour - 12&#x000A;&#x000A;  values =&#x000A;    a: Date.i18n.daysShort.split(' ')[day]&#x000A;    A: Date.i18n.days.split(' ')[day]&#x000A;    b: Date.i18n.monthsShort.split(' ')[month]&#x000A;    B: Date.i18n.months.split(' ')[month]&#x000A;    d: zerofy(date)&#x000A;    e: ''+date&#x000A;    m: (if month &lt; 9 then '0' else '') + (month+1)&#x000A;    y: (''+year).substring(2,4)&#x000A;    Y: ''+year&#x000A;    H: zerofy(hour)&#x000A;    k: '' + hour&#x000A;    I: (if hour &gt; 0 && (hour &lt; 10 || (hour &gt; 12 && hour &lt; 22)) then '0' else '') + hour_ampm&#x000A;    l: '' + hour_ampm&#x000A;    p: if hour &lt; 12 then 'AM' else 'PM'&#x000A;    P: if hour &lt; 12 then 'am' else 'pm'&#x000A;    M: zerofy(minute)&#x000A;    S: zerofy(second)&#x000A;    '%': '%'&#x000A;&#x000A;  for key of values&#x000A;    pattern = pattern.replace('%'+key, values[key])&#x000A;&#x000A;  pattern</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/date/1.0.0/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

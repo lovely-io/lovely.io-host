@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Lovely FX - Test</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+<script type='text/javascript'>Lovely(['fx-1.1.0'], function() {
+        var $ = Lovely.module('dom');
+
+        $(document).delegate('a.start', 'click', function(e) {
+          e.stop();
+          eval(this.parent().parent().first('textarea').value());
+        });
+        $(document).delegate('a.reset', 'click', function(e) {
+          e.stop();
+          var block = this.parent().parent().first('div');
+          var clone = $('<div class="test" id="'+ block._.id +'">'+ block.html() +'</div>')[0]
+          block.insert(clone, 'before').remove();
+        });
+      });</script>
+<style type='text/css'>div {
+        position: relative;
+        padding: 0;
+        padding-top: 65pt;
+      }
+      div div {
+        border: 1px solid #DDD;
+        border-radius: .25em;
+        background: orange;
+        color: brown;
+        width: 12em;
+        height: 60pt;
+        line-height: 60pt;
+        padding: 0 1em;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        vertical-align: top;
+        text-align: center;
+        font-family: Georgia;
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+      }
+      textarea {
+        font: inherit;
+        padding: .5em;
+        border: 1px solid #DDD;
+        border-radius: .25em;
+        height: 48pt;
+        width: 16em;
+        position: absolute;
+        top: 0;
+        left: 160pt;
+      }
+      textarea:focus {
+        background: #FFD;
+      }
+      #fx-style-test {
+        display: block;
+        margin-bottom: 5pt;
+      }
+      #fx-style-test + textarea {
+        top: 65pt;
+        left: 0;
+        height: 8em;
+        width: 20em;
+      }
+      #fx-style-test ~ p {
+        margin-top: 105pt;
+      }
+      #fx-highlight-test {
+        background: transparent;
+      }
+      #fx-scroll-test {
+        white-space: nowrap;
+        overflow: hidden;
+      }</style>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-demo'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/fx" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io/tree/master/stl/fx" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://www.lovely.io/packages/fx/1.1.0/docs" class="api">Documentation</a></li>
+<li><a href="http://www.lovely.io/packages/fx/1.1.0/demo" class="demo">Live Demo</a></li>
+<li><a href="http://www.lovely.io/packages/fx/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>4.06 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/Fx">Fx</a>, <a href="/tags/STL">STL</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/fx/1.1.1">1.1.1</a>
+(30 Sep 10:19)
+</li>
+<li class='current'>
+<a href="/packages/fx/1.1.0">1.1.0</a>
+(26 Sep 06:38)
+</li>
+<li>
+<a href="/packages/fx/1.0.3">1.0.3</a>
+(08 Jul 02:20)
+</li>
+<li>
+<a href="/packages/fx/1.0.2">1.0.2</a>
+(19 Aug 12:20)
+</li>
+<li>
+<a href="/packages/fx/1.0.1">1.0.1</a>
+(17 Aug 13:11)
+</li>
+<li>
+<a href="/packages/fx/1.0.0">1.0.0</a>
+(07 Aug 09:38)
+</li>
+<li>
+<a href="/packages/fx/0.0.2">0.0.2</a>
+(24 Jul 15:31)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/fx-1.1.1.js" class="cdn">fx-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/fx-1.1.0.js" class="cdn">fx-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/fx-1.0.3.js" class="cdn">fx-1.0.3.js</a></li>
+<li><a href="http://cdn.lovely.io/fx-1.0.2.js" class="cdn">fx-1.0.2.js</a></li>
+<li><a href="http://cdn.lovely.io/fx-1.0.1.js" class="cdn">fx-1.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/fx-1.0.0.js" class="cdn">fx-1.0.0.js</a></li>
+<li><a href="http://cdn.lovely.io/fx-0.0.2.js" class="cdn">fx-0.0.2.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.4.0">dom-1.4.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Lovely FX - Test</h1>
+
+    <h2>Fx.Style</h2>
+    <div>
+      <div id="fx-style-test">Fx.Style</div>
+      <textarea>$('#fx-style-test').animate({
+  background: 'green',
+  fontSize:   '50px',
+  color:      'red',
+  width:      '500px'
+});</textarea>
+      <p>
+        <a href="" class="start">Start</a>
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+    <h2>Fx.Highlight</h2>
+    <div>
+      <div id="fx-highlight-test">Fx.Highlight</div>
+      <textarea>$('#fx-highlight-test').highlight();</textarea>
+      <p>
+        <a href="" class="start">Start</a>
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+    <h2>Fx.Fade</h2>
+    <div>
+      <div id="fx-fade-test">Fx.Fade</div>
+      <textarea>$('#fx-fade-test').fade();</textarea>
+      <p>
+        <a href="" class="start">Start</a>
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+    <h2>Fx.Slide</h2>
+    <div>
+      <div id="fx-slide-test">Fx.Slide</div>
+      <textarea>$('#fx-slide-test').slide();</textarea>
+      <p>
+        <a href="" class="start">Start</a>
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+    <h2>Fx.Scroll</h2>
+    <div>
+      <div id="fx-scroll-test">
+        1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+        19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
+      </div>
+      <textarea>$('#fx-scroll-test').scroll({x: 400}, {duration: 'long'});</textarea>
+      <p>
+        <a href="" class="start">Start</a>
+        <a href="" class="reset">Reset</a>
+      </p>
+    </div>
+
+    <p class="white-space"></p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

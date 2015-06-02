@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Slideshow</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/slideshow" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io/tree/master/ui/slideshow" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/slideshow/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/slideshow/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>2.06 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/UI">UI</a>, <a href="/tags/slideshow">slideshow</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/slideshow/1.0.2">1.0.2</a>
+(09 Apr 12:40)
+</li>
+<li>
+<a href="/packages/slideshow/1.0.1">1.0.1</a>
+(09 Apr 12:27)
+</li>
+<li>
+<a href="/packages/slideshow/1.0.0">1.0.0</a>
+(26 Mar 07:38)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/slideshow-1.0.2.js" class="cdn">slideshow-1.0.2.js</a></li>
+<li><a href="http://cdn.lovely.io/slideshow-1.0.1.js" class="cdn">slideshow-1.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/slideshow-1.0.0.js" class="cdn">slideshow-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/ui/1.0.1">ui-1.0.1</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Slideshow</h1>
+
+<p>Slideshow is a little widget to make slideshows from lists</p>
+
+<h2>Basic Usage</h2>
+
+<p>In a simple case, you can just add the <tt>lui-slideshow</tt> class to your <tt>UL</tt> element</p>
+<pre data-lang='html'>&lt;ul class="lui-slideshow"&gt;&#x000A;  &lt;li&gt;&lt;img src="img1.jpg"&gt;&lt;/img&gt;&lt;/li&gt;&#x000A;  &lt;li&gt;&lt;img src="img2.jpg"&gt;&lt;/img&gt;&lt;/li&gt;&#x000A;  &lt;li&gt;&lt;img src="img3.jpg"&gt;&lt;/img&gt;&lt;/li&gt;&#x000A;  ....&#x000A;&lt;/ul&gt;</pre>
+<p>You also can instantiate <tt>Slideshow</tt> object existing objects</p>
+<pre data-lang='javascript'>new Slideshow($('#my-list')[0], {... options ...});</pre>
+<h2>Options</h2>
+
+<p>You can use the following list of options</p>
+
+<ul>
+<li><tt>fxDuration</tt> - the sliding visual effect duration</li>
+<li><tt>showPager</tt> - show/hide the pager element</li>
+<li><tt>autoplay</tt> - automatically swap the items on the list</li>
+<li><tt>delay</tt> - delay between switches in the autoplay mode</li>
+<li><tt>loop</tt> - start from the beginning when finished</li>
+</ul>
+
+<p>options can be used with the <tt>Slideshow</tt> class constructor or specified in JSON
+format inside of the <tt>data-slideshow</tt> attribute of your <tt>UL</tt> element</p>
+
+<h2>Public API</h2>
+
+<p>Besides the standard <a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> API, there is a bunch of methods
+available as part of the public API with all the <tt>Slideshow</tt> class instances</p>
+
+<ul>
+<li><tt>items()</tt> - returns the list (<a href="/packages/dom/docs/node_list.coffee" class="api-ref">dom.NodeList</a>) of items in the slideshow</li>
+<li><tt>hasPrevious()</tt> - checks if there is a previous item on the list</li>
+<li><tt>hasNext()</tt> - checks if there is a next item on the list</li>
+<li><tt>previous()</tt> - slide to the previous item on the list</li>
+<li><tt>next()</tt> - slide to the next item on the list</li>
+<li><tt>slideTo(index)</tt> - slide to an item with the (integer) index</li>
+<li><tt>play()</tt> - starts the auto-play mode</li>
+<li><tt>pause()</tt> - stops the auto-play mode</li>
+</ul>
+
+<h2>Copyright And License</h2>
+
+<p>This project is released under the terms of the MIT license</p>
+
+<p>Copyright (C) 2012 Nikolay Nemshilov</p>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

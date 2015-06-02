@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:element/events.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:element/events.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee" selected="selected">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>This file provides the standard events handling interface.
+Basically it uses the <a href="/packages/core/docs/events.coffee" class="api-ref">core.Events</a> mixin
+but adoptes it for the dom-events handling</p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Element.include Element_events =&#x000A;  _listeners: null  # the listeners index</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Attaching an event listener</p>
+
+<p>See the <a href="/packages/core/docs/events.coffee" class="api-ref">core.Events</a> for the actual API</p>
+</td><td><pre data-lang='coffee'>  on: -&gt;&#x000A;    @_listeners is null && Element_make_listeners(@)&#x000A;    Lovely.Events.on.apply(@, arguments)</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Removes an event listener</p>
+
+<p>See the <a href="/packages/core/docs/events.coffee" class="api-ref">core.Events</a> for the actual API</p>
+</td><td><pre data-lang='coffee'>  no: -&gt;&#x000A;    @_listeners is null && Element_make_listeners(@)&#x000A;    Lovely.Events.no.apply(@, arguments)</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Checks if an event listener is attached</p>
+
+<p>See the <a href="/packages/core/docs/events.coffee" class="api-ref">core.Events</a> for the actual API</p>
+</td><td><pre data-lang='coffee'>  ones: Lovely.Events.ones</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Fires an event on the element</p>
+
+<p><strong>NOTE</strong>: the event will propogate through
+the dom structure, up to the document!</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> event name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> event attributes
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/wrapper.coffee" class="api-ref">Wrapper</a> this</div></section>
+</td><td><pre data-lang='coffee'>  emit: (event, options) -&gt;&#x000A;    parent = wrap(this._.parentNode)&#x000A;&#x000A;    unless event instanceof Event&#x000A;      event = new Event(event, ext({target: @_}, options))&#x000A;&#x000A;    # setting up the currentTarget reference&#x000A;    event.currentTarget = @&#x000A;&#x000A;    # calling every registered callback with the event&#x000A;    for hash in @_listeners || []&#x000A;      if hash.e is event.type&#x000A;        args = (if hash.n then [] else [event]).concat(hash.a)&#x000A;        event.stop() if hash.c.apply(@, args) is false&#x000A;&#x000A;&#x000A;    # manually bypassing the event to the parent element&#x000A;    parent.emit(event) if !event.stopped && parent&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>A shortcut for calls-by-name</p>
+<pre data-lang='js'>event.on('click', 'stopEvent')</pre>
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> false</div></section>
+</td><td><pre data-lang='coffee'>  stopEvent: -&gt;&#x000A;    return false</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Makes a smart event listeners registry
+that will add/remove event listeners autmoatically
+to the real dom-element</p>
+</td><td><pre data-lang='coffee'>Element_make_listeners = (instance) -&gt;&#x000A;  list = []&#x000A;&#x000A;  # hijacking the Array#push method to attach&#x000A;  # the actual dom event-listeners&#x000A;  list.push = (hash) -&gt;&#x000A;    e = hash.e&#x000A;    if e is 'mouseenter' or e is 'mouseleave'&#x000A;      # MouseIO module handles those events on itsown&#x000A;      mouseio_activate()&#x000A;      hash.r = hash.e&#x000A;      hash.w = -&gt;&#x000A;&#x000A;    else&#x000A;      hash.r = hash.e&#x000A;&#x000A;      # adjusting the real event name for the current browser&#x000A;      hash.r = 'rightclick'     if e is 'contextmenu' and Browser is 'Konqueror'&#x000A;      hash.r = 'DOMMouseScroll' if e is 'mousewheel'  and Browser is 'Gecko'&#x000A;&#x000A;      # making the event handler wrapper, basically it wraps&#x000A;      # the event and calls the original function in a correct context&#x000A;      hash.w = (event)-&gt;&#x000A;        event = new Event(event)&#x000A;        args  = (if hash.n then [] else [event]).concat(hash.a)&#x000A;        event.stop() if hash.c.apply(instance, args) is false&#x000A;        return # nothing&#x000A;&#x000A;      # attaching the actual event listener&#x000A;      instance._.addEventListener(hash.r, hash.w, false)&#x000A;&#x000A;    this[this.length] = hash&#x000A;&#x000A;&#x000A;  # hijacking the Array#splice method to remove&#x000A;  # the actual dom event-listeners&#x000A;  list.splice = (position) -&gt;&#x000A;    hash = this[position]&#x000A;&#x000A;    instance._.removeEventListener(hash.r, hash.w, false)&#x000A;&#x000A;    Array.prototype.splice.call(this, position, 1)&#x000A;&#x000A;&#x000A;  # return the list&#x000A;  instance._listeners = list</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>var time = new Date();</script>
+    <script src="http://cdn.lovely.io/core-1.4.1.js"></script>
+    <script>parent.loading_log("lovely", "Core loaded", new Date() - time);</script>
+    <script>
+      Lovely(['dom-1.4.3', 'ajax-1.1.4', 'fx-1.1.1'], function() {
+        parent.loading_log("lovely", "Fully loaded", new Date() - time);
+      });
+    </script>
+  </head>
+  <body>
+    <script>parent.loading_log("lovely", "Body starts", new Date() - time);</script>
+  </body>
+</html>
+

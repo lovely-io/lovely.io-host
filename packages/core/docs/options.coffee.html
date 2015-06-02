@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » core:options.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/core">core</a>:options.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/core/docs/class.coffee">class.coffee</option>
+<option value="/packages/core/docs/events.coffee">events.coffee</option>
+<option value="/packages/core/docs/hash.coffee">hash.coffee</option>
+<option value="/packages/core/docs/list.coffee">list.coffee</option>
+<option value="/packages/core/docs/lovely.coffee">lovely.coffee</option>
+<option value="/packages/core/docs/main.coffee">main.coffee</option>
+<option value="/packages/core/docs/options.coffee" selected="selected">options.coffee</option>
+<option value="/packages/core/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>A standard options handling interface mixin</p>
+<pre data-lang='coffee'>MyClass = new Lovely.Class&#x000A;  include: Lovely.Options,&#x000A;  extend:&#x000A;    Options:&#x000A;      one:     'thing'&#x000A;      another: 'one'&#x000A;&#x000A;  initialize: (options) -&gt;&#x000A;    this.setOptions options</pre>
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Options =&#x000A;  options: {}  # instance options object</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Sets the current options</p>
+
+<p><strong>NOTE</strong>: this method will <em>deep-merge</em> the klass.Options</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> options
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/class.coffee" class="api-ref">Class</a> this</div></section>
+</td><td><pre data-lang='coffee'>  setOptions: (options) -&gt;&#x000A;    klass    = this.constructor&#x000A;    defaults = {}&#x000A;&#x000A;    while klass&#x000A;      if 'Options' of klass&#x000A;        defaults = klass.Options&#x000A;        break&#x000A;&#x000A;      klass = klass.__super__&#x000A;&#x000A;    this.options = Hash.merge(defaults, options)&#x000A;&#x000A;    this</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/core/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

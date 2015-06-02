@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dnd:droppable.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dnd">dnd</a>:droppable.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dnd/docs/document.coffee">document.coffee</option>
+<option value="/packages/dnd/docs/draggable.coffee">draggable.coffee</option>
+<option value="/packages/dnd/docs/droppable.coffee" selected="selected">droppable.coffee</option>
+<option value="/packages/dnd/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The droppable targets functionality</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Droppable =&#x000A;  Options:&#x000A;    accept:      '*'   # css-class, or list of css-classes or list of elements of accepted draggables&#x000A;&#x000A;    overlap:     false # 'x', 'y', 'horizontal', 'vertical', 'both'  makes it respond only if the draggable overlaps the droppable&#x000A;    overlapSize: 0.5   # the overlapping level 0 for nothing 1 for the whole thing&#x000A;&#x000A;    allowClass:  'droppable-allow' # added when an acceptable draggable hovers the target&#x000A;    denyClass:   'droppable-deny'  # added when an inacceptable draggable enters the target&#x000A;&#x000A;  current: null # the currently hovered droppable</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>The element&#39;s method to turn the droppable
+functionality on and off</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a>|<a href="#" class="api-ref">Boolean</a> options or <tt>false</tt> to switch off
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  droppable: (options)-&gt;&#x000A;    if options is false&#x000A;      delete(@__droppable)&#x000A;    else if !('__droppable' of @)&#x000A;      @__droppable = merge('droppable', @, options)&#x000A;      droppable_targets.push(@)&#x000A;&#x000A;    return @&#x000A;&#x000A;# private&#x000A;&#x000A;# list of droppable targets, populated when a drag starts&#x000A;droppable_targets = []</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Activates all the droppable targets on the page</p>
+
+<section class='api'><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>droppable_prepare_targets = -&gt;&#x000A;  $('*[data-droppable]').map('droppable')</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Checks the dragenter/dragleave events</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">dom.Event</a> mouse-move event
+</div><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> the draggable</div></section>
+</td><td><pre data-lang='coffee'>droppable_hover = (event, draggable)-&gt;&#x000A;  overloap         = null&#x000A;  event_position   = event.position()&#x000A;  element_position = draggable.position()&#x000A;  element_size     = draggable.size()&#x000A;&#x000A;  for target in droppable_targets&#x000A;    if droppable_overlaps(target, event_position, element_position, element_size)&#x000A;      overlap = target&#x000A;      break&#x000A;&#x000A;  if overlap and Droppable.current is null&#x000A;    options = overlap.__droppable&#x000A;&#x000A;    if droppable_acceptable(Draggable.current, overlap)&#x000A;      overlap.addClass options.allowClass&#x000A;    else&#x000A;      overlap.addClass options.denyClass&#x000A;&#x000A;    Droppable.current = overlap&#x000A;&#x000A;    overlap.emit 'dragenter', draggable: Draggable.current, droppable: Droppable.current&#x000A;&#x000A;  else if !overlap and Droppable.current isnt null&#x000A;    droppable_revert()&#x000A;&#x000A;    Droppable.current.emit 'dragleave', draggable: Draggable.current, droppable: Droppable.current&#x000A;    Droppable.current = null</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Checks if draggable and droppable overlap</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> droppable
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> event position
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> draggable position
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Object</a> draggable size</div></section>
+</td><td><pre data-lang='coffee'>droppable_overlaps = (target, e_pos, d_pos, d_size)-&gt;&#x000A;  options  = target.__droppable&#x000A;  level    = options.overlapSize&#x000A;  top      = d_pos.y&#x000A;  left     = d_pos.x&#x000A;  right    = left + d_size.x&#x000A;  bottom   = top  + d_size.y&#x000A;  t_pos    = target.position()&#x000A;  t_size   = target.size()&#x000A;  t_top    = t_pos.y&#x000A;  t_left   = t_pos.x&#x000A;  t_right  = t_left + t_size.x&#x000A;  t_bottom = t_top  + t_size.y&#x000A;&#x000A;  if options.overlap is false # simply check agains the event position&#x000A;    return e_pos.x &gt; t_left && e_pos.x &lt; t_right && e_pos.y &gt; t_top && e_pos.y &lt; t_bottom&#x000A;  else&#x000A;    switch options.overlap&#x000A;      when 'x', 'horizontal' # horizontal overlap check&#x000A;        return (&#x000A;          (top    &gt; t_top    && top     &lt; t_bottom) ||&#x000A;          (bottom &gt; t_top    && bottom  &lt; t_bottom)&#x000A;        ) && (&#x000A;          (left   &gt; t_left   && left    &lt; (t_right - t_size.x * level)) ||&#x000A;          (right  &lt; t_right  && right   &gt; (t_left  + t_size.x * level))&#x000A;        )&#x000A;      when 'y', 'vertical' # vertical overlap check&#x000A;        return (&#x000A;          (left   &gt; t_left   && left   &lt; t_right) ||&#x000A;          (right  &gt; t_left   && right  &lt; t_right)&#x000A;        ) && (&#x000A;          (top    &gt; t_top    && top    &lt; (t_bottom - t_size.y * level)) ||&#x000A;          (bottom &lt; t_bottom && bottom &gt; (t_top    + t_size.y * level))&#x000A;        )&#x000A;      else # both side overlap check&#x000A;        return (&#x000A;          (left   &gt; t_left   && left   &lt; (t_right  - t_size.x * level)) ||&#x000A;          (right  &lt; t_right  && right  &gt; (t_left   + t_size.x * level))&#x000A;        ) && (&#x000A;          (top    &gt; t_top    && top    &lt; (t_bottom - t_size.y * level)) ||&#x000A;          (bottom &lt; t_bottom && bottom &gt; (t_top    + t_size.y * level))&#x000A;        )</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Checks if the draggable is acceptable by the drooppable</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> draggable
+</div><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> droppable
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>droppable_acceptable = (draggable, droppable)-&gt;&#x000A;  options = droppable.__droppable&#x000A;&#x000A;  if options.accept is '*'&#x000A;    return true&#x000A;  else&#x000A;    rules = options.accept&#x000A;    rules = [rules] unless isArray(rules)&#x000A;    for rule in rules&#x000A;      rule = $(rule) if isString(rule)&#x000A;      rule = [rule] unless isArray(rule)&#x000A;&#x000A;      for element in rule&#x000A;        if element._ is draggable._&#x000A;          return true&#x000A;&#x000A;  return false</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Reverts a droppable state, when something was dropped
+or draggable just left the target</p>
+</td><td><pre data-lang='coffee'>droppable_revert = -&gt;&#x000A;  overlap = Droppable.current&#x000A;  options = overlap.__droppable&#x000A;&#x000A;  overlap.removeClass options.allowClass&#x000A;  overlap.removeClass options.denyClass</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Checks if the droppable was dropped over a target and fires the events</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">dom.Event</a> the original mouseup event
+</div><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> the draggable element</div></section>
+</td><td><pre data-lang='coffee'>droppable_check_drop = (event, draggable)-&gt;&#x000A;  if Droppable.current isnt null&#x000A;    droppable_revert()&#x000A;&#x000A;    if droppable_acceptable(draggable, Droppable.current)&#x000A;      Droppable.current.emit 'drop', draggable: draggable, droppable: Droppable.current&#x000A;&#x000A;  return # nothing</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dnd/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

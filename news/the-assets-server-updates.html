@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » 
+10 Jun 11:07
+The Assets Server Updates
+</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='news news-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1>
+<div class='date'>10 Jun 11:07</div>
+<div class='title'>The Assets Server Updates</div>
+</h1>
+<article><p>Hey everyone, great news!</p>
+
+<p>You know that lovely.io automatically hosts static assets for your packages, and if you like the feature, there is a great news, because there were several major updates in the lovely.io server to improve the way we handle static assets.</p>
+
+<p>1) Firstly, now all the new assets will be marked with SHA1 hashes and served by using this signature as it&#39;s primary ID. This basically means that all your static assets will be cached independently from your actual javascript packages. As the result, if you didn&#39;t change images, and only your scripting was changed, the users of your updated package will download only the scripting, the static assets will be reused from the previous versions.</p>
+
+<p>2) Now you can host not just images, but fonts as well. Using fonts as collections of icons is becoming more and more popular. the <a href="/packages/ui">lovely.io ui core</a> since the version 2.0 will be using <a href="http://fortawesome.github.com/Font-Awesome">FontAwesome</a> as the default icon set.</p>
+
+<p>3) The <tt>lovely</tt> CLI tools were updated with fixes and patches that allow the fonts to be served and published at the lovely.io server.</p>
+</article>
+<p class='bottom-links'>
+<a href="/news" class="back">News index</a>
+</p>
+<div id="disqus_thread"></div><script type="text/javascript">
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://lovelyio.disqus.com/embed.js';
+      document.getElementsByTagName('head')[0].appendChild(dsq);
+    </script>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

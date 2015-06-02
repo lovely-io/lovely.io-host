@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Recent News</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='news news-index'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1>Recent News</h1>
+<a href="/news.atom" class="rss">RSS Feed</a>
+<div id='news'>
+<div class="news" id="news_19"><header>
+<div class='date'>28 Apr 02:38</div>
+<div class='title'><a href="/news/lovely-io-v1-9-0-is-out">Lovely.IO v1.9.0 is out!</a></div>
+</header>
+<article><p>Hey fellas, great news! The <tt>lovely</tt> npm package aka the console line tools were just updated to the version <tt>1.9.0</tt>!</p>
+
+<h2>What&#39;s New?</h2>
+
+<ol>
+<li>Update to <tt>node.js-0.10+</tt> and all the latest <tt>npm</tt> packages</li>
+<li><p>Switching from <tt>should.js</tt> to <tt>chai.js</tt>. Basically this means that now you can switch between testing styles and use asserts or should or expect matches in your projects</p>
+<pre data-lang='coffee'>{Test, assert} = require('lovely')&#x000A;# or&#x000A;{Test, should} = require('lovely')&#x000A;# or&#x000A;{Test, expect} = require('lovely')</pre></li>
+<li><p>The internals of the testing utilities were reworked to provide better speed and usability. Firstly there is no <tt>module</tt> in <tt>Test.load</tt> anymore, you can just load directly what you want</p>
+<pre data-lang='coffee'>{Test, should} = require('lovely')&#x000A;&#x000A;describe "Awesome Package", -&gt;&#x000A;  AwesomePackage = null&#x000A;&#x000A;  before Test.load (build)-&gt;&#x000A;    AwesomePackage = build&#x000A;&#x000A;  it "should be awesome", -&gt;&#x000A;    AwesomePackage.should.equal "awesomeness"</pre>
+<p>Also, now you can run every test individually with the <tt>lovely</tt> cmd</p>
+<pre data-lang='bash'>$ lovely test/something_test.coffee</pre>
+<p>And, you can run your tests agains a minified version of the package builds, just in case you want to make sure that nothing was wreaked during the compression process</p>
+<pre data-lang='bash'>$ lovely test -m&#x000A;$ lovely test --minify</pre></li>
+</ol>
+
+<p>That&#39;s all we have for today fellas.
+Enjoy!</p>
+</article>
+</div><div class="news" id="news_18"><header>
+<div class='date'>13 Apr 04:18</div>
+<div class='title'><a href="/news/new-landing-page-and-github-authentication">New Landing Page and GitHub authentication</a></div>
+</header>
+<article><p>Hey fellas!</p>
+
+<p>Two news</p>
+
+<ol>
+<li>From now on lovely.io will use GitHub as the main auth-provider. Which kinda makes sense considering the task we&#39;re doing here :)</li>
+<li>The new landing page was rolled out! Check it out, let me know if it makes sense</li>
+</ol>
+
+<h2></h2>
+
+<p>Cheers,
+Nikolay</p>
+</article>
+</div><div class="news" id="news_17"><header>
+<div class='date'>09 Dec 00:14</div>
+<div class='title'><a href="/news/lovely-cli-tools-v1-8-0-is-out">Lovely CLI tools v1.8.0 is out!</a></div>
+</header>
+<article><p>Hey fellas, great news!</p>
+
+<p>The <tt>lovely</tt> cli tools were updated to the version <tt>1.8.0</tt> and as per usual we have a whole bunch of new features!</p>
+
+<p>1) Vanilla builds. Basically now you can build anything with the <tt>lovely build</tt> tool. Your projects don&#39;t have to be lovely.io modules anymore, as long as it has <tt>main.coffee</tt> file, you can make a vanilla build out of it by simply specifying the <tt>--vanilla</tt> option!</p>
+
+<p>2) CSS dumps, the <tt>lovely build</tt> also now supports the <tt>--no-styles</tt> option, in this case it won&#39;t try to inline your css into the javascript file and will simply dump the styles in a separated build file. That&#39;s useful in case when you use the lovely tools for non lovely.io projects building.</p>
+
+<p>3) The <tt>lovely server</tt> now can transparently serve <tt>.sass</tt>,  <tt>.scss</tt> and <tt>.styl</tt> files to the browser and convert them on fly into css. So be happy and write any styles in anything you like.</p>
+
+<p>4) Lovely.IO is now officially supports SCSS. You can write your package styles in it if you like.</p>
+
+<p>5) The <tt>lovely install</tt> and <tt>lovely uninstall</tt> commands semantic was changed to the more natural one</p>
+<pre data-lang='unspecified'>lovely install something-1.2.3 something-2.3.4 ...&#x000A;lovely uninstall module module ...</pre>
+<p>6) The <tt>package.json</tt> file now can be named <tt>lovely.json</tt>. That is in case if you need to make a package that will be distributed between several different platforms and you need different settings for lovely.io.</p>
+
+<p>7) The default development server styles were updated with some nicefications.</p>
+
+<p>I think that&#39;s about it.
+Enjoy! :)</p>
+</article>
+</div><div class="news" id="news_16"><header>
+<div class='date'>22 Nov 09:46</div>
+<div class='title'><a href="/news/lovely-cli-tools-update">Lovely CLI tools update</a></div>
+</header>
+<article><p>Great news everyone! The <tt>lovely</tt> CLI tools were just updated to the version <tt>1.7.0</tt>!</p>
+
+<p>The change log goes like that</p>
+
+<ul>
+<li><p><tt>lovely test</tt> command was added. This is a nice shortcut that runs all the console tests that your package has in the <tt>test/</tt> folder and takes case of all the <tt>mocha</tt> extra machinery.</p>
+
+<p>Now you can just run <tt>lovely test</tt> in someones package and make sure that you didn&#39;t break anything, without actually mangling with <tt>mocha</tt></p></li>
+<li><p><tt>lovely dump</tt> command was added. This command allows you to build a set of packages with all their dependencies into one single static file, which you can then host on your own server.</p>
+
+<p>This is useful if you wanna work with SSL on your server or have your own static version of the scripts for any other reason.</p></li>
+<li><p>Now you can specify default languages for your new projects in the <tt>~/.lovelyrc</tt> file</p>
+<pre data-lang='unspecified'>echo "lang = js,css" &gt;&gt; ~/.lovelyrc</pre>
+<p>By default it will be <tt>coffee,sass</tt> but you can specify any pair from <tt>coffee</tt>, <tt>js</tt>, <tt>css</tt>, <tt>stylus</tt> and <tt>sass</tt> in there.</p></li>
+<li><p>The <tt>lovely server</tt> command now can compile non-project related <tt>coffee</tt> files on fly. Say if you&#39;re working on
+something that is not a lovely.io package and use <tt>lovely</tt> as a simple server to serve your local files, now
+you can write your code in <tt>coffee</tt> and just include those files on your page as they are. Lovely server will
+automatically convert them into javascript and send to your browser.</p></li>
+<li><p>A bunch of shortcuts were added for the <tt>lovely</tt> commands, you can now run things like <tt>lovely s</tt>, <tt>lovely -h</tt>,
+<tt>lovely -v</tt> and so on.</p></li>
+</ul>
+
+<p>Enjoy!</p>
+</article>
+</div><div class="news" id="news_15"><header>
+<div class='date'>08 Jul 02:33</div>
+<div class='title'><a href="/news/automatic-documentation-hosting-is-live">Automatic Documentation Hosting is Live!</a></div>
+</header>
+<article><p>Hey folks, great news!</p>
+
+<p>We reached the next major milestone in the lovely.io development and delivering today the automatic documentation hosting for your projects.</p>
+
+<p>Now all markdown documents that you save in the <tt>docs</tt> folder of your project, will be automatically uploaded to the server the next time you call <tt>lovely publish</tt></p>
+
+<p>The better news is that you don&#39;t have to write the documentation yourself. The <tt>lovely</tt> <a href="http://npmjs.org/">npm</a> package was updated and now you can generate all your docs from your source code with the <tt>lovely docs</tt> command!</p>
+
+<p>No more hassle with documentation! Just keep your code clean and lovely.io will take care of the rest.</p>
+
+<p>All the <a href="http://lovely.io/tags/STL">STL</a> packages documentation is already on the server. Check it out <a href="http://lovely.io/packages/dom/docs/element/navigation.coffee">dom documentation</a>!</p>
+</article>
+</div><div class="news" id="news_14"><header>
+<div class='date'>10 Jun 11:07</div>
+<div class='title'><a href="/news/the-assets-server-updates">The Assets Server Updates</a></div>
+</header>
+<article><p>Hey everyone, great news!</p>
+
+<p>You know that lovely.io automatically hosts static assets for your packages, and if you like the feature, there is a great news, because there were several major updates in the lovely.io server to improve the way we handle static assets.</p>
+
+<p>1) Firstly, now all the new assets will be marked with SHA1 hashes and served by using this signature as it&#39;s primary ID. This basically means that all your static assets will be cached independently from your actual javascript packages. As the result, if you didn&#39;t change images, and only your scripting was changed, the users of your updated package will download only the scripting, the static assets will be reused from the previous versions.</p>
+
+<p>2) Now you can host not just images, but fonts as well. Using fonts as collections of icons is becoming more and more popular. the <a href="/packages/ui">lovely.io ui core</a> since the version 2.0 will be using <a href="http://fortawesome.github.com/Font-Awesome">FontAwesome</a> as the default icon set.</p>
+
+<p>3) The <tt>lovely</tt> CLI tools were updated with fixes and patches that allow the fonts to be served and published at the lovely.io server.</p>
+</article>
+</div><div class="news" id="news_13"><header>
+<div class='date'>09 Jun 08:39</div>
+<div class='title'><a href="/news/site-redesign">Site Redesign</a></div>
+</header>
+<article><p>Hey everyone, long time no see! I finally have some time to finish up unfinished business with the lovely.io</p>
+
+<p>The first step is a more modern and certainly lovely looking new design.</p>
+
+<p>Enjoy!</p>
+</article>
+</div><div class="news" id="news_12"><header>
+<div class='date'>22 Aug 08:44</div>
+<div class='title'><a href="/news/screencast-live-html5-playback">Screencast Live HTML5 Playback</a></div>
+</header>
+<article><p>The <a href="/show">screencast</a> section was updated with a little HTML5 based video player for live shows playback</p>
+
+<p>You can see it <a href="/show/show-me-some-love">over here</a></p>
+</article>
+</div><div class="news" id="news_11"><header>
+<div class='date'>20 Aug 11:47</div>
+<div class='title'><a href="/news/screencast-launched">Screencast Launched</a></div>
+</header>
+<article><p>Hey everyone!</p>
+
+<p>Great news, I think I started a screencast about lovely.io! You can find the pilot episode <a href="/show">over here</a></p>
+
+<p>As it&#39;s my first time making such things, I&#39;d appreciate any sort of feedback, thanks!</p>
+</article>
+</div><div class="news" id="news_10"><header>
+<div class='date'>19 Aug 16:36</div>
+<div class='title'><a href="/news/lovely-update-support">Lovely Update Support</a></div>
+</header>
+<article><p>Hey everyone! I&#39;m glad to tell you that the <tt>lovely</tt> CLI interface was just updated with the... well, <tt>'update'</tt> command.</p>
+<pre data-lang='unspecified'>lovely update</pre>
+<p>This will fetch all the recent updates from the <a href="http://lovely.io">http://lovely.io</a> server into your local repository.</p>
+</article>
+</div><div class="news" id="news_9"><header>
+<div class='date'>17 Aug 13:38</div>
+<div class='title'><a href="/news/tags-support">Tags Support!</a></div>
+</header>
+<article><p>Hey folks, great news!</p>
+
+<p>I&#39;ve added the package tags support! Check out the <a href="/packages">packages index</a>, in the sidebar you can see currently registered tags and can filter the packages by them.</p>
+
+<p>On the package side itself it is pretty much dead simple, just add the following into your <tt>package.json</tt></p>
+<pre data-lang='unspecified'>{&#x000A;  ....&#x000A;  "tags" : "Boo, Hoo"&#x000A;}</pre>
+<p>Lovely will automatically hook &#39;em up the next time you publish your package</p>
+</article>
+</div><div class="news" id="news_8"><header>
+<div class='date'>10 Aug 08:54</div>
+<div class='title'><a href="/news/changelogs-hosting">Changelogs Hosting</a></div>
+</header>
+<article><p>Hey everyone, we&#39;ve got a new feature at lovely.io!</p>
+
+<p>Now there are automatic changelogs hosting available. Just create a file named <tt>CHANGELOG</tt> in your project root directory and fill it in with some content like that</p>
+<pre data-lang='unspecified'>2011-08-10 Nikolay Nemshilov&#x000A;  * did this&#x000A;  * did that&#x000A;&#x000A;2011-08-08 Nikolay Nemshilov&#x000A;  * done this&#x000A;  * done that</pre>
+<p>And the next time you publish your package, there will be a page <a href="/packages/cards/changelog">like this one</a></p>
+</article>
+</div><div class="news" id="news_7"><header>
+<div class='date'>07 Aug 13:13</div>
+<div class='title'><a href="/news/lovely-io-opens-up">Lovely.IO Opens Up</a></div>
+</header>
+<article><p>My dear fellas, the beta-testing period is over and Lovely.IO opens up for early adopters!</p>
+
+<p>I marked all the STL packages to version <tt>1.0.0</tt> today and also opened the authentication pages.</p>
+
+<p>And I also posted a formal introduction over here <a href="http://st-on-it.blogspot.com/2011/08/lovely-future-of-rightjs.html">http://st-on-it.blogspot.com/2011/08/lovely-future-of-rightjs.html</a> </p>
+</article>
+</div><div class="news" id="news_6"><header>
+<div class='date'>03 Aug 15:51</div>
+<div class='title'><a href="/news/automatic-assets-hosting">Automatic Assets Hosting</a></div>
+</header>
+<article><p>My dear fellas, I&#39;ve just deployed a new feature for lovely.io! And it&#39;s an awesome automatic assets hosting. Meaning the images.</p>
+
+<p>I also wrote a little package to demonstrate how it looks like <a href="/packages/cards">playing cards</a>. Also a little <a href="/packages/psychic-test/demo">psychic abilities test</a> just for the kicks</p>
+
+<p>There are a few things left and if everything go smoothly, then I should open up the whole thing for early adopters on this weekend.</p>
+</article>
+</div><div class="news" id="news_5"><header>
+<div class='date'>31 Jul 09:52</div>
+<div class='title'><a href="/news/live-demo-support">Live Demo Support</a></div>
+</header>
+<article><p>Good news everyone! Now lovely.io supports automatic live demos of your packages!</p>
+
+<p>Basically, you don&#39;t have to do anything. If you have an <tt>demo.html</tt> or an <tt>index.html</tt> file in your package root directory. Next time when you publish it, <tt>lovely</tt> will send it to the server and we make you a nice looking demo page out of it.</p>
+
+<p>For example, I wrote a simple <a href="/packages/sudoku">sudoku game</a>, just for fun. And now you can <a href="/packages/sudoku/demo">play it</a> as well</p>
+</article>
+</div><div class="news" id="news_4"><header>
+<div class='date'>22 Jul 14:44</div>
+<div class='title'><a href="/news/rightjs-core-is-ported">RightJS Core Is Ported!</a></div>
+</header>
+<article><p>Just want to let you know that the porting of <a href="http://rightjs.org">RightJS Core</a> is basically done, all its modules are now available as the <a href="/packages">packages</a></p>
+
+<p>Additionally we&#39;ve got a little bonus in the <a href="/packages/rails">ruby-on-rails UJS module</a>!</p>
+</article>
+</div><div class="news" id="news_3"><header>
+<div class='date'>16 Jul 07:26</div>
+<div class='title'><a href="/news/news-comments-were-enabled">News Comments Were Enabled</a></div>
+</header>
+<article><p>A great news everyone!</p>
+
+<p>Now we have the comments available in the news feed!</p>
+</article>
+</div><div class="news" id="news_2"><header>
+<div class='date'>15 Jul 14:20</div>
+<div class='title'><a href="/news/contact-information">Contact Information</a></div>
+</header>
+<article><p>There is the contact information is now available at the <a href="/about">about the project page</a></p>
+</article>
+</div><div class="news" id="news_1"><header>
+<div class='date'>15 Jul 14:18</div>
+<div class='title'><a href="/news/the-first-news">The First News</a></div>
+</header>
+<article><p>Hey folks! Just wanted to inform you that now we have the news feed.</p>
+
+<p>Also, there is the package updates ATOM feed available as well</p>
+</article>
+</div></div>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

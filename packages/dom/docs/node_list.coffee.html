@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:node_list.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:node_list.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee" selected="selected">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>DOM-collections handling interface</p>
+<pre data-lang='coffee'>new NodeList([raw1, raw2, raw3])</pre>
+<p><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> is a subclass of the <a href="/packages/core/docs/list.coffee" class="api-ref">core.List</a> which is a
+subclass of plain <a href="#" class="api-ref">Array</a>, so you can simply iterate
+through it</p>
+<pre data-lang='coffee'>for element in new NodeList([e1, e2, e3])&#x000A;  element.addClass('boo-hoo')</pre>
+<p>You also can use any JavaScript 1.8 methods with it
+on any browser</p>
+<pre data-lang='coffee'>new NodeList([e1,..]).filter (item)-&gt;&#x000A;  item.hasClas('boo-hoo')</pre>
+<p>And you can make calls-by-name which are allowed by the
+<a href="/packages/core/docs/list.coffee" class="api-ref">core.List</a> unit</p>
+<pre data-lang='coffee'>new NodeList([e1, e2, ...])&#x000A;  .filter('hasClass', 'boo-hoo')&#x000A;  .each('removeClass', 'trololo')</pre>
+<p><strong>NOTE</strong>: all the items on the list will be wrapped with
+      the <a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> instances, so it you do <tt>list[0]</tt>
+      it will return an <a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> not a raw dom-element
+      to access the raw dom element, use the standard
+      <tt>_</tt> property. <tt>list[0]._</tt></p>
+
+<p>Copyright (C) 2011-2013 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class NodeList extends core.List</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Iterable</a> raw dom nodes list
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Boolean</a> marker if there are raw items only on the list
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> this</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (raw_list, raw_only)-&gt;&#x000A;    if raw_only is true&#x000A;      `for (var i=0, l=this.length=raw_list.length; i &lt; l; i++) {&#x000A;        this[i] = wrap_element(raw_list[i]);&#x000A;      }`&#x000A;    else&#x000A;      raw_list = [] if raw_list is undefined&#x000A;      `for (var i=0, l=this.length=raw_list.length; i &lt; l; i++) {&#x000A;        this[i] = raw_list[i] instanceof Element ? raw_list[i] : wrap_element(raw_list[i]);&#x000A;      }`&#x000A;&#x000A;    return this</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Syntax sugar for elements existance checks</p>
+<pre data-lang='coffee'>if $('#my-element').exists()&#x000A;  console.log("Awesome!")&#x000A;else&#x000A;  console.log("Bumer :/")</pre>
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  exists: -&gt;&#x000A;    @length isnt 0</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

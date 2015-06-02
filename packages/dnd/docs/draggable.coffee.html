@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dnd:draggable.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dnd">dnd</a>:draggable.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dnd/docs/document.coffee">document.coffee</option>
+<option value="/packages/dnd/docs/draggable.coffee" selected="selected">draggable.coffee</option>
+<option value="/packages/dnd/docs/droppable.coffee">droppable.coffee</option>
+<option value="/packages/dnd/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The draggable part of the unit</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Draggable =&#x000A;  # default options&#x000A;  Options:&#x000A;    handle:            null       # a handle element that will start the drag&#x000A;&#x000A;    snap:              0          # a number in pixels or [x,y]&#x000A;    axis:              null       # null or 'x' or 'y' or 'vertical' or 'horizontal'&#x000A;    range:             null       # {x: [min, max], y: [min, max]} or reference to another element&#x000A;&#x000A;    dragClass:         'dragging' # the in-process class name&#x000A;&#x000A;    clone:             false      # if should keep a clone in place&#x000A;    revert:            false      # marker if the object should be moved back on finish&#x000A;    revertDuration:    'normal'   # the moving back fx duration&#x000A;&#x000A;    scroll:            true       # if it should automatically scroll&#x000A;    scrollSensitivity: 32         # the scrolling area size in pixels&#x000A;&#x000A;    zIndex:            999999999  # the element's z-index&#x000A;    moveOut:           false      # marker if the draggable should be moved out of it's context (for overflown&#x000A;&#x000A;  # currently dragged element reference&#x000A;  current: null</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Switches on/off the draggability</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a>|<a href="#" class="api-ref">Boolean</a> options or <tt>true|false</tt> to switch on/off
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  draggable: (options)-&gt;&#x000A;    if options is false&#x000A;      delete(@__draggable)&#x000A;    else if !('__draggable' of @)&#x000A;      @__draggable = make_draggable(this, options)&#x000A;&#x000A;    return @&#x000A;&#x000A;&#x000A;# private&#x000A;&#x000A;# x,y offsets from the cursor and relative scope&#x000A;draggable_offset_x  = 0&#x000A;draggable_offset_y  = 0&#x000A;draggable_offset_rx = 0&#x000A;draggable_offset_ry = 0</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Makes a draggable unit</p>
+
+<section class='api'><div><strong>@para</strong><em></em>m</div></section>
+</td><td><pre data-lang='coffee'>make_draggable = (element, options)-&gt;&#x000A;  options = merge('draggable', element, options)&#x000A;&#x000A;  # finding the handle element&#x000A;  options.handle = $(options.handle) if isString(options.handle)&#x000A;  options.handle = options.handle[0] if isArray(options.handle)&#x000A;  options.handle = options.handle || element&#x000A;&#x000A;  if isArray(options.snap)&#x000A;    options.snapX = options.snap[0]&#x000A;    options.snapY = options.snap[1]&#x000A;  else&#x000A;    options.snapX = options.snapY = options.snap || 0&#x000A;&#x000A;  options.axisX = options.axis in ['x', 'horizontal']&#x000A;  options.axisY = options.axis in ['y', 'vertical']&#x000A;&#x000A;  return options</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Precalculates the movement constraints</p>
+</td><td><pre data-lang='coffee'>draggable_calc_constraints = (element, options)-&gt;&#x000A;  options.ranged = false&#x000A;  if range = options.range&#x000A;    options.ranged = true&#x000A;&#x000A;    # if the range is defined by another element&#x000A;    range_element = $(range)&#x000A;&#x000A;    if range_element.position&#x000A;      position = range_element.position()&#x000A;      range =&#x000A;        x: [position.x, position.x + range_element.size().x]&#x000A;        y: [position.y, position.y + range_element.size().y]&#x000A;&#x000A;&#x000A;    if isObject(range)&#x000A;      if 'x' of range&#x000A;        options.minX = range.x[0]&#x000A;        options.maxX = range.x[1] - element.size().x&#x000A;&#x000A;      if 'y' of range&#x000A;        options.minY = range.y[0]&#x000A;        options.maxY = range.y[1] - element.size().y&#x000A;&#x000A;  return #nothing</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Starts the drag process</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">dom.Event</a> event
+</div><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> draggable</div></section>
+</td><td><pre data-lang='coffee'>draggable_start = (event, element)-&gt;&#x000A;  event.type = 'beforedragstart'&#x000A;  element.emit event&#x000A;&#x000A;  droppable_prepare_targets()&#x000A;&#x000A;  options  = element.__draggable&#x000A;  position = element.position()&#x000A;&#x000A;  # getting the cursor position offset&#x000A;  draggable_offset_x = event.pageX - position.x&#x000A;  draggable_offset_y = event.pageY - position.y&#x000A;&#x000A;  # grabbing the relative position diffs for nested spaces&#x000A;  draggable_offset_rx = 0&#x000A;  draggable_offset_ry = 0&#x000A;&#x000A;  parent = element.parent()&#x000A;&#x000A;  while parent instanceof $.Element&#x000A;    if parent.style('position') isnt 'static'&#x000A;      parent = parent.position()&#x000A;      draggable_offset_rx = parent.x&#x000A;      draggable_offset_ry = parent.y&#x000A;      break&#x000A;&#x000A;    parent = parent.parent()&#x000A;&#x000A;  # preserving the element sizes&#x000A;  size = element.style('width,height')&#x000A;  size.width  = element.size().x + 'px' if size.width  is 'auto'&#x000A;  size.height = element.size().y + 'px' if size.height is 'auto'&#x000A;&#x000A;  # building a clone element if necessary&#x000A;  if options.clone or options.revert&#x000A;    options._clone = element.clone().style({&#x000A;      visibility: if options.clone then 'visible' else 'hidden'&#x000A;    }).insertTo(element, 'after')&#x000A;&#x000A;  # reinserting the element to the body so it was over all the other elements&#x000A;  element.style({&#x000A;    position: 'absolute',&#x000A;    zIndex:   Draggable.Options.zIndex++,&#x000A;    top:      position.y - draggable_offset_ry + 'px',&#x000A;    left:     position.x - draggable_offset_rx + 'px',&#x000A;    width:    size.x,&#x000A;    height:   size.y&#x000A;  }).addClass(options.dragClass)&#x000A;&#x000A;  element.insertTo(document.body) if options.moveOut&#x000A;&#x000A;  # caching the window scrolls&#x000A;  options.winScrolls = $(window).scrolls();&#x000A;  options.winSizes   = $(window).size();&#x000A;&#x000A;  draggable_calc_constraints(element, options)&#x000A;&#x000A;  Draggable.current  = element&#x000A;  element.emit('dragstart')</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Moves the draggable unit</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">dom.Event</a> event
+</div><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> draggable</div></section>
+</td><td><pre data-lang='coffee'>draggable_move = (event, element)-&gt;&#x000A;  options = element.__draggable&#x000A;  page_x  = event.pageX&#x000A;  page_y  = event.pageY&#x000A;  x = page_x - draggable_offset_x&#x000A;  y = page_y - draggable_offset_y&#x000A;&#x000A;  # checking the range&#x000A;  if options.ranged&#x000A;    x = options.minX if options.minX &gt; x&#x000A;    x = options.maxX if options.maxX &lt; x&#x000A;    y = options.minY if options.minY &gt; y&#x000A;    y = options.maxY if options.maxY &lt; y&#x000A;&#x000A;  # checking the scrolls&#x000A;  if options.scroll&#x000A;    scrolls     = x: options.winScrolls.x, y: options.winScrolls.y&#x000A;    sensitivity = options.scrollSensitivity&#x000A;&#x000A;    if (page_y - scrolls.y) &lt; sensitivity&#x000A;      scrolls.y = page_y - sensitivity&#x000A;    else if (scrolls.y + options.winSizes.y - page_y) &lt; sensitivity&#x000A;      scrolls.y = page_y - options.winSizes.y + sensitivity&#x000A;&#x000A;    if (page_x - scrolls.x) &lt; sensitivity&#x000A;      scrolls.x = page_x - sensitivity&#x000A;    else if (scrolls.x + options.winSizes.x - page_x) &lt; sensitivity&#x000A;      scrolls.x = page_x - options.winSizes.x + sensitivity&#x000A;&#x000A;    scrolls.y = 0 if scrolls.y &lt; 0&#x000A;    scrolls.x = 0 if scrolls.x &lt; 0&#x000A;&#x000A;    if scrolls.y &lt; options.winScrolls.y || scrolls.y &gt; options.winScrolls.y ||&#x000A;       scrolls.x &lt; options.winScrolls.x || scrolls.x &gt; options.winScrolls.x&#x000A;&#x000A;        $(window).scrolls(options.winScrolls = scrolls)&#x000A;&#x000A;  # checking the snaps&#x000A;  x = x - x % options.snapX if options.snapX&#x000A;  y = y - y % options.snapY if options.snapY&#x000A;&#x000A;  # checking the constraints&#x000A;  element._.style.left = x - draggable_offset_rx + 'px' unless options.axisY&#x000A;  element._.style.top  = y - draggable_offset_ry + 'px' unless options.axisX&#x000A;&#x000A;  event.type = 'drag'&#x000A;  element.emit event</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Finishes the drag</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">dom.Event</a> event
+</div><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> element</div></section>
+</td><td><pre data-lang='coffee'>draggable_drop = (event, element)-&gt;&#x000A;  options = element.__draggable&#x000A;  element.removeClass(options.dragClass)&#x000A;&#x000A;  # notifying the droppables for the drop&#x000A;  droppable_check_drop(event, element)&#x000A;&#x000A;  if options.revert&#x000A;    draggable_revert(element, options)&#x000A;  else&#x000A;    Draggable.current = null&#x000A;&#x000A;  event.type = 'dragend'&#x000A;  element.emit(event)</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Moves the element&#39;s position and size back</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> element
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> options</div></section>
+</td><td><pre data-lang='coffee'>draggable_revert = (element, options)-&gt;&#x000A;  position  = options._clone.position();&#x000A;  end_style =&#x000A;    top:  position.y - draggable_offset_ry + 'px'&#x000A;    left: position.x - draggable_offset_rx + 'px'&#x000A;&#x000A;  if options.revertDuration and element.animate&#x000A;    element.animate end_style,&#x000A;      duration: options.revertDuration&#x000A;      finish:   -&gt; draggable_swap_back(element, options)&#x000A;  else&#x000A;    element.style(end_style)&#x000A;    draggable_swap_back(element, options)&#x000A;&#x000A;  return # nothing</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Swaps back the element and it&#39;s clone</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">dom.Element</a> element
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> options</div></section>
+</td><td><pre data-lang='coffee'>draggable_swap_back = (element, options)-&gt;&#x000A;  if options._clone&#x000A;    element.style options._clone.style('width,height,position,zIndex')&#x000A;    options._clone.replace(element)&#x000A;&#x000A;  Draggable.current = null</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dnd/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

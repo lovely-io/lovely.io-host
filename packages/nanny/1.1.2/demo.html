@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Nanny Demo</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+<script type='text/javascript'>Lovely(["nanny-1.1.2"], function(Nanny) {
+        Lovely.module('dom')(function() {
+          return new Nanny().start();
+        });
+      });</script>
+<style type='text/css'>.nanny-test div {
+        display:       inline-block;
+        width:         12em;
+        height:        12em;
+        line-height:   12em;
+        text-align:    center;
+        background:    rgba(0,0,0,.1);
+        margin:        0 1em 1em 0;
+        border:        1px solid rgba(0,0,0,.2);
+        border-radius: .5em;
+      }</style>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-demo'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/nanny" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/nanny" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://www.lovely.io/packages/nanny/1.1.2/demo" class="demo">Live Demo</a></li>
+<li><a href="http://www.lovely.io/packages/nanny/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>1.82 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/UI">UI</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li class='current'>
+<a href="/packages/nanny/1.1.2">1.1.2</a>
+(12 Aug 06:05)
+</li>
+<li>
+<a href="/packages/nanny/1.1.1">1.1.1</a>
+(12 Aug 06:00)
+</li>
+<li>
+<a href="/packages/nanny/1.1.0">1.1.0</a>
+(08 Jun 08:41)
+</li>
+<li>
+<a href="/packages/nanny/1.0.0">1.0.0</a>
+(29 May 03:35)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/nanny-1.1.2.js" class="cdn">nanny-1.1.2.js</a></li>
+<li><a href="http://cdn.lovely.io/nanny-1.1.1.js" class="cdn">nanny-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/nanny-1.1.0.js" class="cdn">nanny-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/nanny-1.0.0.js" class="cdn">nanny-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.2.0">dom-1.2.0</a></li>
+<li><a href="/packages/ui/1.2.0">ui-1.2.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Nanny Demo</h1>
+
+    <div class="nanny-test">
+      <div data-nanny-order="1" data-nanny-html="<h3>This the block #1</h3><p>It should make you really happy</p>"><b>Block 1<b></div>
+      <div data-nanny='{"position":"left","html":"&lt;h3&gt;This the block #2&lt;/h3&gt;&lt;p&gt;It should make you really happy&lt;/p&gt;"}'><b>Block 2</b></div>
+    </div>
+
+    <div class="nanny-test">
+      <div data-nanny-position="right" data-nanny-order="2" data-nanny-html="<h3>This the block #3</h3><p>It should make you really happy</p>"><b>Block 3</b></div>
+      <div data-nanny-position="bottom" data-nanny-html="&lt;h3&gt;This the block #4&lt;/h3&gt;&lt;p&gt;It should make you really happy&lt;/p&gt;"><b>Block 4</b></div>
+    </div>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:event/delegation.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:event/delegation.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee" selected="selected">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>This module handles the events delegation API</p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Events_delegation =</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Attaches a delegative event listener to the element/document</p>
+<pre data-lang='js'>$(element).delegate('#css.rule', 'click', function() {...});&#x000A;$(element).delegate('#css.rule', 'click', 'addClass', 'boo');&#x000A;$(element).delegate('#css.rule', 'click', 'hide');&#x000A;&#x000A;$(element).delegate('#css.rule', {&#x000A;  click: function() {},&#x000A;  focus: 'hide',&#x000A;  blur:  ['addClass', 'boo']&#x000A;});</pre>
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>|<a href="#" class="api-ref">Object</a> event-name or a hash of event handlers
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> callback
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/wrapper.coffee" class="api-ref">Wrapper</a> this</div></section>
+</td><td><pre data-lang='coffee'>  delegate: (css_rule, event)-&gt;&#x000A;    if typeof(event) is 'string'&#x000A;      args     = A(arguments).slice(2)&#x000A;      callback = args.shift()&#x000A;&#x000A;      @on event, (event)-&gt;&#x000A;        target = event.find(css_rule)&#x000A;&#x000A;        if `target != null`&#x000A;          if typeof(callback) is 'string'&#x000A;            target[callback].apply(target, args)&#x000A;          else&#x000A;            callback.apply(target, [event].concat(args))&#x000A;&#x000A;        return # nothing&#x000A;&#x000A;      # adding the css-rule and callback references to the store&#x000A;      ext @_listeners[@_listeners.length - 1], dr: css_rule, dc: callback&#x000A;&#x000A;    else # assuming it's a hash of event-handlers&#x000A;      for args, callback of event&#x000A;        @delegate.apply(this, [css_rule, args].concat(ensure_array(callback)))&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Removes a delegative event listener from the element</p>
+<pre data-lang='js'>$(element).undelegate('#css.rule');&#x000A;$(element).undelegate('#css.rule', 'click');&#x000A;$(element).undelegate('#css.rule', 'click', function() {});&#x000A;$(element).undelegate('#css.rule', 'click', 'addClass', 'boo');&#x000A;$(element).undelegate('#css.rule', 'click', 'hide');&#x000A;&#x000A;$(element).undelegate('#css.rule', {&#x000A;  click: function() {},&#x000A;  focus: 'hide',&#x000A;  blur:  ['addClass', 'boo']&#x000A;});</pre>
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>|<a href="#" class="api-ref">Object</a> event-name or a hash of event handlers
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> callback
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/wrapper.coffee" class="api-ref">Wrapper</a> this</div></section>
+</td><td><pre data-lang='coffee'>  undelegate: (event)-&gt;&#x000A;    for hash in delegation_listeners(arguments, @)&#x000A;      @no(hash.e, hash.c)&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Checks if there is sucha delegative event listener</p>
+<pre data-lang='js'>$(element).delegates('#css.rule');&#x000A;$(element).delegates('#css.rule', 'click');&#x000A;$(element).delegates('#css.rule', 'click', function() {});&#x000A;$(element).delegates('#css.rule', 'click', 'addClass', 'boo');&#x000A;$(element).delegates('#css.rule', 'click', 'hide');&#x000A;&#x000A;$(element).delegates('#css.rule', {&#x000A;  click: function() {},&#x000A;  focus: 'hide',&#x000A;  blur:  ['addClass', 'boo']&#x000A;});</pre>
+<p><strong>NOTE</strong>: if several rules are specified then it will check if
+      <em>any</em> of them are delegateed</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>|<a href="#" class="api-ref">Object</a> event-name or a hash of event handlers
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> callback
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  delegates: -&gt;&#x000A;    delegation_listeners(arguments, @).length is 0</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Returns the list of delegative listeners that match the conditions</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Arguments</a> raw-arguments
+</div><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> the element
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Array</a> list of matching listeners</div></section>
+</td><td><pre data-lang='coffee'>delegation_listeners = (args, object)-&gt;&#x000A;  args     = A(args)&#x000A;  css_rule = args.shift()&#x000A;  event    = args.shift()&#x000A;  callback = args.shift()&#x000A;  result   = []&#x000A;&#x000A;  if typeof(event) is 'string'&#x000A;    for hash in object._listeners&#x000A;      if hash.dr is css_rule and (!event or hash.e is event)&#x000A;        if !callback or hash.dc is callback&#x000A;          result.push(hash)&#x000A;&#x000A;  else # assuming it's a hash&#x000A;    for args, callback of event&#x000A;      result = result.concat(delegation_listeners([css_rule, args]&#x000A;      .concat(ensure_array(callback)), object))&#x000A;&#x000A;  result&#x000A;&#x000A;&#x000A;# hooking the API to the `Element` and `Document`&#x000A;Element.include  Events_delegation&#x000A;Document.include Events_delegation</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » ui:modal.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/ui">ui</a>:modal.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/ui/2.1.0/docs/button.coffee">button.coffee</option>
+<option value="/packages/ui/2.1.0/docs/element.coffee">element.coffee</option>
+<option value="/packages/ui/2.1.0/docs/event.coffee">event.coffee</option>
+<option value="/packages/ui/2.1.0/docs/icon.coffee">icon.coffee</option>
+<option value="/packages/ui/2.1.0/docs/locker.coffee">locker.coffee</option>
+<option value="/packages/ui/2.1.0/docs/main.coffee">main.coffee</option>
+<option value="/packages/ui/2.1.0/docs/menu.coffee">menu.coffee</option>
+<option value="/packages/ui/2.1.0/docs/modal.coffee" selected="selected">modal.coffee</option>
+<option value="/packages/ui/2.1.0/docs/options.coffee">options.coffee</option>
+<option value="/packages/ui/2.1.0/docs/spinner.coffee">spinner.coffee</option>
+<option value="/packages/ui/2.1.0/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Generic modal screen unit. for dialogs and that sort of stuff</p>
+
+<p>Copyright (C) 2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Modal extends Element&#x000A;  extend:&#x000A;    current: null&#x000A;    offsetX: 40&#x000A;    offsetY: 40</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor</p>
+
+<p>NOTE: the <tt>html</tt> attribute will be inserted into the <tt>inner</tt>
+      block, not inside of the main modal container!</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> html options
+</div><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (options)-&gt;&#x000A;    options = merge_options(options, { class: 'lui-modal lui-locker' })&#x000A;    html    = options.html || '';&#x000A;    options.html = '&lt;div class="lui-inner"&gt;&lt;/div&gt;'&#x000A;&#x000A;    options['class'] += ' lui-modal-nolock'  if options.nolock is true; delete(options.nolock)&#x000A;    options['class'] += ' lui-modal-overlap' if options.overlap is true; delete(options.overlap)&#x000A;&#x000A;    super('div', options)&#x000A;&#x000A;    @_inner = @dialog = @first('.lui-inner')&#x000A;    @_inner.insert(html)&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Bypassing the {Element#html} calls to the inner element</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  html: -&gt;&#x000A;    @_inner.html.apply(@_inner, arguments)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Bypassing the {Element#html} calls to the inner element</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  text: -&gt;&#x000A;    @_inner.text.apply(@_inner, arguments)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Bypassing the {Element#insert} calls to the inner element</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  insert: ()-&gt;&#x000A;    @_inner.insert.apply(@_inner, arguments)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Bypassing the {Element#update} calls to the inner element</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  update: ()-&gt;&#x000A;    @_inner.update.apply(@_inner, arguments)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Bypassing the {Element#clear} calls to the inner element</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  clear: ()-&gt;&#x000A;    @_inner.clear()&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Automatically inserts the element into the <tt>document.body</tt></p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  show: ()-&gt;&#x000A;    hide_all_modals() unless @hasClass('lui-modal-overlap')&#x000A;&#x000A;    @insertTo(document.body)&#x000A;    @$super.apply(@, arguments)&#x000A;    @limit_size(dom_window.size())&#x000A;&#x000A;    Modal.current = @constructor.current = @emit('show')</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Removes the whole thing out of the <tt>document.body</tt></p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.0/docs/modal.coffee" class="api-ref">Modal</a> self</div></section>
+</td><td><pre data-lang='coffee'>  hide: -&gt;&#x000A;    Modal.current = @constructor.current = null&#x000A;    @emit('hide').remove()</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Sets the size limits for the image</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> x: N, y: N size
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Zoom</a> this</div></section>
+</td><td><pre data-lang='coffee'>  limit_size: (size)-&gt;&#x000A;    @dialog._.style.maxWidth  = size.x - (@constructor.offsetX || Modal.offsetX) + 'px'&#x000A;    @dialog._.style.maxHeight = size.y - (@constructor.offsetX || Modal.offsetY) + 'px'&#x000A;&#x000A;    return @&#x000A;&#x000A;&#x000A;# hides all visible modals on the page&#x000A;hide_all_modals = -&gt;&#x000A;  modals = dom('div.lui-modal'); last_modal = modals[modals.length - 1]&#x000A;  if last_modal && last_modal.hasClass('lui-modal-overlap')&#x000A;    last_modal.remove()&#x000A;  else&#x000A;    modals.forEach('remove')&#x000A;&#x000A;# hide all modals when the user presses 'escape'&#x000A;dom(document).on('esc', hide_all_modals)&#x000A;dom(document).on 'click', (event)-&gt;&#x000A;  if Modal.current && (Modal.current == event.target || !event.find('.lui-modal'))&#x000A;    Modal.current.hide()&#x000A;    Modal.current = dom('div.lui-modal').pop() || null&#x000A;&#x000A;# setting up the dialog max-sizes with the window&#x000A;resize_timeout = new Date()&#x000A;dom_window = dom(window).on 'resize', -&gt;&#x000A;  if Modal.current isnt null && (new Date() - resize_timeout) &gt; 1&#x000A;    resize_timeout = new Date()&#x000A;    Modal.current.limit_size(@size())</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/ui/2.1.0/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

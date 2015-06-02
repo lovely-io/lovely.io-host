@@ -1,0 +1,17 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/*
+tmp/**/*
+coverage
+public/cdn/_
+public/*.html
+public/**/*.html
+public/*/**/*.html
+public/*.json
+public/**/*.json
+public/*/**/*.json
+
+config/database.yml
+config/authentication.yml
+config/initializers/secret_token.rb

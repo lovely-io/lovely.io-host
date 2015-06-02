@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Timer</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/timer" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io-games/tree/master/timer" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://www.lovely.io/packages/timer/1.0.2/demo" class="demo">Live Demo</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>622 Bytes (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/Games">Games</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li class='current'>
+<a href="/packages/timer/1.0.2">1.0.2</a>
+(17 Aug 13:18)
+</li>
+<li>
+<a href="/packages/timer/1.0.1">1.0.1</a>
+(07 Aug 09:39)
+</li>
+<li>
+<a href="/packages/timer/1.0.0">1.0.0</a>
+(31 Jul 09:46)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/timer-1.0.2.js" class="cdn">timer-1.0.2.js</a></li>
+<li><a href="http://cdn.lovely.io/timer-1.0.1.js" class="cdn">timer-1.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/timer-1.0.0.js" class="cdn">timer-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.0.1">dom-1.0.1</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Timer</h1>
+
+<p>Timer is a simple timer widget</p>
+<pre data-lang='javascript'>Lovely(["timer"], function(Timer) {&#x000A;  var timer = new Timer();&#x000A;  timer.insertTo('#some .element');&#x000A;&#x000A;  timer.start();&#x000A;  timer.stop();&#x000A;  timer.reset();&#x000A;});</pre>
+<h2>Options</h2>
+
+<p>There are several additional options you can use when creating a timer element</p>
+
+<ul>
+<li><tt>hours</tt> - if you need it to show the hours counter (default <tt>false</tt>)</li>
+<li><tt>milli</tt> - if you need it to show milliseconds counter (default <tt>false</tt>)</li>
+<li><tt>period</tt> - the update calls period in milliseconds (default <tt>1000</tt>)</li>
+</ul>
+
+<h2>HTML Structure</h2>
+
+<p>Timer is basically a very simple <tt>DIV</tt> element with the <tt>timer</tt> css-class</p>
+<pre data-lang='html'>&lt;div class="timer"&gt;00:00&lt;/div&gt;</pre>
+<p>But it also gets assigned the <tt>active</tt> css-class when it&#39;s working</p>
+
+<h2>Copyright And License</h2>
+
+<p>This project is released under the terms of the MIT license</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

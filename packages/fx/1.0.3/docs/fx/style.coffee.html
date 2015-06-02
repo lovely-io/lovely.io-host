@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » fx:fx/style.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/fx">fx</a>:fx/style.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/fx/1.0.3/docs/colors.coffee">colors.coffee</option>
+<option value="/packages/fx/1.0.3/docs/element.coffee">element.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx.coffee">fx.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/attr.coffee">fx/attr.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/fade.coffee">fx/fade.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/highlight.coffee">fx/highlight.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/scroll.coffee">fx/scroll.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/slide.coffee">fx/slide.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/style.coffee" selected="selected">fx/style.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/twin.coffee">fx/twin.coffee</option>
+<option value="/packages/fx/1.0.3/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>A smooth styles processing base effect</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Fx.Style extends Fx&#x000A;&#x000A;# protected&#x000A;&#x000A;  prepare: (style)-&gt;&#x000A;    if @options.engine is 'css' and native_fx_prefix isnt null&#x000A;      @render = -&gt;&#x000A;      native_fx_prepare.call(@, style)&#x000A;    else&#x000A;      keys   = style_keys(style)&#x000A;      before = clone_style(@element, keys)&#x000A;      after  = get_end_style(@element, style, keys)&#x000A;&#x000A;      clean_styles(@element, before, after)&#x000A;&#x000A;      @before = parse_style(before)&#x000A;      @after  = parse_style(after)&#x000A;&#x000A;    return ;&#x000A;&#x000A;&#x000A;  render: `function(delta) {&#x000A;    var before, after, value, style = this.element._.style, round = Math.round, key, i, l;&#x000A;    for (key in this.after) {&#x000A;      before = this.before[key];&#x000A;      after  = this.after[key];&#x000A;&#x000A;      for (i=0, l = after.length; i &lt; l; i++) {&#x000A;        value = before[i] + (after[i] - before[i]) * delta;&#x000A;        if (after.r) {&#x000A;          value = Math.round(value);&#x000A;        }&#x000A;        after.t[i*2 + 1] = value;&#x000A;      }&#x000A;&#x000A;      style[key] = after.t.join('');&#x000A;    }&#x000A;  }`</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Native css-transitions based implementation</p>
+</td><td><pre data-lang='coffee'>native_fx_prefix = null&#x000A;for name in ['WebkitT', 'OT', 'MozT', 'MsT', 't']&#x000A;  if "#{name}ransition" of HTML.style&#x000A;    native_fx_prefix = name&#x000A;    break&#x000A;&#x000A;native_fx_transition = native_fx_prefix     + 'ransition'&#x000A;native_fx_property   = native_fx_transition + 'Property'&#x000A;native_fx_duration   = native_fx_transition + 'Duration'&#x000A;native_fx_function   = native_fx_transition + 'TimingFunction'&#x000A;&#x000A;native_fx_prepare    = (style)-&gt;&#x000A;  options       = @options&#x000A;  element       = @element&#x000A;  old_style     = element.style("#{native_fx_property},#{native_fx_duration},#{native_fx_function}")&#x000A;  element_style = element._.style&#x000A;&#x000A;  reset_transitions_style = -&gt;&#x000A;    for key of old_style&#x000A;      element_style[key] = old_style[key]&#x000A;&#x000A;  @on&#x000A;    finish: reset_transitions_style&#x000A;    cancel: -&gt;&#x000A;      element_style[native_fx_property] = 'none'&#x000A;      setTimeout(reset_transitions_style, 1)&#x000A;&#x000A;  # the following should be in a subprocess to work correctly in Chrome&#x000A;  setTimeout -&gt;&#x000A;    # setting up the transition&#x000A;    element_style[native_fx_property] = 'all'&#x000A;    element_style[native_fx_function] = options.transition&#x000A;    element_style[native_fx_duration] = (Fx.Durations[options.duration] || options.duration) + "ms"&#x000A;&#x000A;    # setting the actual end styles&#x000A;    setTimeout((-&gt;element.style(style)), 0)&#x000A;  , 0&#x000A;&#x000A;&#x000A;# NOTE: OPERA's css-transitions are a bit jerky so we disable them by default&#x000A;Fx.Options.engine = if native_fx_prefix is null or Browser is 'Opera' then 'javascript' else 'css'</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Pure JavaScript based implementation</p>
+</td><td><pre data-lang='coffee'>directions = ['Top', 'Left', 'Right', 'Bottom']&#x000A;&#x000A;# adds variants to the style names list&#x000A;add_variants = (keys, key, variants)-&gt;&#x000A;  for variant in variants&#x000A;    keys.push(key + variant)&#x000A;  return;&#x000A;&#x000A;# creates an appropriate style-keys list out of the user styles&#x000A;style_keys = (style)-&gt;&#x000A;  keys = []&#x000A;&#x000A;  for key of style&#x000A;    if key.substr(0, 6) is 'border'&#x000A;      for type in ['Style', 'Color', 'Width']&#x000A;        for direction in directions&#x000A;          keys.push('border' + direction + type)&#x000A;&#x000A;    else if key is 'margin' or key is 'padding'&#x000A;      add_variants(keys, key, directions)&#x000A;    else if key.substr(0, 10) is 'background'&#x000A;      add_variants(keys, 'background', ['Color', 'Position', 'PositionX', 'PositionY'])&#x000A;    else if key is 'opacity' and IE_OPACITY&#x000A;      keys.push('filter')&#x000A;    else&#x000A;      keys.push(key)&#x000A;&#x000A;  return keys&#x000A;&#x000A;&#x000A;# checks if the color is transparent&#x000A;is_transparent = (color)-&gt;&#x000A;  color is 'transparent' or color is 'rgba(0, 0, 0, 0)'&#x000A;&#x000A;# adjusts the border-styles&#x000A;check_border_styles = (element, before, after)-&gt;&#x000A;  for direction in directions&#x000A;    bd_style = "border#{direction}Style"&#x000A;    bd_width = "border#{direction}Width"&#x000A;    bd_color = "border#{direction}Color"&#x000A;&#x000A;    if bd_style of before and before[bd_style] isnt after[bd_style]&#x000A;      style = element._.style&#x000A;&#x000A;      style[bd_width] = '0px' if before[bd_style] is 'none'&#x000A;      style[bd_style] = after[bd_style]&#x000A;&#x000A;      if is_transparent(before[bd_color])&#x000A;        style[bd_color] = element.style('Color')&#x000A;&#x000A;&#x000A;# parses the style hash into a processable format&#x000A;parse_style = (values)-&gt;&#x000A;  result = {}; re = /[\d\.\-]+/g;&#x000A;&#x000A;  for key of values&#x000A;    value = []&#x000A;    for digit in values[key].match(re)&#x000A;      value.push(parseFloat(digit))&#x000A;&#x000A;    value.t = values[key].split(re)&#x000A;    value.r = value.t[0] is 'rgb('&#x000A;&#x000A;    value.t.unshift('') if value.t.length is 1&#x000A;&#x000A;    for v, i in value&#x000A;      value.t.splice(i*2 + 1, 0, v)&#x000A;&#x000A;    result[key] = value&#x000A;&#x000A;  return result&#x000A;&#x000A;# cleans up and optimizies the styles&#x000A;clean_styles = (element, before, after)-&gt;&#x000A;  for key of after&#x000A;    # checking the height/width options&#x000A;    if (key is 'width' or key is 'height') and before[key] is 'auto'&#x000A;      key[0] = key[0].toUpperCase()&#x000A;      before[key] = element._['offset'+key] + 'px'&#x000A;&#x000A;&#x000A;  # IE opacity filter fix&#x000A;  if IE_OPACITY and after.filter and !before.filter&#x000A;    before.filter = 'alpha(opacity=100)'&#x000A;&#x000A;  # adjusting the border style&#x000A;  check_border_styles(element, before, after)&#x000A;&#x000A;  # cleaing up the list&#x000A;  for key of after&#x000A;    # proprocessing colors&#x000A;    if after[key] isnt before[key] and /color/i.test(key)&#x000A;      after[key]  = to_rgb(after[key])  unless is_transparent(after[key])&#x000A;      before[key] = to_rgb(before[key]) unless is_transparent(before[key])&#x000A;&#x000A;      after[key] = before[key] = '' if !after[key] or !before[key]&#x000A;&#x000A;    # filling up the missing size&#x000A;    if /\d/.test(after[key]) && !/\d/.test(before[key])&#x000A;      before[key] = after[key].replace(/[\d\.\-]+/g, '0')&#x000A;&#x000A;    # removing unprocessable keys&#x000A;    if after[key] is before[key] or !/\d/.test(before[key]) or !/\d/.test(after[key])&#x000A;      delete(after[key])&#x000A;      delete(before[key])&#x000A;&#x000A;&#x000A;# cloning the element current styles hash&#x000A;clone_style = (element, keys)-&gt;&#x000A;  result = {}&#x000A;&#x000A;  for key in keys&#x000A;    style = element.style(key)&#x000A;&#x000A;    result[key] = ''+ style if style isnt undefined&#x000A;&#x000A;    # libwebkit bug fix for in case of languages pack applied&#x000A;    result[key] = result[key].replace(',', '.') if key is 'opacity'&#x000A;&#x000A;  return result&#x000A;&#x000A;&#x000A;# calculating the end styles hash&#x000A;get_end_style = (element, style, keys)-&gt;&#x000A;  dummy = element.clone()&#x000A;  dummy.style('position:absolute;z-index:-1;visibility:hidden')&#x000A;  dummy.size(x: element.size().x)&#x000A;  dummy.style(style)&#x000A;&#x000A;  element.insert(dummy, 'before') if element.parent()&#x000A;&#x000A;  after = clone_style(dummy, keys)&#x000A;  dummy.remove()&#x000A;&#x000A;  return after</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/fx/1.0.3/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

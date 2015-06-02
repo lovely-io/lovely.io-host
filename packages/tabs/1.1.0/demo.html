@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Tabs Demo</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+<script type='text/javascript'>Lovely(["tabs-1.1.0"], function() {
+        //console.log(module.version);
+      });</script>
+<style type='text/css'>.lui-tabs {
+        visibility: hidden;
+      }</style>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-demo'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/tabs" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io/tree/master/ui/tabs" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://www.lovely.io/packages/tabs/1.1.0/demo" class="demo">Live Demo</a></li>
+<li><a href="http://www.lovely.io/packages/tabs/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>1.26 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/UI">UI</a>, <a href="/tags/tabs">tabs</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/tabs/1.1.1">1.1.1</a>
+(18 Jun 07:27)
+</li>
+<li class='current'>
+<a href="/packages/tabs/1.1.0">1.1.0</a>
+(14 Jun 05:45)
+</li>
+<li>
+<a href="/packages/tabs/1.0.0">1.0.0</a>
+(06 May 04:27)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/tabs-1.1.1.js" class="cdn">tabs-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/tabs-1.1.0.js" class="cdn">tabs-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/tabs-1.0.0.js" class="cdn">tabs-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.2.0">dom-1.2.0</a></li>
+<li><a href="/packages/ajax/1.1.1">ajax-1.1.1</a></li>
+<li><a href="/packages/ui/2.0.0">ui-2.0.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Tabs Demo</h1>
+
+    <h2>Default Tabs</h2>
+    <div class="lui-tabs">
+      <nav>
+        <a href="#tab-1">Tab 1</a>
+        <a href="#tab-2">Tab 2</a>
+        <a href="#tab-3">Tab 3</a>
+        <a href="#tab-4">Tab 4</a>
+      </nav>
+
+      <div id="tab-1">Tab 1 body</div>
+      <div id="tab-2">Tab 2 body</div>
+      <div id="tab-3">Tab 3 body</div>
+      <div id="tab-4">Tab 4 body</div>
+    </div>
+
+    <h2>Legacy List based Tabs</h2>
+    <ul class="lui-tabs" data-tabs='{"idPrefix": "list-"}'>
+      <ul>
+        <li><a href="#tab-1">Tab 1</a></li>
+        <li><a href="#tab-2">Tab 2</a></li>
+        <li><a href="#tab-3">Tab 3</a></li>
+        <li><a href="#tab-4">Tab 4</a></li>
+      </ul>
+
+      <li id="list-tab-1">Tab 1 body</li>
+      <li id="list-tab-2">Tab 2 body</li>
+      <li id="list-tab-3">Tab 3 body</li>
+      <li id="list-tab-4">Tab 4 body</li>
+    </ul>
+
+    <p class="white-space"></p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » fx:fx/scroll.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/fx">fx</a>:fx/scroll.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/fx/1.1.1/docs/colors.coffee">colors.coffee</option>
+<option value="/packages/fx/1.1.1/docs/element.coffee">element.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx.coffee">fx.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/attr.coffee">fx/attr.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/fade.coffee">fx/fade.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/highlight.coffee">fx/highlight.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/scroll.coffee" selected="selected">fx/scroll.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/slide.coffee">fx/slide.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/style.coffee">fx/style.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/twin.coffee">fx/twin.coffee</option>
+<option value="/packages/fx/1.1.1/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The smooth scrolling visual effect</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Fx.Scroll extends Fx.Attr</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Overloading the constructor to handle correctly
+the <tt>Window</tt> objects</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/wrapper.coffee" class="api-ref">dom.Wrapper</a> element
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Fx.Scroll</a> this</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (element, options)-&gt;&#x000A;    super element, options&#x000A;&#x000A;    if @element instanceof $.Window&#x000A;      document = @element._.document&#x000A;      @element = document.body || document.documentElement&#x000A;&#x000A;    return @&#x000A;&#x000A;# protected&#x000A;&#x000A;  prepare: (value)-&gt;&#x000A;    attrs = {}&#x000A;&#x000A;    attrs.scrollLeft = value.x if 'x' of value&#x000A;    attrs.scrollTop  = value.y if 'y' of value&#x000A;&#x000A;    super attrs</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/fx/1.1.1/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

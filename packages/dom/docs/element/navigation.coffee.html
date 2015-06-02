@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:element/navigation.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:element/navigation.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee" selected="selected">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>This module keeps the dom-navigation methods</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Element.include</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Finds <em>all</em> matching sub-elements</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Boolean</a> marker if you want an Array of raw dom-elements
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a>|<a href="#" class="api-ref">Array</a> matching elements collection</div></section>
+</td><td><pre data-lang='coffee'>  find: (css_rule, needs_raw)-&gt;&#x000A;    result = @_.querySelectorAll(css_rule||'*')&#x000A;    if needs_raw is true then result else new NodeList(result, true)</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Finds the <em>first</em> matching sub-element, or just the first
+element if no css-rule was specified</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> matching element or <tt>null</tt></div></section>
+</td><td><pre data-lang='coffee'>  first: (css_rule)-&gt;&#x000A;    if css_rule is undefined && @_.firstElementChild isnt undefined&#x000A;      element = @_.firstElementChild&#x000A;    else&#x000A;      element = @_.querySelector(css_rule||'*')&#x000A;&#x000A;    wrap(element)</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Checks if the element matches given css-rule</p>
+
+<p>NOTE: the element should be attached to the page</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  match: (css_rule) -&gt;&#x000A;    for element in @document().find(css_rule, true)&#x000A;      if element is @_&#x000A;        return true&#x000A;    return false</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Returns the parent element or the first parent
+element that match the css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> matching parent or <tt>null</tt></div></section>
+</td><td><pre data-lang='coffee'>  parent: (css_rule) -&gt;&#x000A;    if css_rule&#x000A;      @parents(css_rule)[0]&#x000A;    else&#x000A;      wrap(@_.parentNode)</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Finds all the parent elements of current element
+optinally filtered by a css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> list of matching elements</div></section>
+</td><td><pre data-lang='coffee'>  parents: (css_rule) -&gt;&#x000A;    Element_recursively_collect(@, 'parentNode', css_rule)</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Returns the list of immediate children of the element
+optionally filtered by a css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> list of matching elements</div></section>
+</td><td><pre data-lang='coffee'>  children: (css_rule) -&gt;&#x000A;    @find(css_rule).filter (element)-&gt;&#x000A;      element._.parentNode is @_&#x000A;    , @</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Returns a list of the element siblings
+optionally filtered by a css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> list of matching elements</div></section>
+</td><td><pre data-lang='coffee'>  siblings: (css_rule) -&gt;&#x000A;    @previousSiblings(css_rule).reverse().concat(@nextSiblings(css_rule).toArray())</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Returns a list of the next siblings of the element
+optionally filtered by a css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> list of matching elements</div></section>
+</td><td><pre data-lang='coffee'>  nextSiblings: (css_rule)-&gt;&#x000A;    Element_recursively_collect(@, 'nextSibling', css_rule)</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Returns a list of the previous siblings of the element
+optionally filtered by a css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> list of matching elements</div></section>
+</td><td><pre data-lang='coffee'>  previousSiblings: (css_rule)-&gt;&#x000A;    Element_recursively_collect(@, 'previousSibling', css_rule)</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Returns the next sibling element, optionally
+the next sibling that matches a css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> sibling element or <tt>null</tt></div></section>
+</td><td><pre data-lang='coffee'>  nextSibling: (css_rule) -&gt;&#x000A;    if css_rule is undefined and @_.nextElementSibling isnt undefined&#x000A;      wrap(@_.nextElementSibling)&#x000A;    else&#x000A;      @nextSiblings(css_rule)[0]</pre></td></tr>
+<tr><td><a href='#12' name='12'></a>
+<p>Returns the next sibling element, optionally
+the next sibling that matches a css-rule</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> optional css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> sibling element or <tt>null</tt></div></section>
+</td><td><pre data-lang='coffee'>  previousSibling: (css_rule) -&gt;&#x000A;    if css_rule is undefined and @_.previousElementSibling isnt undefined&#x000A;      wrap(@_.previousElementSibling)&#x000A;    else&#x000A;      @previousSiblings(css_rule)[0]&#x000A;&#x000A;&#x000A;# private</pre></td></tr>
+<tr><td><a href='#13' name='13'></a>
+<p>Recursively collects stuff from the element
+wraps them up with the <a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> instances
+and returns as a standard <a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> result</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> start point
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> attribute
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/node_list.coffee" class="api-ref">NodeList</a> result</div></section>
+</td><td><pre data-lang='coffee'>Element_recursively_collect = (element, attr, css_rule)-&gt;&#x000A;  result   = []; node = element._;&#x000A;  no_rule  = css_rule is undefined&#x000A;  css_rule = element.document().find(css_rule, true) unless no_rule&#x000A;  match    = (node)-&gt;&#x000A;    for element in css_rule&#x000A;      if element is node&#x000A;        return true&#x000A;    return false&#x000A;&#x000A;  while (node = node[attr]) isnt null&#x000A;    if node.nodeType is 1 and (no_rule or match(node))&#x000A;      result.push(node)&#x000A;&#x000A;  return new NodeList(result)</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

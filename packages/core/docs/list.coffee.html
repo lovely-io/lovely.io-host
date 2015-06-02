@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » core:list.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/core">core</a>:list.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/core/docs/class.coffee">class.coffee</option>
+<option value="/packages/core/docs/events.coffee">events.coffee</option>
+<option value="/packages/core/docs/hash.coffee">hash.coffee</option>
+<option value="/packages/core/docs/list.coffee" selected="selected">list.coffee</option>
+<option value="/packages/core/docs/lovely.coffee">lovely.coffee</option>
+<option value="/packages/core/docs/main.coffee">main.coffee</option>
+<option value="/packages/core/docs/options.coffee">options.coffee</option>
+<option value="/packages/core/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The magic list of Lovely IO</p>
+
+<p>The goal in here is to provide a quick, steady and inheritable
+JavaScript 1.7 Array like interface with some additional
+features so that we could iterate through anything in a civilized
+maner without tempering with the JavaScript core.</p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class List extends Array</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> iterable list
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (items)-&gt;&#x000A;    unless items is undefined&#x000A;      Array_splice.apply(@, [0,0].concat(items))&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Returns a slice of the list</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Number</a> start index
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Number</a> end index
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/list.coffee" class="api-ref">List</a> new slice</div></section>
+</td><td><pre data-lang='coffee'>  slice: -&gt;&#x000A;    new @constructor(Array_slice.apply(@, arguments))</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Array#concat like method</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Array</a> items to add
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/list.coffee" class="api-ref">List</a> new</div></section>
+</td><td><pre data-lang='coffee'>  concat: (items)-&gt;&#x000A;    new @constructor(A(@).concat(A(items)))</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>The standard <tt>forEaech</tt> equivalent</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> method name or a callback function
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> scope object or the method param
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/list.coffee" class="api-ref">List</a> this</div></section>
+</td><td><pre data-lang='coffee'>  forEach: -&gt;&#x000A;    List_call(Array_forEach, @, arguments)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Maps the result of the callback function work into
+a new <a href="/packages/core/docs/list.coffee" class="api-ref">List</a> object</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> method name or a callback function
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> scope object or the method param
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/list.coffee" class="api-ref">List</a> new</div></section>
+</td><td><pre data-lang='coffee'>  map: -&gt;&#x000A;    new List(List_call(Array_map, @, arguments))</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Creates a new list that has only matching items in it</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> method name or a callback function
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> scope object or the method param
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/list.coffee" class="api-ref">List</a> new</div></section>
+</td><td><pre data-lang='coffee'>  filter: -&gt;&#x000A;    new @constructor(List_call(Array_filter, @, arguments))</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Creates a new list that has no matching items in it</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> method name or a callback function
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> scope object or the method param
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/list.coffee" class="api-ref">List</a> new</div></section>
+</td><td><pre data-lang='coffee'>  reject: -&gt;&#x000A;    new @constructor(List_call(Array_reject, @, arguments))</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Checks if some of the items on the list are kinda <tt>true</tt></p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> callback or a method name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> scope object or the method param
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  some: -&gt;&#x000A;    List_call(Array_some, @, arguments)</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Checks if every item on the list are kinda <tt>true</tt></p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> callback or a method name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> scope object or the method param
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  every: -&gt;&#x000A;    List_call(Array_every, @, arguments)</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Converts the list into an instance or <a href="#" class="api-ref">Array</a></p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Array</a> new</div></section>
+</td><td><pre data-lang='coffee'>  toArray: -&gt; A(@)</pre></td></tr>
+<tr><td><a href='#12' name='12'></a>
+<p>Debugability improver</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">String</a> representation</div></section>
+</td><td><pre data-lang='coffee'>  toString: -&gt; "#&lt;List [#{A(@)}]&gt;"&#x000A;&#x000A;&#x000A;# private&#x000A;Array_proto   = Array.prototype&#x000A;&#x000A;# the rest of the standard Array methods and their replacements for old browsers&#x000A;Array_slice   = Array_proto.slice&#x000A;Array_splice  = Array_proto.splice&#x000A;Array_forEach = Array_proto.forEach&#x000A;Array_map     = Array_proto.map&#x000A;Array_filter  = Array_proto.filter&#x000A;Array_reject  = (callback, scope)-&gt;&#x000A;  Array_filter.call @, -&gt;&#x000A;    !callback.apply scope, arguments&#x000A;&#x000A;Array_some    = Array_proto.some&#x000A;Array_every   = Array_proto.every</pre></td></tr>
+<tr><td><a href='#13' name='13'></a>
+<p>calls the array method on the list with the arguments
+we need this wrapper to handle the calls by name feature</p>
+</td><td><pre data-lang='coffee'>List_call = (method, list, args) -&gt;&#x000A;  # handling the calls by name&#x000A;  if typeof(args[0]) is 'string'&#x000A;    call_args = A(args)&#x000A;    attr_name = call_args.shift()&#x000A;&#x000A;    if list.length isnt 0 and typeof(list[0][attr_name]) is 'function'&#x000A;      args = [ (item) -&gt; item[attr_name].apply(item, call_args) ]&#x000A;    else&#x000A;      args = [ (item) -&gt; item[attr_name] ]&#x000A;&#x000A;  method.apply(list, args)</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/core/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

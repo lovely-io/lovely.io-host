@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Cards Demo</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+<script type='text/javascript'>Lovely(["cards-1.0.0"], function(cards) {
+        cards.Card.SIZE = document.location.href.split('?')[1] || 'normal';
+
+        var $      = Lovely.module('dom');
+        var deck1  = new cards.Deck();
+        var deck2  = new cards.Deck();
+        var deck3  = new cards.Deck();
+
+
+
+        $(function() {
+          deck1.shuffle().insertTo('#left-deck').attr('title', "Click me");
+          deck2.clear().insertTo('#right-deck').attr('title', "Click me");
+
+          deck1.on('click', function() {
+            return swap_card(this, deck2);
+          });
+
+          deck2.on('click', function() {
+            return swap_card(this, deck1);
+          });
+
+          function swap_card(d1, d2) {
+            var card = d1.first();
+            var prev = $('#card-show').first();
+
+            if (card) {
+              if (prev) {
+                d2.append(prev.open(false));
+              }
+
+              $('#card-show').update(card.open());
+            }
+
+            return false;
+          };
+
+
+          $('#all-cards').insert(deck3.cards().forEach('open').reverse());
+          $('#sizes')[0].value(cards.Card.SIZE).on('change', function() {
+            document.location = document.location.href.split('?')[0] + "?" + this.value();
+          });
+          $(document).delegate('.card', 'click', 'flip');
+          $(document).on('mousedown', function(event) {
+            var card = event.find('div.card');
+            if (card) {
+              event.stop();
+            }
+          });
+        });
+      });</script>
+<style type='text/css'>#left-deck, #right-deck, #card-show {
+        display: inline-block;
+        margin-right: 2em;
+      }
+      #right-deck {
+        margin-right: 0;
+      }</style>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-demo'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/cards" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io-games/tree/master/cards" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://www.lovely.io/packages/cards/1.0.0/demo" class="demo">Live Demo</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>2.5 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/Cards">Cards</a>, <a href="/tags/Games">Games</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/cards/1.0.3">1.0.3</a>
+(17 Aug 13:26)
+</li>
+<li>
+<a href="/packages/cards/1.0.2">1.0.2</a>
+(10 Aug 08:50)
+</li>
+<li>
+<a href="/packages/cards/1.0.1">1.0.1</a>
+(07 Aug 09:39)
+</li>
+<li class='current'>
+<a href="/packages/cards/1.0.0">1.0.0</a>
+(03 Aug 15:43)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/cards-1.0.3.js" class="cdn">cards-1.0.3.js</a></li>
+<li><a href="http://cdn.lovely.io/cards-1.0.2.js" class="cdn">cards-1.0.2.js</a></li>
+<li><a href="http://cdn.lovely.io/cards-1.0.1.js" class="cdn">cards-1.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/cards-1.0.0.js" class="cdn">cards-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/0.0.2">dom-0.0.2</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Cards Demo</h1>
+
+    <p>
+      <select id="sizes">
+        <option value="large">Card size: Large</option>
+        <option value="normal">Card size: Normal</option>
+        <option value="small">Card size: Small</option>
+        <option value="tiny">Card size: Tiny</option>
+      </select>
+
+      Click the cards to flip them
+    </p>
+
+    <h2>Cards And Decks</h2>
+    <p>
+      <div id="left-deck"></div>
+      <div id="card-show"></div>
+      <div id="right-deck"></div>
+    </p>
+
+    <h2>All Cards Display</h2>
+    <p>
+      <div id="all-cards"></div>
+    </p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

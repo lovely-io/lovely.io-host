@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » 
+22 Nov 09:46
+Lovely CLI tools update
+</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='news news-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1>
+<div class='date'>22 Nov 09:46</div>
+<div class='title'>Lovely CLI tools update</div>
+</h1>
+<article><p>Great news everyone! The <tt>lovely</tt> CLI tools were just updated to the version <tt>1.7.0</tt>!</p>
+
+<p>The change log goes like that</p>
+
+<ul>
+<li><p><tt>lovely test</tt> command was added. This is a nice shortcut that runs all the console tests that your package has in the <tt>test/</tt> folder and takes case of all the <tt>mocha</tt> extra machinery.</p>
+
+<p>Now you can just run <tt>lovely test</tt> in someones package and make sure that you didn&#39;t break anything, without actually mangling with <tt>mocha</tt></p></li>
+<li><p><tt>lovely dump</tt> command was added. This command allows you to build a set of packages with all their dependencies into one single static file, which you can then host on your own server.</p>
+
+<p>This is useful if you wanna work with SSL on your server or have your own static version of the scripts for any other reason.</p></li>
+<li><p>Now you can specify default languages for your new projects in the <tt>~/.lovelyrc</tt> file</p>
+<pre data-lang='unspecified'>echo "lang = js,css" &gt;&gt; ~/.lovelyrc</pre>
+<p>By default it will be <tt>coffee,sass</tt> but you can specify any pair from <tt>coffee</tt>, <tt>js</tt>, <tt>css</tt>, <tt>stylus</tt> and <tt>sass</tt> in there.</p></li>
+<li><p>The <tt>lovely server</tt> command now can compile non-project related <tt>coffee</tt> files on fly. Say if you&#39;re working on
+something that is not a lovely.io package and use <tt>lovely</tt> as a simple server to serve your local files, now
+you can write your code in <tt>coffee</tt> and just include those files on your page as they are. Lovely server will
+automatically convert them into javascript and send to your browser.</p></li>
+<li><p>A bunch of shortcuts were added for the <tt>lovely</tt> commands, you can now run things like <tt>lovely s</tt>, <tt>lovely -h</tt>,
+<tt>lovely -v</tt> and so on.</p></li>
+</ul>
+
+<p>Enjoy!</p>
+</article>
+<p class='bottom-links'>
+<a href="/news" class="back">News index</a>
+</p>
+<div id="disqus_thread"></div><script type="text/javascript">
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://lovelyio.disqus.com/embed.js';
+      document.getElementsByTagName('head')[0].appendChild(dsq);
+    </script>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

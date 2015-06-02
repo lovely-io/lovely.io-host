@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:element/commons.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:element/commons.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee" selected="selected">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>This file contains the common use methods</p>
+
+<p>NOTE: some methods, like <tt>#show</tt>, <tt>#hide</tt>, etc
+might take a visual effect settings, those settings
+will work only if the <tt>fx</tt> module is included on the page,
+otherwise the element will be immediately shown/hidden</p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Element.include</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>The basic attributes handling method</p>
+<pre data-lang='coffee'>element.attr('name')          # -&gt; getting attribute&#x000A;element.attr('name', 'value') # -&gt; setting attribute&#x000A;element.attr('name', null)    # -&gt; removing attribute&#x000A;element.attr('name') is null  # -&gt; checking attribute&#x000A;&#x000A;element.attr&#x000A;  name1: 'value1'&#x000A;  name2: 'value2'&#x000A;  ....</pre>
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>|<a href="#" class="api-ref">Object</a> attribute name or a hash of attributes
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>|<a href="#" class="api-ref">undefined</a> attribute value
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">String</a>|<a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> attribute value or element reference</div></section>
+</td><td><pre data-lang='coffee'>  attr: (name, value) -&gt;&#x000A;    if typeof(name) is 'string'&#x000A;&#x000A;      if value is undefined # reading an attribute&#x000A;        value = @_[name] || @_.getAttribute(name)&#x000A;        return if value is '' then null else value&#x000A;&#x000A;      else if value is null # erazing an attribute&#x000A;        @_.removeAttribute(name)&#x000A;        delete @_[name]&#x000A;&#x000A;      else if name is 'style' # bypassing the styles into the #style method&#x000A;        @style value&#x000A;&#x000A;      else # setting an attribute&#x000A;        element = @_&#x000A;        element.setAttribute(name, value) unless name of element&#x000A;        element[name] = value&#x000A;&#x000A;    else # assuming it's a hash to set&#x000A;      for value of name&#x000A;        @attr(value, name[value])&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Sets/gets the <tt>data-smth</tt> data attribute and
+automatically converts everything in/out JSON</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> key name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> data or <tt>undefined</tt> to erase
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a>|<a href="#" class="api-ref">mixed</a> self or extracted data</div></section>
+</td><td><pre data-lang='coffee'>  data: (key, value)-&gt;&#x000A;    if isObject(key)&#x000A;      for name of key&#x000A;        value = @data(name, key[name])&#x000A;&#x000A;    else if value is undefined&#x000A;      key    = dasherize('data-'+key)&#x000A;      result = {}&#x000A;      match  = false&#x000A;&#x000A;      for attr in @_.attributes&#x000A;        value = attr.value&#x000A;        try&#x000A;          value = JSON.parse(value)&#x000A;        catch e&#x000A;&#x000A;        if attr.name is key&#x000A;          result = value&#x000A;          match  = true&#x000A;          break&#x000A;        else if attr.name.indexOf(key) is 0&#x000A;          result[camelize(attr.name.substring(key.length+1))] = value&#x000A;          match = true&#x000A;&#x000A;      value = if match then result else null&#x000A;&#x000A;    else&#x000A;      key   = dasherize('data-'+ key)&#x000A;      value = {'': value} unless isObject(value)&#x000A;&#x000A;      for name of value&#x000A;        attr = if `name == false` then key else dasherize(key+'-'+name)&#x000A;&#x000A;        if value[name] is null&#x000A;          @_.removeAttribute(attr)&#x000A;        else&#x000A;          @_.setAttribute(attr, if isString(value[name]) then value[name] else JSON.stringify(value[name]))&#x000A;&#x000A;      value = @&#x000A;&#x000A;    return value</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Checks if the element is hidden</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  hidden: -&gt;&#x000A;    @style('display') is 'none'</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Checks if the element is visible</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  visible: -&gt;&#x000A;    !@hidden()</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Hides an element (optionally with fx)</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  hide: -&gt;&#x000A;    if @visible()&#x000A;      @_old_display = @style('display')&#x000A;      @_.style.display = 'none'&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Shows an element (optionally with fx)</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  show: -&gt;&#x000A;    if @hidden()&#x000A;      element = @_&#x000A;      value   = @_old_display&#x000A;&#x000A;      if !value || value is 'none'&#x000A;        dummy = new Element(element.tagName).insertTo(HTML)&#x000A;        value = dummy.style('display') || 'none'&#x000A;        dummy.remove()&#x000A;&#x000A;      element.style.display = if value is 'none' then 'block' else value&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Toggles an element&#39;s visual state (optionally with fx)</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  toggle: -&gt;&#x000A;    if @hidden() then @show() else @hide()</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>hides all the sibling elements and shows this one (optionally with fx)</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> this</div></section>
+</td><td><pre data-lang='coffee'>  radio: -&gt;&#x000A;    @siblings().forEach('hide')&#x000A;    @show()</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Returns the element&#39;s owner document reference</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/document.coffee" class="api-ref">Document</a> wrapped owner document</div></section>
+</td><td><pre data-lang='coffee'>  document: -&gt;&#x000A;    wrap @_.ownerDocument</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Returns the element&#39;s owner window reference</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/window.coffee" class="api-ref">Window</a> wrapped owner window</div></section>
+</td><td><pre data-lang='coffee'>  window: -&gt;&#x000A;    @document().window()</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » fx:fx/slide.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/fx">fx</a>:fx/slide.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/fx/1.0.3/docs/colors.coffee">colors.coffee</option>
+<option value="/packages/fx/1.0.3/docs/element.coffee">element.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx.coffee">fx.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/attr.coffee">fx/attr.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/fade.coffee">fx/fade.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/highlight.coffee">fx/highlight.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/scroll.coffee">fx/scroll.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/slide.coffee" selected="selected">fx/slide.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/style.coffee">fx/style.coffee</option>
+<option value="/packages/fx/1.0.3/docs/fx/twin.coffee">fx/twin.coffee</option>
+<option value="/packages/fx/1.0.3/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The basic slide visual effect</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Fx.Slide extends Fx.Twin&#x000A;  extend:&#x000A;    Options: Hash.merge(Fx.Options, {&#x000A;      direction: 'top'&#x000A;    })&#x000A;&#x000A;&#x000A;# protected&#x000A;  prepare: (direction)-&gt;&#x000A;    @setDirection(direction)&#x000A;&#x000A;    # calling 'prototype' to prevent circular calls from subclasses&#x000A;    element = Element.prototype.show.call(@element)&#x000A;    element_style = element._.style&#x000A;    old_styles = element.style('overflow,width,height,marginTop,marginLeft')&#x000A;&#x000A;    restore_styles = -&gt;&#x000A;      ext(element_style, old_styles)&#x000A;&#x000A;    @on 'finish,cancel', restore_styles&#x000A;&#x000A;    element_style.overflow = 'hidden'&#x000A;&#x000A;    end_style = fx_slide_prepare_styles(&#x000A;      element_style,&#x000A;      element.size(),&#x000A;      @options.direction,&#x000A;      @direction)&#x000A;&#x000A;    super end_style&#x000A;&#x000A;&#x000A;fx_slide_prepare_styles = (element_style, size, direction, how)-&gt;&#x000A;  style       = {}&#x000A;  margin_left = parseFloat(element_style.marginLeft) || 0&#x000A;  margin_top  = parseFloat(element_style.marginTop)  || 0&#x000A;  to_right    = direction is 'right'&#x000A;  to_bottom   = direction is 'bottom'&#x000A;  vertical    = direction is 'top' || to_bottom&#x000A;&#x000A;  if how is 'out'&#x000A;    style[if vertical then 'height' else 'width'] = '0px'&#x000A;&#x000A;    if to_right&#x000A;      style.marginLeft = margin_left + size.x+'px'&#x000A;    else if to_bottom&#x000A;      style.marginTop = margin_top + size.y +'px'&#x000A;&#x000A;  else&#x000A;    if vertical&#x000A;      style.height = size.y + 'px'&#x000A;      element_style.height  = '0px'&#x000A;    else&#x000A;      style.width = size.x + 'px'&#x000A;      element_style.width  = '0px'&#x000A;&#x000A;    if to_right&#x000A;      style.marginLeft = margin_left + 'px'&#x000A;      element_style.marginLeft = margin_left + size.x + 'px'&#x000A;    else if to_bottom&#x000A;      style.marginTop = margin_top + 'px'&#x000A;      element_style.marginTop = margin_top + size.y + 'px'&#x000A;&#x000A;  return style</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/fx/1.0.3/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

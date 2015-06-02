@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » core:main.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/core">core</a>:main.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/core/docs/class.coffee">class.coffee</option>
+<option value="/packages/core/docs/events.coffee">events.coffee</option>
+<option value="/packages/core/docs/hash.coffee">hash.coffee</option>
+<option value="/packages/core/docs/list.coffee">list.coffee</option>
+<option value="/packages/core/docs/lovely.coffee">lovely.coffee</option>
+<option value="/packages/core/docs/main.coffee" selected="selected">main.coffee</option>
+<option value="/packages/core/docs/options.coffee">options.coffee</option>
+<option value="/packages/core/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Lovely IO core module</p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>include 'src/lovely'&#x000A;include 'src/util'&#x000A;include 'src/class'&#x000A;include 'src/list'&#x000A;include 'src/hash'&#x000A;include 'src/events'&#x000A;include 'src/options'&#x000A;&#x000A;# exporting the object&#x000A;exports = ext Lovely,&#x000A;  version:     '%{version}'&#x000A;&#x000A;  # the loader default options&#x000A;  modules:     {}          # the loaded modules index&#x000A;  loading:     {}          # the currently loading modules&#x000A;  baseUrl:     ''          # default base url address for local modules&#x000A;  hostUrl:     ''          # default host url address for Lovely modules&#x000A;  module:      find_module # the standard modules accessing method&#x000A;  bundle:      {}          # versions bundling config&#x000A;&#x000A;  # globally accessible functions&#x000A;  A:          A&#x000A;  L:          L&#x000A;  H:          H&#x000A;  ext:        ext&#x000A;  bind:       bind&#x000A;  trim:       trim&#x000A;  isString:   isString&#x000A;  isNumber:   isNumber&#x000A;  isFunction: isFunction&#x000A;  isArray:    isArray&#x000A;  isObject:   isObject&#x000A;  Class:      Class&#x000A;  List:       List&#x000A;  Hash:       Hash&#x000A;  Events:     Events&#x000A;  Options:    Options&#x000A;&#x000A;# stashing this module itself in the modules list&#x000A;Lovely.modules["core-#{Lovely.version}"] = Lovely&#x000A;&#x000A;# making the main object globally available&#x000A;global.Lovely = Lovely</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/core/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

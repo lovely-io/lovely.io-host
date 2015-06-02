@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Forget The Installation!</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='static static-page'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<div class='punch-line'>
+<div class='half-width'>
+<h1>Forget The Installation!</h1>
+<p>
+Lovely.IO is a centralized repository of front-side packages
+</p>
+<p>
+Just say which packages you need and you'll get them!
+</p>
+</div>
+<div class='half-width'>
+<pre data-lang='html'>&lt;script src="http://cdn.lovely.io/core.js"&gt;&lt;/script&gt;&#x000A;&lt;script type="text/javascript"&gt;&#x000A;  Lovely(['dom', 'ajax', 'fx'], function($, Ajax, Fx) {&#x000A;    // you're ready to rock!&#x000A;  });&#x000A;&lt;/script&gt;&#x000A;&#x000A;</pre>
+</div>
+</div>
+<div class='punch-line'>
+<div class='half-width'>
+<pre data-lang='js'>Lovely(['mines-game-1.0.2'], function(MinesGame) {&#x000A;  var game = new MinesGame();&#x000A;  game.insertTo(document.body);&#x000A;});&#x000A;</pre>
+</div>
+<div class='half-width'>
+<h1>Forget Dependencies!</h1>
+<p>
+Lovely.IO automatically <a href="/packages/mines-game/demo">resolves all the dependencies</a> for you!
+</p>
+</div>
+</div>
+<div class='punch-line'>
+<div class='half-width'>
+<h1>Forget The Assets Hassle!</h1>
+<p>
+Lovely.IO <a href="/packages/ui/demo">automatically handles all the assets</a>.
+</p>
+<p>
+All styles, images, etc. They're just there!
+</p>
+</div>
+<div class='half-width'>
+<pre data-lang='js'>Lovely(['ui-2.3.4'], function(UI) {&#x000A;  var icon = new UI.Icon('delete');&#x000A;  icon.insertTo('#my-element');&#x000A;&#x000A;  // all styles are already there!&#x000A;});&#x000A;</pre>
+</div>
+</div>
+<div class='punch-line'>
+<div class='half-width'>
+<a class='thmb' data-zoom='' href='/images/pages/landing-benchmark.png'><img src='/images/pages/landing-benchmark-thmb.png' style='height: 7em;'></a>
+<script>
+  Lovely(['zoom'], function() {});
+</script>
+</div>
+<div class='half-width'>
+<h1>Enjoy The DOM Speed!</h1>
+<p>
+Lovely.IO DOM package is build on a new architecture
+</p>
+<p>
+It uses dom-wrappers, which are <a href="/benchmark">much, much faster!</a>
+</p>
+</div>
+</div>
+<div class='punch-line'>
+<div class='half-width'>
+<h1>Enjoy The Loading Speed!</h1>
+<p>
+Lovely.IO is build upon AMD structure
+</p>
+<p>
+And it uses CloudFront for <a href="/loading-test">fast packages delivery!</a>
+</p>
+</div>
+<div class='half-width'>
+<a class='thmb' data-zoom='' href='/images/pages/landing-loading.png'><img src='/images/pages/landing-loading.png' style='height: 7em;'></a>
+</div>
+</div>
+<div class='punch-line'>
+<div class='half-width'>
+<pre data-lang='coffee'>LoginForm = Form.inherit&#x000A;  send: ->&#x000A;    @$super() if @valid()&#x000A;&#x000A;  valid: ->&#x000A;    @values()['username'] && @values()['password']&#x000A;</pre>
+</div>
+<div class='half-width'>
+<h1>Be Civilized On Front-Side!</h1>
+<p>
+Lovely.IO uses OOP dom-wrappers at it's core
+</p>
+<p>
+Which allows you to write clean and maintanable code
+</p>
+</div>
+</div>
+<div class='punch-line'>
+<div class='half-width'>
+<h1>Be Part Of It!</h1>
+<p>
+Lovely.IO is an open and fully automated repository
+</p>
+<p>
+Anyone can share <a href="/users/1">their packages</a> in here!
+</p>
+</div>
+<div class='half-width' id='installation-example'>
+<pre data-colorifier='{"gutter": false}' data-lang='shell'>$ npm install lovely -g&#x000A;$&#x000A;$ lovely new my-awesome-package&#x000A;$ cd my-awesome-package&#x000A;$ ...&#x000A;$ lovely publish&#x000A;&#x000A;&#x000A;</pre>
+</div>
+</div>
+<div class='packages-block'>
+<div class='half-width'>
+<h2>New Packages</h2>
+<div class='packages'>
+<div class='package'>
+<header>
+<a href="/packages/table">table - 1.0.0</a>
+(25 May 04:13)
+</header>
+<article>
+Tables specific DOM wrapper with extra features
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/i18n">i18n - 1.2.0</a>
+(06 Jun 11:07)
+</header>
+<article>
+A simple utility to help with the internationalisation of your lovel.io projects.
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/kick-ass">kick-ass - 1.0.0</a>
+(20 Apr 11:30)
+</header>
+<article>
+Lovely.IO regression testing utility
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/hello-ie">hello-ie - 1.0.0</a>
+(03 Feb 06:31)
+</header>
+<article>
+Shows an hello dialog for the old IE browers users
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/analog-clock">analog-clock - 1.0.0</a>
+(27 Sep 16:29)
+</header>
+<article>
+Analog clock widget
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/osom-area">osom-area - 1.2.1</a>
+(02 Aug 16:40)
+</header>
+<article>
+Advanced textarea handling features
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/nanny">nanny - 1.1.2</a>
+(12 Aug 06:05)
+</header>
+<article>
+UI walkthrough helper
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/tabs">tabs - 1.1.1</a>
+(18 Jun 07:28)
+</header>
+<article>
+Standard tabs widget
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/dialog">dialog - 1.2.2</a>
+(11 Oct 09:57)
+</header>
+<article>
+The standard dialog UI module
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/glyph-icons">glyph-icons - 1.0.2</a>
+(28 Apr 04:18)
+</header>
+<article>
+Glyph icons drop in stylesheets
+</article>
+</div>
+
+</div>
+<p class='bottom-links'>
+<a href="/packages">All packages</a>
+</p>
+</div>
+<div class='half-width'>
+<h2>Updated Packages</h2>
+<div class='packages'>
+<div class='package'>
+<header>
+<a href="/packages/i18n">i18n - 1.2.0</a>
+(06 Jun 11:07)
+</header>
+<article>
+A simple utility to help with the internationalisation of your lovel.io projects.
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/dom">dom - 1.4.4</a>
+(25 May 08:52)
+</header>
+<article>
+Standard DOM manipulation module
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/table">table - 1.0.0</a>
+(25 May 04:13)
+</header>
+<article>
+Tables specific DOM wrapper with extra features
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/kick-ass">kick-ass - 1.0.0</a>
+(20 Apr 11:30)
+</header>
+<article>
+Lovely.IO regression testing utility
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/colorifier">colorifier - 1.4.0</a>
+(13 Apr 05:11)
+</header>
+<article>
+Code highlighting script
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/hello-ie">hello-ie - 1.0.0</a>
+(03 Feb 06:31)
+</header>
+<article>
+Shows an hello dialog for the old IE browers users
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/core">core - 1.4.1</a>
+(24 Nov 04:43)
+</header>
+<article>
+Lovely IO main module
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/ui">ui - 2.1.2</a>
+(12 Oct 07:16)
+</header>
+<article>
+Standarad UI core module
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/dialog">dialog - 1.2.2</a>
+(11 Oct 09:57)
+</header>
+<article>
+The standard dialog UI module
+</article>
+</div>
+
+<div class='package'>
+<header>
+<a href="/packages/zoom">zoom - 1.1.1</a>
+(02 Oct 09:13)
+</header>
+<article>
+Lightweight images zoom widget
+</article>
+</div>
+
+</div>
+<p class='bottom-links'>
+<a href="/packages/updated.atom">RSS Feed</a>
+</p>
+</div>
+</div>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

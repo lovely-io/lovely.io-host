@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » ui:util.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/ui">ui</a>:util.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/ui/2.1.0/docs/button.coffee">button.coffee</option>
+<option value="/packages/ui/2.1.0/docs/element.coffee">element.coffee</option>
+<option value="/packages/ui/2.1.0/docs/event.coffee">event.coffee</option>
+<option value="/packages/ui/2.1.0/docs/icon.coffee">icon.coffee</option>
+<option value="/packages/ui/2.1.0/docs/locker.coffee">locker.coffee</option>
+<option value="/packages/ui/2.1.0/docs/main.coffee">main.coffee</option>
+<option value="/packages/ui/2.1.0/docs/menu.coffee">menu.coffee</option>
+<option value="/packages/ui/2.1.0/docs/modal.coffee">modal.coffee</option>
+<option value="/packages/ui/2.1.0/docs/options.coffee">options.coffee</option>
+<option value="/packages/ui/2.1.0/docs/spinner.coffee">spinner.coffee</option>
+<option value="/packages/ui/2.1.0/docs/util.coffee" selected="selected">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Various utility stuff</p>
+</td><td><pre data-lang='coffee'>merge_options = (options, defaults)-&gt;&#x000A;  options          or= {}&#x000A;&#x000A;  for key, value of defaults&#x000A;    options[key] or= if key is 'class' then '' else value&#x000A;&#x000A;  options['class'] += if options['class'] then ' ' else ''&#x000A;  options['class'] += defaults['class']&#x000A;&#x000A;  options&#x000A;&#x000A;&#x000A;# checking the css-transform / css-animation support&#x000A;&#x000A;css_prefixes  = 'WebkitA MozA msA OA a'.split(' ')&#x000A;css_animation = false&#x000A;&#x000A;while (css_prefix = css_prefixes.pop())&#x000A;  if document.body.style[css_prefix + 'nimation'] isnt undefined&#x000A;    css_animation = css_prefix + 'nimation'&#x000A;    break&#x000A;&#x000A;css_prefixes = 'WebkitT MozT msT OT t'.split(' ')&#x000A;css_transform = false&#x000A;&#x000A;while (css_prefix = css_prefixes.pop())&#x000A;  if document.body.style[css_prefix + 'ransform'] isnt undefined&#x000A;    css_transform = css_prefix + 'ransform'&#x000A;    break</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/ui/2.1.0/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

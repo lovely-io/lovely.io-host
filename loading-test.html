@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Content Delivery Speed Test</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='static static-page'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1>Content Delivery Speed Test</h1>
+<p>
+<b>Disclamer:</b> Lovely.IO is AMD based and loads 4 files by using the following layout
+</p>
+<pre class='lovely-io' data-lang='html'>&lt;html>&#x000A;  &lt;head>&#x000A;    &lt;script src="http://cdn.lovely.io/core-1.4.1.js">&lt;/script>&#x000A;    &lt;script>&#x000A;      Lovely(['dom-1.4.3', 'ajax-1.1.4', 'fx-1.1.1'], function() {});&#x000A;    &lt;/script>&#x000A;  &lt;/head>&#x000A;&lt;/html>&#x000A;</pre>
+<p>
+For jQuery delivery we use the googleapis hosting with the following layout
+</p>
+<pre class='jquery' data-lang='html'>&lt;html>&#x000A;  &lt;head>&#x000A;    &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">&lt;/script>&#x000A;  &lt;/head>&#x000A;&lt;/html>&#x000A;</pre>
+<p>
+<div id='frames-container'></div>
+<div id='results-container'>
+<div class='result'>
+<h2>Lovely</h2>
+<ul class='lovely'></ul>
+</div>
+<div class='result'>
+<h2>jQuery</h2>
+<ul class='jquery'></ul>
+</div>
+</div>
+</p>
+<p>
+<div id='start'>
+<a href='#'><b>Start The Test!</b></a>
+<span style='opacity: 0.7'>(don't forget to clean up the browser's cache first!)</span>
+</div>
+</p>
+<style>
+  #frames-container {
+    position: absolute;
+    top: -20em;
+  }
+  #results-container .result {
+    display: inline-block;
+    vertical-align: top;
+    width:   20em;
+  }
+</style>
+<script>
+  Lovely(['dom'], function($) {
+    $(document).delegate('#start', 'click', function(e) {
+      e.preventDefault();
+  
+      if (!this.find('a')) return;
+  
+      this.html('Working...');
+  
+      $('#frames-container').html(
+        '<iframe src="test/load-lovely.html"></iframe>' +
+        '<iframe src="test/load-jquery.html"></iframe>'
+      );
+  
+      this.hide();
+    });
+  
+    window.loading_log = function(lib, what, time) {
+      $('#results-container ul.'+ lib).append(
+        "<li>"+ what + " in: " + time + "ms</li>"
+      );
+    }
+  });
+</script>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

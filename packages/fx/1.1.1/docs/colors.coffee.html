@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » fx:colors.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/fx">fx</a>:colors.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/fx/1.1.1/docs/colors.coffee" selected="selected">colors.coffee</option>
+<option value="/packages/fx/1.1.1/docs/element.coffee">element.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx.coffee">fx.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/attr.coffee">fx/attr.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/fade.coffee">fx/fade.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/highlight.coffee">fx/highlight.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/scroll.coffee">fx/scroll.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/slide.coffee">fx/slide.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/style.coffee">fx/style.coffee</option>
+<option value="/packages/fx/1.1.1/docs/fx/twin.coffee">fx/twin.coffee</option>
+<option value="/packages/fx/1.1.1/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>This file contains utils to handle the color formats conversion</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'></pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>converts a hex string into an rgb array</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> a hex color
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Boolean</a> flag if need an array
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">String</a> rgb(R,G,B) or Array [R,G,B]</div></section>
+</td><td><pre data-lang='coffee'>to_rgb = (color, in_array)-&gt;&#x000A;  match = /#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})/i.exec(to_hex(color)||'');&#x000A;&#x000A;  if match&#x000A;    match = (parseInt(bit,16) for bit in match.slice(1))&#x000A;    match = if in_array then match else 'rgb('+match+')'&#x000A;&#x000A;  return match</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>converts a #XXX or rgb(X, X, X) sring into standard #XXXXXX color string</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> color in other formats
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">String</a> hex color</div></section>
+</td><td><pre data-lang='coffee'>to_hex = (color)-&gt;&#x000A;  match = /^#(\w)(\w)(\w)$/.exec(color)&#x000A;&#x000A;  if match&#x000A;    match = "#"+ match[1]+match[1]+match[2]+match[2]+match[3]+match[3]&#x000A;  else if match = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/.exec(color)&#x000A;    value = match.slice(1)&#x000A;    match = "#"&#x000A;    for bit in value&#x000A;      bit = (bit-0).toString(16)&#x000A;      match += if bit.length is 1 then '0'+bit else bit&#x000A;&#x000A;  else&#x000A;    match = COLORS[color] || color&#x000A;&#x000A;  return match&#x000A;&#x000A;&#x000A;&#x000A;# a bunch of standard colors map for old browsers&#x000A;COLORS =&#x000A;  maroon:  '#800000'&#x000A;  red:     '#ff0000'&#x000A;  orange:  '#ffA500'&#x000A;  yellow:  '#ffff00'&#x000A;  olive:   '#808000'&#x000A;  purple:  '#800080'&#x000A;  fuchsia: '#ff00ff'&#x000A;  white:   '#ffffff'&#x000A;  lime:    '#00ff00'&#x000A;  green:   '#008000'&#x000A;  navy:    '#000080'&#x000A;  blue:    '#0000ff'&#x000A;  aqua:    '#00ffff'&#x000A;  teal:    '#008080'&#x000A;  black:   '#000000'&#x000A;  silver:  '#c0c0c0'&#x000A;  gray:    '#808080'&#x000A;  brown:   '#a52a2a'</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/fx/1.1.1/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

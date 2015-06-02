@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:main.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:main.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee" selected="selected">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The DOM management module for Lovely IO</p>
+
+<p>Copyright (C) 2011-2013 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>include 'src/utils'&#x000A;include 'src/browser'&#x000A;include 'src/node_list'&#x000A;include 'src/wrapper'&#x000A;include 'src/element'&#x000A;include 'src/element/events'&#x000A;include 'src/element/styles'&#x000A;include 'src/element/commons'&#x000A;include 'src/element/dimensions'&#x000A;include 'src/element/navigation'&#x000A;include 'src/element/manipulation'&#x000A;include 'src/document'&#x000A;include 'src/window'&#x000A;include 'src/style'&#x000A;include 'src/form'&#x000A;include 'src/input'&#x000A;include 'src/event'&#x000A;include 'src/event/delegation'&#x000A;include 'src/event/mouseio'&#x000A;include 'src/event/focusio'&#x000A;include 'src/event/ready'&#x000A;include 'src/casting'&#x000A;include 'src/dollar'&#x000A;&#x000A;&#x000A;# registering `Form` and `Input` for dynamic typecasting&#x000A;Wrapper&#x000A;  .set("form",     Form)&#x000A;  .set("input",    Input)&#x000A;  .set("button",   Input)&#x000A;  .set("select",   Input)&#x000A;  .set("textarea", Input)&#x000A;  .set("optgroup", Input)&#x000A;  .set("style",    Style)&#x000A;&#x000A;&#x000A;# exporting the main units&#x000A;exports = ext $,&#x000A;  version:  '%{version}'&#x000A;  Browser:  Browser&#x000A;  Wrapper:  Wrapper&#x000A;  Document: Document&#x000A;  Element:  Element&#x000A;  Window:   Window&#x000A;  Event:    Event&#x000A;  Form:     Form&#x000A;  Input:    Input&#x000A;  Style:    Style&#x000A;  NodeList: NodeList&#x000A;  eval:     global_eval&#x000A;  uid:      uid</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

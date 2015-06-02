@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » DOM Speed Benchmark</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='static static-page'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1>DOM Speed Benchmark</h1>
+<p>
+<b>Disclamer:</b> this benchmark uses the <a href="/packages/kick-ass">kick-ass package</a>
+to test the library's performance. All source code of the test is available at the
+<a href="https://github.com/MadRabbit/kick-ass">package's GitHub repo</a>.
+</p>
+<p>
+<div id='start'>
+<a href='#'><b>Start The Test!</b></a>
+</div>
+</p>
+<p>
+<div id='test-container'></div>
+</p>
+<script>
+  Lovely(["kick-ass-1.0.0", "dom"], function(KickAss, $) {
+    var test = new KickAss({
+      libs: [
+        'lovely-1.4.3',
+        'jquery-1.9.1',
+        'jquery-2.0.0'
+      ]
+    });
+  
+    test.insertTo('#test-container');
+  
+    test.on('finish', function() {
+      $('#start').hide();
+    });
+  
+    $(document).delegate('#start', 'click', function(e) {
+      e.preventDefault();
+      this.first('a') && test.start();
+      this.html('Working...');
+    });
+  });
+</script>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Zoom</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/zoom" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io/tree/master/ui/zoom" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/zoom/1.0.2/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/zoom/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>1.51 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/UI">UI</a>, <a href="/tags/zoom">zoom</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/zoom/1.1.1">1.1.1</a>
+(02 Oct 09:12)
+</li>
+<li>
+<a href="/packages/zoom/1.1.0">1.1.0</a>
+(14 Jun 05:45)
+</li>
+<li>
+<a href="/packages/zoom/1.0.3">1.0.3</a>
+(04 May 09:39)
+</li>
+<li class='current'>
+<a href="/packages/zoom/1.0.2">1.0.2</a>
+(03 May 07:17)
+</li>
+<li>
+<a href="/packages/zoom/1.0.0">1.0.0</a>
+(24 Mar 13:57)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/zoom-1.1.1.js" class="cdn">zoom-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/zoom-1.1.0.js" class="cdn">zoom-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/zoom-1.0.3.js" class="cdn">zoom-1.0.3.js</a></li>
+<li><a href="http://cdn.lovely.io/zoom-1.0.2.js" class="cdn">zoom-1.0.2.js</a></li>
+<li><a href="http://cdn.lovely.io/zoom-1.0.0.js" class="cdn">zoom-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/ui/1.0.0">ui-1.0.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Zoom</h1>
+
+<p>Zoom is a lightweight version of a lightbox widget that works just with
+images and zooms them instead of showing the screen locker and a lightbox dialog</p>
+
+<h2>Usage</h2>
+
+<p>Use the standard link and image markup with the <tt>data-zoom</tt> attribute</p>
+<pre data-lang='html'>&lt;a href="image-full.png" data-zoom=""&gt;&lt;img src="image-thmb.png"&gt;&lt;/a&gt;</pre>
+<p>Options can go inside of the <tt>data-zoom</tt> attribute in JSON format</p>
+<pre data-lang='html'>&lt;a href="image-full.jpg" data-zoom='{"fxDuration": 0}'&gt;&#x000A;  &lt;img src="image-thmb.jpg"&gt;&#x000A;&lt;/a&gt;</pre>
+<p>After that hook this module on your page in any standard way, say by using
+the <tt>Lovely</tt> loader</p>
+<pre data-lang='js'>Lovely(['zoom'], function(Zoom) {&#x000A;  // Zoom.Options&#x000A;});</pre>
+<p>It will automatically handle all the clicks on your links marked with the
+<tt>data-zoom</tt> attribute</p>
+
+<h2>Options</h2>
+
+<p>You can use the following options with your <tt>Zoom</tt> instances</p>
+
+<ul>
+<li><tt>nolock</tt> - don&#39;t lock the screen</li>
+<li><tt>fxDuration</tt> - the zooming visual effect duration</li>
+</ul>
+
+<h2>Events</h2>
+
+<p>In addition to the normal DOM events, instances of the <tt>Zoom</tt> class emit
+the following events</p>
+
+<ul>
+<li><tt>show</tt> - when the widget completely appears on the page (after all the fx)</li>
+<li><tt>hide</tt> - when the widget was hidden</li>
+<li><tt>load</tt> - when the image was loaded, but before the widget starts zooming</li>
+</ul>
+
+<h2>Copyright And License</h2>
+
+<p>This project is released under the terms of the MIT license</p>
+
+<p>Copyright (C) 2012 Nikolay Nemshilov</p>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

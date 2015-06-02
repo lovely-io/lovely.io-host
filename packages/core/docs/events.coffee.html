@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » core:events.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/core">core</a>:events.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/core/docs/class.coffee">class.coffee</option>
+<option value="/packages/core/docs/events.coffee" selected="selected">events.coffee</option>
+<option value="/packages/core/docs/hash.coffee">hash.coffee</option>
+<option value="/packages/core/docs/list.coffee">list.coffee</option>
+<option value="/packages/core/docs/lovely.coffee">lovely.coffee</option>
+<option value="/packages/core/docs/main.coffee">main.coffee</option>
+<option value="/packages/core/docs/options.coffee">options.coffee</option>
+<option value="/packages/core/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The standard events handling interface mixin</p>
+<pre data-lang='coffee'>MyClass = new core.Class&#x000A;  inclunde: core.Events&#x000A;&#x000A;my = new MyClass&#x000A;&#x000A;my.on 'event', (one, two, three)-&gt;&#x000A;  console.log(one, two, three)&#x000A;&#x000A;my.emit 'event', 1, 2, 3</pre>
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Events =&#x000A;  _listeners: null # this object listeners stash</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Adds event listeners</p>
+<pre data-lang='coffee'>object.on 'event', callback&#x000A;object.on 'event1,event2,event3', callback&#x000A;object.on event1: callback1, event2: callback2&#x000A;object.on 'event', 'methodname'[, arg1, arg2, ..]</pre>
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/core/docs/class.coffee" class="api-ref">Class</a> this</div></section>
+</td><td><pre data-lang='coffee'>  on: -&gt;&#x000A;    args     = Array_slice.call(arguments, 2)&#x000A;    events   = arguments[0]&#x000A;    callback = arguments[1]&#x000A;    by_name  = false&#x000A;&#x000A;    if typeof(callback) is 'string'&#x000A;      callback = this[callback]&#x000A;      by_name  = true&#x000A;&#x000A;    listeners = if @_listeners is null then (@_listeners = []) else @_listeners&#x000A;&#x000A;    if typeof(events) is 'string'&#x000A;      for event in events.split(',')&#x000A;        listeners.push&#x000A;          e: event     # event name&#x000A;          c: callback  # callback function reference&#x000A;          a: args      # remaining arguments list&#x000A;          n: by_name   # a marker if the callback was specified as a method-name&#x000A;&#x000A;    else if typeof(events) is 'object'&#x000A;      for event of events&#x000A;        @on event, events[event]&#x000A;&#x000A;    this</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Removes event listeners</p>
+<pre data-lang='coffee'>object.no 'event'&#x000A;object.no 'event1,event2'&#x000A;object.no callback&#x000A;object.no 'event', callback&#x000A;object.no event1: callback1, event2: callback2&#x000A;object.no 'event', 'methodname'</pre>
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/core/docs/class.coffee" class="api-ref">Class</a> this</div></section>
+</td><td><pre data-lang='coffee'>  no: -&gt;&#x000A;    args     = Array_slice.call(arguments, 2)&#x000A;    events   = arguments[0]&#x000A;    callback = arguments[1]&#x000A;    callback = this[callback] if typeof(callback) is 'string'&#x000A;&#x000A;    listeners = if @_listeners is null then (@_listeners = []) else @_listeners&#x000A;&#x000A;    switch typeof(events)&#x000A;      when 'string'&#x000A;        for event in events.split(',')&#x000A;          index = 0&#x000A;          while index &lt; listeners.length&#x000A;            listeners.splice index--, 1 if listeners[index].e is&#x000A;              event and (listeners[index].c is callback or callback is undefined)&#x000A;            index++&#x000A;&#x000A;      when 'function'&#x000A;        index = 0&#x000A;        while index &lt; listeners.length&#x000A;          if listeners[index].c is events&#x000A;            listeners.splice index--, 1&#x000A;          index++&#x000A;&#x000A;      when 'object'&#x000A;        for event of events&#x000A;          @no event, events[event]&#x000A;&#x000A;    this</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Checks if this object listens to the events</p>
+<pre data-lang='coffee'>object.ones 'event'&#x000A;object.ones 'event1,event2'&#x000A;object.ones callback&#x000A;object.ones 'event', callback&#x000A;object.ones event1: callback1, event2: callback2&#x000A;object.ones 'event', 'methodname'</pre>
+<p><strong>NOTE</strong>: if several event names are specified then it
+      will check if <em>any</em> of them are satisfied</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  ones: -&gt;&#x000A;    result   = 0&#x000A;    args     = Array_slice.call(arguments, 2)&#x000A;    events   = arguments[0]&#x000A;    callback = arguments[1]&#x000A;    callback = this[callback] if typeof(callback) is 'string'&#x000A;&#x000A;    listeners = if @_listeners is null then (@_listeners = []) else @_listeners&#x000A;&#x000A;    switch typeof(events)&#x000A;      when 'string'&#x000A;        for event in events.split(',')&#x000A;          for entry in listeners&#x000A;            result |= entry.e is event and (&#x000A;              entry.c is callback or callback is undefined)&#x000A;&#x000A;      when 'function'&#x000A;        for entry in listeners&#x000A;          result |= entry.c is events&#x000A;&#x000A;      when 'object'&#x000A;        for event of events&#x000A;          result |= @ones event, events[event]&#x000A;&#x000A;    result is 1 # converting to boolean after the `|=` operations</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Triggers an event on the object</p>
+<pre data-lang='coffee'>object.emit 'event'&#x000A;object.emit 'event', arg1, arg2, arg3</pre>
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/core/docs/class.coffee" class="api-ref">Class</a> this</div></section>
+</td><td><pre data-lang='coffee'>  emit: -&gt;&#x000A;    args  = A(arguments)&#x000A;    event = args.shift()&#x000A;&#x000A;    for entry in this._listeners || []&#x000A;      if entry.e is event&#x000A;        entry.c.apply(this, entry.a.concat(args))&#x000A;&#x000A;    this</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/core/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

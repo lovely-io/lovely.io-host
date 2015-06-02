@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » core:lovely.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/core">core</a>:lovely.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/core/docs/class.coffee">class.coffee</option>
+<option value="/packages/core/docs/events.coffee">events.coffee</option>
+<option value="/packages/core/docs/hash.coffee">hash.coffee</option>
+<option value="/packages/core/docs/list.coffee">list.coffee</option>
+<option value="/packages/core/docs/lovely.coffee" selected="selected">lovely.coffee</option>
+<option value="/packages/core/docs/main.coffee">main.coffee</option>
+<option value="/packages/core/docs/options.coffee">options.coffee</option>
+<option value="/packages/core/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The top function, handles async modules loading/definition</p>
+<pre data-lang='js'>Lovely(['module1', 'module2'], function(module1, module2) {&#x000A;  // do stuff&#x000A;});</pre>
+<p>Modules Definition:</p>
+<pre data-lang='js'>Lovely('module-name', ['dep1', 'dep2'], function(dep1, dep2) {&#x000A;  return { module: 'definition' };&#x000A;});</pre>
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Lovely = -&gt;&#x000A;  args     = A(arguments)&#x000A;  current  = if isString(args[0])   then args.shift() else null&#x000A;  options  = if isObject(args[0])   then args.shift() else {}&#x000A;  modules  = if isArray(args[0])    then args.shift() else []&#x000A;  callback = if isFunction(args[0]) then args.shift() else -&gt;&#x000A;&#x000A;  # setting up the options&#x000A;  'hostUrl'     of options || (options.hostUrl     = Lovely.hostUrl || find_host_url())&#x000A;  'baseUrl'     of options || (options.baseUrl     = Lovely.baseUrl || options.hostUrl)&#x000A;  'waitSeconds' of options || (options.waitSeconds = Lovely.waitSeconds)&#x000A;&#x000A;  options.hostUrl[options.hostUrl.length - 1] is '/' || (options.hostUrl += '/')&#x000A;  options.baseUrl[options.baseUrl.length - 1] is '/' || (options.baseUrl += '/')&#x000A;&#x000A;  for name, i in modules&#x000A;    if name of Lovely.bundle&#x000A;        modules[i] = "#{name}-#{Lovely.bundle[name]}"&#x000A;&#x000A;  check_modules_load = modules_load_listener_for(modules, callback, current)&#x000A;&#x000A;  unless check_modules_load() # checking maybe they are already loaded&#x000A;    modules_load_listeners.push(check_modules_load)&#x000A;    header = document.getElementsByTagName('head')[0]&#x000A;&#x000A;    # inserting the actual scripts on the page&#x000A;    for module, i in modules&#x000A;      url = (&#x000A;        if module[0] is '.' then options.baseUrl else options.hostUrl&#x000A;      ) + module + ".js"&#x000A;&#x000A;      # stripping out the '../' and './' things to get the clean module name&#x000A;      module = modules[i] = modules[i].replace(/^[\.\/]+/, '')&#x000A;&#x000A;      if !(find_module(module) or find_module(module, Lovely.loading)) and module.indexOf('~') is -1&#x000A;        script = document.createElement('script')&#x000A;&#x000A;        script.src    = url.replace(/([^:])\/\//g, '$1/')&#x000A;        script.async  = true&#x000A;        script.type   = "text/javascript"&#x000A;        script.onload = check_all_waiting_loaders&#x000A;&#x000A;        header.appendChild(script)&#x000A;&#x000A;        Lovely.loading[module] = script&#x000A;&#x000A;  return # nothing&#x000A;&#x000A;# modules load_listeners registery&#x000A;modules_load_listeners = []</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Checks all the awaiting module loaders in the registery</p>
+</td><td><pre data-lang='coffee'>check_all_waiting_loaders = -&gt;&#x000A;  global.setTimeout -&gt;&#x000A;    clean_list = []&#x000A;    for listener, i in modules_load_listeners&#x000A;      unless listener() # if not yet loaded&#x000A;        clean_list.push(listener)&#x000A;&#x000A;    # if some modules were loaded, then check the rest of them again&#x000A;    if clean_list.length != modules_load_listeners.length&#x000A;      modules_load_listeners = clean_list&#x000A;      check_all_waiting_loaders()&#x000A;&#x000A;    return # nothing&#x000A;  , 0 # using an async call to let the script run</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Builds an event listener that checks if the modules are
+loaded and if so then calls the callback</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Array</a>     modules list
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a>  callback
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a>    currently awaiting module name
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Function</a> listener</div></section>
+</td><td><pre data-lang='coffee'>modules_load_listener_for = (modules, callback, name)-&gt;&#x000A;  -&gt;&#x000A;    packages=[]&#x000A;&#x000A;    for module in modules&#x000A;      if (module = find_module(module))&#x000A;        packages.push(module)&#x000A;      else&#x000A;        return false # some modules are not loaded yet&#x000A;&#x000A;    # registering the current module if needed&#x000A;    if (result = callback.apply(global, packages)) && name&#x000A;      # saving the module with the version&#x000A;      Lovely.modules[name] = result&#x000A;&#x000A;      delete(Lovely.loading[name])&#x000A;&#x000A;      check_all_waiting_loaders() # double checking in case of local modules&#x000A;&#x000A;    return true # successfully loaded everything</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Searches for an already loaded module</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> full module name (including the version)
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> modules registery
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> matching module</div></section>
+</td><td><pre data-lang='coffee'>find_module = (module, registry)-&gt;&#x000A;  registry = registry || Lovely.modules&#x000A;  module   = module.replace(/~/g, '')&#x000A;  version  = (module.match(/\-\d+\.\d+\.\d+.*$/) || [''])[0]&#x000A;  name     = module.substr(0, module.length - version.length)&#x000A;  version  = version.substr(1)&#x000A;&#x000A;  unless module = registry[module]&#x000A;    versions = [] # tring to find the latest version manually&#x000A;&#x000A;    for key of registry&#x000A;      if (match = key.match(/^(.+?)-(\d+\.\d+\.\d+.*?)$/))&#x000A;        if match[1] is name&#x000A;          versions.push(key)&#x000A;&#x000A;    module = registry[versions.sort()[versions.length - 1]]&#x000A;&#x000A;  module</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Searches for the Lovely hosting url from the scripts &#39;src&#39; attribute</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">String</a> location</div></section>
+</td><td><pre data-lang='coffee'>find_host_url = -&gt;&#x000A;  if global.document&#x000A;    scripts = document.getElementsByTagName('script')&#x000A;    re = /^(.*?\/?)core(-.+)?\.js/&#x000A;&#x000A;    for script in scripts&#x000A;      if (match = (script.getAttribute('src') || '').match(re))&#x000A;        return match[1]&#x000A;&#x000A;  Lovely.hostUrl</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/core/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

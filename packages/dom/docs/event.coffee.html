@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:event.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:event.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee" selected="selected">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The dom-events basic dom-wrapper</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Event extends Wrapper&#x000A;  type:          null&#x000A;&#x000A;  which:         null&#x000A;  keyCode:       null&#x000A;&#x000A;  target:        null&#x000A;  currentTarget: null&#x000A;  relatedTarget: null&#x000A;&#x000A;  pageX:         null&#x000A;  pageY:         null&#x000A;&#x000A;  altKey:        false&#x000A;  ctrlKey:       false&#x000A;  metaKey:       false&#x000A;  shiftKey:      false&#x000A;&#x000A;  stopped:       false</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">HTMLEvent</a>|<a href="#" class="api-ref">String</a> raw dom event or an event name
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> options for a custom event
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">Event</a> this</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (event, options) -&gt;&#x000A;    if typeof(event) is 'string'&#x000A;      event = ext({type: event}, options)&#x000A;      @stopped = event.bubbles is false&#x000A;&#x000A;      if options isnt null&#x000A;        ext(this, options)&#x000A;&#x000A;    @_             = event&#x000A;    @type          = event.type&#x000A;&#x000A;    @which         = event.which&#x000A;    @keyCode       = event.keyCode&#x000A;&#x000A;    @altKey        = event.altKey&#x000A;    @ctrlKey       = event.ctrlKey&#x000A;    @metaKey       = event.metaKey&#x000A;    @shiftKey      = event.shiftKey&#x000A;&#x000A;    @pageX         = event.pageX&#x000A;    @pageY         = event.pageY&#x000A;&#x000A;    @target        = wrap(event.target)&#x000A;    @target        = wrap(event.target.parentNode) if event.target and event.target.nodeType is 3&#x000A;&#x000A;    @currentTarget = wrap(event.currentTarget)&#x000A;    @relatedTarget = wrap(event.relatedTarget)&#x000A;&#x000A;    return # nothing</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Stops the event propagation through the dom-tree</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">Event</a> this</div></section>
+</td><td><pre data-lang='coffee'>  stopPropagation: -&gt;&#x000A;    @_.stopPropagation() if @_.stopPropagation&#x000A;    @stopped = true&#x000A;&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Prevents the browser from default event handling</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">Event</a> this</div></section>
+</td><td><pre data-lang='coffee'>  preventDefault: -&gt;&#x000A;    @_.preventDefault() if @_.preventDefault&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>a shortcut for <tt>event.stopPropagation().preventDefault()</tt></p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/event.coffee" class="api-ref">Event</a> this</div></section>
+</td><td><pre data-lang='coffee'>  stop: -&gt;&#x000A;    @stopPropagation().preventDefault()</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Returns a standard {x:NNN, y:NNN} position for the event</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Object</a> x:NNN, y:NNN</div></section>
+</td><td><pre data-lang='coffee'>  position: -&gt;&#x000A;    x: @pageX, y: @pageY</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Returns event&#39;s offset relatively to the target element</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Object</a> x:NNN, y:NNN</div></section>
+</td><td><pre data-lang='coffee'>  offset: -&gt;&#x000A;    if @target instanceof Element&#x000A;      element_position = @target.position()&#x000A;&#x000A;      return {&#x000A;        x: this.pageX - element_position.x&#x000A;        y: this.pageY - element_position.y&#x000A;      }&#x000A;&#x000A;    # triggered outside browser window (at toolbar etc.)&#x000A;    return null</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Finds a matching element in the chain between
+the target element and the current target</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> css-rule
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> mataching element or <tt>null</tt> if nothing found</div></section>
+</td><td><pre data-lang='coffee'>  find: (css_rule)-&gt;&#x000A;    if @target instanceof Wrapper and @currentTarget instanceof Wrapper&#x000A;      target = @target._&#x000A;      search = @currentTarget.find(css_rule, true)&#x000A;&#x000A;      while target isnt null&#x000A;        for element in search&#x000A;          if element is target&#x000A;            return wrap(target)&#x000A;&#x000A;        target = target.parentNode&#x000A;&#x000A;    return null</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

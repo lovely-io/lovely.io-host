@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » 
+28 Apr 02:38
+Lovely.IO v1.9.0 is out!
+</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='news news-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1>
+<div class='date'>28 Apr 02:38</div>
+<div class='title'>Lovely.IO v1.9.0 is out!</div>
+</h1>
+<article><p>Hey fellas, great news! The <tt>lovely</tt> npm package aka the console line tools were just updated to the version <tt>1.9.0</tt>!</p>
+
+<h2>What&#39;s New?</h2>
+
+<ol>
+<li>Update to <tt>node.js-0.10+</tt> and all the latest <tt>npm</tt> packages</li>
+<li><p>Switching from <tt>should.js</tt> to <tt>chai.js</tt>. Basically this means that now you can switch between testing styles and use asserts or should or expect matches in your projects</p>
+<pre data-lang='coffee'>{Test, assert} = require('lovely')&#x000A;# or&#x000A;{Test, should} = require('lovely')&#x000A;# or&#x000A;{Test, expect} = require('lovely')</pre></li>
+<li><p>The internals of the testing utilities were reworked to provide better speed and usability. Firstly there is no <tt>module</tt> in <tt>Test.load</tt> anymore, you can just load directly what you want</p>
+<pre data-lang='coffee'>{Test, should} = require('lovely')&#x000A;&#x000A;describe "Awesome Package", -&gt;&#x000A;  AwesomePackage = null&#x000A;&#x000A;  before Test.load (build)-&gt;&#x000A;    AwesomePackage = build&#x000A;&#x000A;  it "should be awesome", -&gt;&#x000A;    AwesomePackage.should.equal "awesomeness"</pre>
+<p>Also, now you can run every test individually with the <tt>lovely</tt> cmd</p>
+<pre data-lang='bash'>$ lovely test/something_test.coffee</pre>
+<p>And, you can run your tests agains a minified version of the package builds, just in case you want to make sure that nothing was wreaked during the compression process</p>
+<pre data-lang='bash'>$ lovely test -m&#x000A;$ lovely test --minify</pre></li>
+</ol>
+
+<p>That&#39;s all we have for today fellas.
+Enjoy!</p>
+</article>
+<p class='bottom-links'>
+<a href="/news" class="back">News index</a>
+</p>
+<div id="disqus_thread"></div><script type="text/javascript">
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://lovelyio.disqus.com/embed.js';
+      document.getElementsByTagName('head')[0].appendChild(dsq);
+    </script>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

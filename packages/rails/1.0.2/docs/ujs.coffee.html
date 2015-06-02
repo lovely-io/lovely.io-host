@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » rails:ujs.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/rails">rails</a>:ujs.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/rails/1.0.2/docs/main.coffee">main.coffee</option>
+<option value="/packages/rails/1.0.2/docs/ujs.coffee" selected="selected">ujs.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Ruby On Rails UJS support module</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>$    = require('dom')&#x000A;core = require('core')&#x000A;Ajax = require('ajax')&#x000A;&#x000A;&#x000A;# tries to cancel the event via confirmation&#x000A;user_cancels = (event, element)-&gt;&#x000A;  message = element.attr('data-confirm')&#x000A;  if message && !confirm(message)&#x000A;    event.stop()&#x000A;    return true&#x000A;&#x000A;&#x000A;# sends an ajax request&#x000A;send_ajax = (element, url, options)-&gt;&#x000A;  Ajax.load url, core.ext(&#x000A;    create:   -&gt; element.emit 'ajax:loading',  ajax: @&#x000A;    complete: -&gt; element.emit 'ajax:complete', ajax: @&#x000A;    cuccess:  -&gt; element.emit 'ajax:success',  ajax: @&#x000A;    cailure:  -&gt; element.emit 'ajax:failure',  ajax: @&#x000A;  , options)&#x000A;&#x000A;&#x000A;# global events listeners&#x000A;$(global.document).on&#x000A;  # handles clicks on the remote links&#x000A;  click: (event)-&gt;&#x000A;    return unless link = event.find('a')&#x000A;&#x000A;    url    = link.attr('href')&#x000A;    method = link.attr('data-method')&#x000A;    remote = link.attr('data-remote')&#x000A;&#x000A;    return if user_cancels(event, link)&#x000A;    event.stop() if remote || method&#x000A;&#x000A;    if remote&#x000A;      send_ajax link, url,&#x000A;        method:  method || 'get'&#x000A;        spinner: link.attr('data-spinner')&#x000A;&#x000A;    else if method&#x000A;      param = $('meta[name=csrf-param]').attr('content')&#x000A;      token = $('meta[name=csrf-token]').attr('content')&#x000A;&#x000A;      form  = "&lt;form method='post'&gt;"&#x000A;      form += "&lt;input type='hidden' name='#{param}' value='#{token}' /&gt;" if param && token&#x000A;      form += "&lt;input type='hidden' name='_method' value='#{method}' /&gt;"&#x000A;      form += "&lt;/form&gt;"&#x000A;&#x000A;      $(form)[0].attr('action', url).insertTo(global.document.body).submit()&#x000A;&#x000A;    return # nothing&#x000A;&#x000A;&#x000A;  # handles remote forms submissions&#x000A;  submit: (event)-&gt;&#x000A;    form = event.target&#x000A;&#x000A;    if form.attr('data-remote') && !user_cancels(event, form)&#x000A;      event.stop()&#x000A;&#x000A;      send_ajax form, form.attr('action') || global.document.location.href,&#x000A;        method:  form.attr('method') || 'get'&#x000A;        params:  form.serialize()&#x000A;        spinner: form.attr('data-spinner') || form.first('.spinner')&#x000A;&#x000A;    return # nothing</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/rails/1.0.2/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

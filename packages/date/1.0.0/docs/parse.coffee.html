@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » date:parse.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/date">date</a>:parse.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/date/1.0.0/docs/format.coffee">format.coffee</option>
+<option value="/packages/date/1.0.0/docs/i18n.coffee">i18n.coffee</option>
+<option value="/packages/date/1.0.0/docs/main.coffee">main.coffee</option>
+<option value="/packages/date/1.0.0/docs/parse.coffee" selected="selected">parse.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Better dates parsing method with i18n support</p>
+
+<p>NOTE: when called with a format pattern, then will
+      return the actual <tt>Date</tt> class <em>instance</em></p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> date
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> pattern
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Date</a>|<a href="#" class="api-ref">Integer</a> date or time</div></section>
+</td><td><pre data-lang='coffee'>Date_parse = Date.parse # the original method&#x000A;Date.parse = (string, format)-&gt;&#x000A;  if format and typeof(string) is 'string'&#x000A;    tpl     = re_escape(format)&#x000A;    holders = L(tpl.match(/%[a-z]/ig)).map((m)-&gt; m[1]).filter((m)-&gt; m isnt '%')&#x000A;    re      = new RegExp('^'+tpl.replace(/%p/i, '(pm|PM|am|AM)').replace(/(%[a-z])/ig, '(.+?)')+'$')&#x000A;    year    = 0&#x000A;    month   = 0&#x000A;    date    = 1&#x000A;    hour    = 0&#x000A;    minute  = 0&#x000A;    second  = 0&#x000A;&#x000A;    if match = trim(string).match(re)&#x000A;      match.shift()&#x000A;&#x000A;      while match.length&#x000A;        value  = match.shift()&#x000A;        key    = holders.shift()&#x000A;&#x000A;        if key.toLowerCase() is 'b'&#x000A;          month = L(Date.i18n[if key is 'b' then 'monthsShort' else 'months'].split(' ')).indexOf(value)&#x000A;        else if key.toLowerCase() is 'p'&#x000A;          meridian = value.toLowerCase()&#x000A;        else&#x000A;          value = parseInt(value, 10)&#x000A;          switch key&#x000A;            when 'd', 'e'           then date   = value&#x000A;            when 'm'                then month  = value - 1&#x000A;            when 'y', 'Y'           then year   = value&#x000A;            when 'H', 'k', 'I', 'l' then hour   = value&#x000A;            when 'M'                then minute = value&#x000A;            when 'S'                then second = value&#x000A;&#x000A;      # converting 1..12am|pm into 0..23 hours marker&#x000A;      if meridian&#x000A;        hour = if hour is 12 then 0 else hour&#x000A;        hour = if meridian is 'pm' then hour + 12 else hour&#x000A;&#x000A;      return new Date(year, month, date, hour, minute, second)&#x000A;&#x000A;  else&#x000A;    return Date_parse(string) # calling the original method</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/date/1.0.0/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

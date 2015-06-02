@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:event/mouseio.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:event/mouseio.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee" selected="selected">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>&#39;mouseenter&#39;, &#39;mouseleave&#39; events emulation</p>
+
+<p>Copyright (C) 2011</p>
+</td><td><pre data-lang='coffee'>mouseio_index    = []&#x000A;mouseio_inactive = true</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Fires the actual mouseenter/mouseleave event</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">HTMLEvent</a> original event
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">HTMLElement</a> raw dom element
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Boolean</a> mouseenter or mouseleave
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>mouseio_emit = (raw, element, enter) -&gt;&#x000A;  event         = new Event(raw)&#x000A;  event.type    = if enter is true then 'mouseenter' else 'mouseleave'&#x000A;  event.bubbles = false&#x000A;  event.stopped = true&#x000A;  event.target  = wrap(element)&#x000A;&#x000A;  # replacing the #find method so that UJS didn't&#x000A;  # get broke with trying to find nested elements&#x000A;  event.find = (css_rule)-&gt;&#x000A;    for element in current_Document.find(css_rule, true)&#x000A;      if element is this.target._&#x000A;        return this.target&#x000A;    return null&#x000A;&#x000A;  event.target.emit(event)&#x000A;  current_Document.emit(event)</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Figures out the enter/leave events by listening the
+mouseovers in the document</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">HTMLEvent</a> raw dom event
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>mouseio_handler = (e)-&gt;&#x000A;  target  = e.target&#x000A;  from    = e.relatedTarget&#x000A;  element = target&#x000A;  passed  = false&#x000A;  parents = []&#x000A;  id      = null&#x000A;  event   = null&#x000A;&#x000A;  while element.nodeType is 1&#x000A;    id = uid(element)&#x000A;&#x000A;    if mouseio_index[id] is undefined&#x000A;      mouseio_emit e, element, mouseio_index[id] = true&#x000A;&#x000A;    passed = true if element is from&#x000A;&#x000A;    parents.push(element)&#x000A;&#x000A;    element = element.parentNode&#x000A;&#x000A;&#x000A;  if from and !passed&#x000A;    while from isnt null && from.nodeType is 1 && parents.indexOf(from) is -1&#x000A;      id = uid(from)&#x000A;      if mouseio_index[id] isnt undefined&#x000A;        mouseio_emit e, from, mouseio_index[id] = undefined&#x000A;&#x000A;      from = from.parentNode&#x000A;&#x000A;  return #nothing</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Calling &#39;mouseleave&#39; for all currently active elements on the page</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">HTMLEvent</a> raw dom-event
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>mouseio_reset = (e)-&gt;&#x000A;  for element, id in mouseio_index&#x000A;    if element && id of Wrapper_Cache&#x000A;      mouseio_emit e, Wrapper_Cache[id]._, false&#x000A;&#x000A;  return #nothing</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Activating the mouse-io events emulation</p>
+
+<section class='api'><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>mouseio_activate = -&gt;&#x000A;  if mouseio_inactive&#x000A;    mouseio_inactive = false&#x000A;&#x000A;    document.addEventListener('mouseover', mouseio_handler, false)&#x000A;    window.addEventListener('blur', mouseio_reset, false)&#x000A;&#x000A;  return #nothing</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » OsomArea Demo</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+<script type='text/javascript'>Lovely(["osom-area-1.2.1", "ajax"], function(OsomArea, Ajax) {
+        var area = new OsomArea(); // just a check for dummy offline textareas
+
+        var $ = Lovely.module('dom');
+        $(function() {
+          var t1 = new OsomArea('#test-1');
+          var t2 = new OsomArea('#test-2');
+          var t3 = new OsomArea('#test-3');
+          var t4 = new OsomArea('#test-4');
+
+          t2.on('keyup', function() {
+            $('#select-range').value(this.selection.offsets().join('-'));
+            $('#select-text').value(this.selection.text());
+          })
+
+          $('#select-text').on('keyup', function(event) {
+            if (event.keyCode == 13) {
+              t2.select(this.value());
+            }
+          });
+
+          $('#select-range').on('keyup', function(event) {
+            var match = this.value().match(/(\d+)\s*\-\s*(\d+)/);
+            if (match && event.keyCode == 13) {
+              t2.select(match[1], match[2]);
+            }
+          });
+
+          // autocompletion through google-complete hack
+          t3.autocomplete(function(last_word) {
+            var url  = "http://suggestqueries.google.com/complete/search?client=chrome&q=";
+                url += encodeURIComponent(last_word.replace(/[_-]+/g, ' '));
+
+            Ajax.get(url, {jsonp: true, success: function() {
+              t3.autocomplete(this.responseJSON[1]);
+            }});
+          });
+
+          $('#highlight-text').on('keyup', function(event) {
+            if (event.keyCode == 13) {
+              t4.paint(this.value());
+            }
+          });
+
+          t4.paint('errors', 'pink');
+          t4.paint(/hey/i, 'lightblue', null, true);
+          t4.paint(/you/i, 'orange', null, true)
+
+          $('#highlight-range').on('keyup', function(event) {
+            var match = this.value().match(/(\d+)\s*\-\s*(\d+)/);
+            if (match && event.keyCode == 13) {
+              t4.paint(parseInt(match[1]), parseInt(match[2]), 'orange');
+            }
+          });
+        });
+      });</script>
+<style type='text/css'>#test-1, #test-2, #test-3, #test-4 {
+        width:  32em;
+        height: 4em;
+        font:   inherit;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: .25em;
+        padding: .5em;
+        outline: none;
+      }
+      #test-1:focus, #test-2:focus, #test-3:focus, #test-4:focus {
+        background: rgba(255,255,0,.1);
+      }
+      #selection-inputs *, #highlight-inputs * {
+        display: inline;
+        vertical-align: middle;
+        width: 10em;
+      }</style>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-demo'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/osom-area" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/osom-area" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/osom-area/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/osom-area/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>2.85 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/forms">forms</a>, <a href="/tags/textarea">textarea</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li>
+<a href="/packages/osom-area/1.2.1">1.2.1</a>
+(02 Aug 16:39)
+</li>
+<li>
+<a href="/packages/osom-area/1.2.0">1.2.0</a>
+(14 Jun 06:05)
+</li>
+<li>
+<a href="/packages/osom-area/1.1.2">1.1.2</a>
+(07 Jun 03:59)
+</li>
+<li>
+<a href="/packages/osom-area/1.1.1">1.1.1</a>
+(05 Jun 08:33)
+</li>
+<li>
+<a href="/packages/osom-area/1.1.0">1.1.0</a>
+(05 Jun 02:46)
+</li>
+<li>
+<a href="/packages/osom-area/1.0.0">1.0.0</a>
+(31 May 08:21)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/osom-area-1.2.1.js" class="cdn">osom-area-1.2.1.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.2.0.js" class="cdn">osom-area-1.2.0.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.1.2.js" class="cdn">osom-area-1.1.2.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.1.1.js" class="cdn">osom-area-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.1.0.js" class="cdn">osom-area-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.0.0.js" class="cdn">osom-area-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.2.0">dom-1.2.0</a></li>
+<li><a href="/packages/ui/2.0.0">ui-2.0.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>OsomArea Demo</h1>
+
+    <h2>Simple Auto-Resizable TextArea</h2>
+    <p>
+      <textarea id="test-1"></textarea>
+    </p>
+
+    <h2>Selections Handling</h2>
+    <p>
+      <textarea id="test-2">Hey, we've heard you like errors! So we've put some errors inside of your errors, and now you can crash while you're crashing!</textarea>
+
+      <div id="selection-inputs">
+        <label>Select text:</label>
+        <input type="text" id="select-text" placeholder="Type in a word">
+        <label>Select range:</label>
+        <input type="text" id="select-range" placeholder="0-0">
+      </div>
+    </p>
+
+    <h2>Autocomplete/ContextMenu</h2>
+    <p>
+      <textarea id="test-3"></textarea>
+    </p>
+
+    <h2>Text Highlighting</h2>
+    <p>
+      <textarea id="test-4">Hey, we've heard you like errors! So we've put some errors inside of your errors, and now you can crash while you're crashing!</textarea>
+
+      <div id="highlight-inputs">
+        <label>Highlight text:</label>
+        <input type="text" id="highlight-text" value="errors" placeholder="Type in a word">
+        <label>Highlight range:</label>
+        <input type="text" id="highlight-range" placeholder="0-0">
+      </div>
+    </p>
+
+    <p class="white-space"></p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

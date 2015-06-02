@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » core:util.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.3.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/core">core</a>:util.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/core/docs/class.coffee">class.coffee</option>
+<option value="/packages/core/docs/events.coffee">events.coffee</option>
+<option value="/packages/core/docs/hash.coffee">hash.coffee</option>
+<option value="/packages/core/docs/list.coffee">list.coffee</option>
+<option value="/packages/core/docs/lovely.coffee">lovely.coffee</option>
+<option value="/packages/core/docs/main.coffee">main.coffee</option>
+<option value="/packages/core/docs/options.coffee">options.coffee</option>
+<option value="/packages/core/docs/util.coffee" selected="selected">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Utility functions for Lovely IO</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Object_toString = Object.prototype.toString&#x000A;Array_slice     = Array.prototype.slice&#x000A;Function_bind   = Function.prototype.bind || -&gt;&#x000A;  args    = A(arguments)&#x000A;  context = args.shift()&#x000A;  method  = this&#x000A;&#x000A;  return -&gt;&#x000A;    method.apply(context, args.concat(A(arguments)))&#x000A;&#x000A;String_trim     = String.prototype.trim || -&gt;&#x000A;  str = this.replace(/^\s\s*/, '')&#x000A;  i   = str.length&#x000A;  re  = /\s/&#x000A;  `while (re.test(str.charAt(--i))) {}`&#x000A;  str.slice(0, i + 1)</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Converts iterables into arrays</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> iterable
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Array</a> array</div></section>
+</td><td><pre data-lang='coffee'>A = (it) -&gt; Array_slice.call(it, 0)</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Converts iterables into Lovely.List instances</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> iterable
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/list.coffee" class="api-ref">List</a> list</div></section>
+</td><td><pre data-lang='coffee'>L = (it) -&gt; new List(it)</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>A shortcut to create <a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> instances</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> object
+</div><div><strong>@return </strong><em></em><a href="/packages/core/docs/hash.coffee" class="api-ref">Hash</a> hash</div></section>
+</td><td><pre data-lang='coffee'>H = (object) -&gt; new Hash(object)</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Extends one object with another</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> extendee
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> extender (null and undefined is acceptable)
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Object</a> extendee</div></section>
+</td><td><pre data-lang='coffee'>ext = (one, another) -&gt;&#x000A;  `another == null && (another = {})`&#x000A;&#x000A;  for own key of another&#x000A;    one[key] = another[key]&#x000A;&#x000A;  return one</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Binds the function with the context</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Function</a> function
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> context
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> argument
+.....
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Function</a> proxy</div></section>
+</td><td><pre data-lang='coffee'>bind = -&gt;&#x000A;  args = A(arguments)&#x000A;  Function_bind.apply(args.shift(), args)</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Trims the exessive spaces from the beginning
+and the end of the string</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> original string
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">String</a> trimmed string</div></section>
+</td><td><pre data-lang='coffee'>trim = (string) -&gt; String_trim.call(string)</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Checks if the given value is a string</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> something
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>isString = (value) -&gt; typeof(value) is 'string'</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Checks if the given value is a number</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> something
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>isNumber = (value) -&gt; typeof(value) is 'number' and !isNaN(value)</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Checks if the given value is a function</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> some value
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>isFunction = (value) -&gt; typeof(value) is 'function' and Object_toString.call(value) isnt '[object RegExp]'</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Checks if the given value is an array</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> some value
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>isArray = (value) -&gt; Object_toString.call(value) is '[object Array]' or value instanceof List</pre></td></tr>
+<tr><td><a href='#12' name='12'></a>
+<p>Checks if the given value is a plain object</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> some value
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>isObject = (value) -&gt; Object_toString.call(value) is '[object Object]'&#x000A;&#x000A;&#x000A;# private</pre></td></tr>
+<tr><td><a href='#13' name='13'></a>
+<p>Checks if the value is an array then returns it,
+otherways make an one cell array with that value</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> some value
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Array</a> array</div></section>
+</td><td><pre data-lang='coffee'>ensure_Array = (value) -&gt;&#x000A;  if isArray(value) then value else [value]</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/core/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

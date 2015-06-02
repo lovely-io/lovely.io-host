@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:element/dimensions.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:element/dimensions.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee" selected="selected">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Element&#39;s dimensions handling methods</p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>Element.include</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Element&#39;s size manipulation method. Handles both
+setting and getting</p>
+<pre data-lang='js'>element.size()             // -&gt; x: NNN, y: NNN&#x000A;element.size(x:NNN, y:NNN) // -&gt; element self&#x000A;element.size(x:NNN)        // -&gt; element self&#x000A;element.size(x, y)         // -&gt; element self&#x000A;element.size(null, y)      // -&gt; element self&#x000A;element.size(x, null)      // -&gt; element self</pre>
+<p><strong>NOTE</strong>: this method will adjust the element size
+      accordingly to provide the given size regardless
+      to the paddings and internal element margins</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a>|<a href="#" class="api-ref">Number</a> size x:NNN, y:NNN or NNN for an x-size
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Number</a> y-size in case of a two numbers call
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a>|<a href="#" class="api-ref">Object</a> this element or it&#39;s size</div></section>
+</td><td><pre data-lang='coffee'>  size: (size) -&gt;&#x000A;    if size is undefined&#x000A;      return x: this._.offsetWidth, y: this._.offsetHeight&#x000A;    else&#x000A;      size  = dimensions_hash(arguments)&#x000A;      style = this._.style&#x000A;&#x000A;      if 'x' of size&#x000A;        style.width = size.x + 'px'&#x000A;        style.width = 2 * size.x - this._.offsetWidth + 'px'&#x000A;&#x000A;      if 'y' of size&#x000A;        style.height = size.y + 'px'&#x000A;        style.height = 2 * size.y - this._.offsetHeight + 'px'&#x000A;&#x000A;      return this</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Handles the element scrolling position</p>
+<pre data-lang='js'>element.scrolls()             // -&gt; x: NNN, y: NNN&#x000A;element.scrolls(x:NNN, y:NNN) // -&gt; element self&#x000A;element.scrolls(x:NNN)        // -&gt; element self&#x000A;element.scrolls(x, y)         // -&gt; element self&#x000A;element.scrolls(x, null)      // -&gt; element self&#x000A;element.scrolls(null, y)      // -&gt; element self</pre>
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a>|<a href="#" class="api-ref">Number</a> size x:NNN, y:NNN or NNN in case of setting
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Number</a> y-scrolls in case of a two numbers call
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a>|<a href="#" class="api-ref">Object</a> this element or the scrolling positions</div></section>
+</td><td><pre data-lang='coffee'>  scrolls: (scrolls) -&gt;&#x000A;    if scrolls is undefined&#x000A;      return x: this._.scrollLeft, y: this._.scrollTop&#x000A;    else&#x000A;      scrolls = dimensions_hash(arguments)&#x000A;      this._.scrollLeft = scrolls.x if 'x' of scrolls&#x000A;      this._.scrollTop  = scrolls.y if 'y' of scrolls&#x000A;      return this</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Handles the element&#39;s absolute position</p>
+<pre data-lang='js'>element.position()             // -&gt; x: NNN, y:NNN&#x000A;element.position(x:NNN, y:NNN) // -&gt; element self&#x000A;element.position(x:NNN)        // -&gt; element self&#x000A;element.position(x, y)         // -&gt; element self&#x000A;element.position(x, null)      // -&gt; element self&#x000A;element.position(null, y)      // -&gt; element self</pre>
+<p><strong>NOTE</strong>: if the element is in a relative positions space, this method
+          will automatically correct the actual CSS values so that the
+          element appeared in the specified absolute position</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a>|<a href="#" class="api-ref">Number</a> absolute position x:NNN, y:NNN or NNN x-position
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Number</a> y-position in case of a two numbers call
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a>|<a href="#" class="api-ref">Object</a> this element of it&#39;s absolute position</div></section>
+</td><td><pre data-lang='coffee'>  position: (position) -&gt;&#x000A;    if position is undefined&#x000A;      rect    = this._.getBoundingClientRect()&#x000A;      html    = this.document()._.documentElement&#x000A;      scrolls = this.window().scrolls()&#x000A;&#x000A;      return {&#x000A;        x: rect.left + scrolls.x - html.clientLeft&#x000A;        y: rect.top  + scrolls.y - html.clientTop }&#x000A;&#x000A;    else&#x000A;      position = dimensions_hash(arguments)&#x000A;      offset   = @offsetParent().position()&#x000A;&#x000A;      this._.style.left = position.x - offset.x + 'px' if 'x' of position&#x000A;      this._.style.top  = position.y - offset.y + 'px' if 'y' of position&#x000A;&#x000A;    return this</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Handles the element&#39;s <em>relative</em> position to it&#39;s offsetParent element</p>
+<pre data-lang='js'>element.offset()             // -&gt; x: NNN, y:NNN&#x000A;element.offset(x:NNN, y:NNN) // -&gt; element self&#x000A;element.offset(x:NNN)        // -&gt; element self&#x000A;element.offset(x, y)         // -&gt; element self&#x000A;element.offset(x, null)      // -&gt; element self&#x000A;element.offset(null, y)      // -&gt; element self</pre>
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a>|<a href="#" class="api-ref">Number</a> relative position x:NNN, y:NNN or NNN x-position
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Number</a> y-position in case of a two numbers call
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a>|<a href="#" class="api-ref">Object</a> this element of it&#39;s relative position</div></section>
+</td><td><pre data-lang='coffee'>  offset: (position)-&gt;&#x000A;    if position is undefined&#x000A;      position = @position()&#x000A;      offset   = @offsetParent().position()&#x000A;&#x000A;      return {&#x000A;        x: position.x - offset.x&#x000A;        y: position.y - offset.y }&#x000A;&#x000A;    else&#x000A;      position = dimensions_hash(arguments)&#x000A;&#x000A;      @_.style.left = position.x + 'px' if 'x' of position&#x000A;      @_.style.top  = position.y + 'px' if 'y' of position&#x000A;&#x000A;      return @</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Returns the correct offsetParent element from where the element
+gets it&#39;s relative positions space</p>
+
+<p><strong>NOTE:</strong> this method performs sequential check for the <tt>style</tt>
+property on the parent elements instead of going directly to
+the <tt>offsetParent</tt> element to avoid porblems with margings
+between the BODY and HTML elements</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/dom/docs/element.coffee" class="api-ref">Element</a> offset parent</div></section>
+</td><td><pre data-lang='coffee'>  offsetParent: -&gt;&#x000A;    for parent in this.parents()&#x000A;      if parent.style('position') in ['relative', 'absolute', 'fixed']&#x000A;        return parent&#x000A;&#x000A;    wrap(@document()._.documentElement)</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Checks if current element overlaps with the target position</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a>|<a href="#" class="api-ref">Number</a> x:NNN, y:NNN position or NNN x-position
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Number</a> y-position in case of a two numbers call
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> check result</div></section>
+</td><td><pre data-lang='coffee'>  overlaps: (target) -&gt;&#x000A;    pos    = this.position()&#x000A;    size   = this.size()&#x000A;    target = dimensions_hash(arguments)&#x000A;&#x000A;    target.x &gt;= pos.x and target.x &lt;= (pos.x + size.x) and&#x000A;    target.y &gt;= pos.y and target.y &lt;= (pos.y + size.y)</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Returns the element index among it&#39;s siblings</p>
+
+<p><strong>NOTE</strong>: this method skips the text nodes!</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="#" class="api-ref">Number</a> index</div></section>
+</td><td><pre data-lang='coffee'>  index: -&gt;&#x000A;    node  = this._.previousSibling&#x000A;    index = 0&#x000A;&#x000A;    while node&#x000A;      index++ if node.nodeType is 1&#x000A;      node = node.previousSibling&#x000A;&#x000A;    index</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

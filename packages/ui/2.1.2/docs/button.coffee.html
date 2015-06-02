@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » ui:button.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/ui">ui</a>:button.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/ui/2.1.2/docs/button.coffee" selected="selected">button.coffee</option>
+<option value="/packages/ui/2.1.2/docs/element.coffee">element.coffee</option>
+<option value="/packages/ui/2.1.2/docs/event.coffee">event.coffee</option>
+<option value="/packages/ui/2.1.2/docs/icon.coffee">icon.coffee</option>
+<option value="/packages/ui/2.1.2/docs/locker.coffee">locker.coffee</option>
+<option value="/packages/ui/2.1.2/docs/main.coffee">main.coffee</option>
+<option value="/packages/ui/2.1.2/docs/menu.coffee">menu.coffee</option>
+<option value="/packages/ui/2.1.2/docs/modal.coffee">modal.coffee</option>
+<option value="/packages/ui/2.1.2/docs/options.coffee">options.coffee</option>
+<option value="/packages/ui/2.1.2/docs/spinner.coffee">spinner.coffee</option>
+<option value="/packages/ui/2.1.2/docs/util.coffee">util.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>A generic ui-button class</p>
+
+<p>Copyright (C) 2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Button extends Input</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor, can receive some additional HTML options</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> caption
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> options
+</div><div><strong>@return </strong><em></em><a href="/packages/ui/2.1.2/docs/button.coffee" class="api-ref">Button</a> self</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (html, options)-&gt;&#x000A;    options = merge_options(options, {&#x000A;      type: 'button', html: html, class: 'lui-button'&#x000A;    })&#x000A;&#x000A;    super('button', options)&#x000A;&#x000A;    @on 'mousedown', (event)-&gt; event.preventDefault()</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Dropdown menus handling</p>
+</td><td><pre data-lang='coffee'>$(document).delegate '.lui-button[data-toggle]', 'mousedown,touchstart', (event)-&gt;&#x000A;  if menu = $(@data('toggle'))[0]&#x000A;    unless menu instanceof Menu&#x000A;      menu = new Menu(menu)&#x000A;      menu.on 'show', =&gt; @addClass('lui-active')&#x000A;      menu.on 'hide', =&gt; @removeClass('lui-active')&#x000A;&#x000A;    if Menu.current&#x000A;      Menu.current.hide()&#x000A;    else&#x000A;      anchor = @parent('.lui-button-group')&#x000A;      anchor = anchor.first('.lui-button') if anchor&#x000A;&#x000A;      menu.showAt(anchor || @)&#x000A;&#x000A;$(document).delegate '.lui-button[data-toggle]', 'click', (event)-&gt;&#x000A;  event.preventDefault()</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/ui/2.1.2/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

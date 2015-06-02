@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » Osom-Area</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/osom-area" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/osom-area" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/osom-area/1.2.1/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/osom-area/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>2.85 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/forms">forms</a>, <a href="/tags/textarea">textarea</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li class='current'>
+<a href="/packages/osom-area/1.2.1">1.2.1</a>
+(02 Aug 16:39)
+</li>
+<li>
+<a href="/packages/osom-area/1.2.0">1.2.0</a>
+(14 Jun 06:05)
+</li>
+<li>
+<a href="/packages/osom-area/1.1.2">1.1.2</a>
+(07 Jun 03:59)
+</li>
+<li>
+<a href="/packages/osom-area/1.1.1">1.1.1</a>
+(05 Jun 08:33)
+</li>
+<li>
+<a href="/packages/osom-area/1.1.0">1.1.0</a>
+(05 Jun 02:46)
+</li>
+<li>
+<a href="/packages/osom-area/1.0.0">1.0.0</a>
+(31 May 08:21)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/osom-area-1.2.1.js" class="cdn">osom-area-1.2.1.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.2.0.js" class="cdn">osom-area-1.2.0.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.1.2.js" class="cdn">osom-area-1.1.2.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.1.1.js" class="cdn">osom-area-1.1.1.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.1.0.js" class="cdn">osom-area-1.1.0.js</a></li>
+<li><a href="http://cdn.lovely.io/osom-area-1.0.0.js" class="cdn">osom-area-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.2.0">dom-1.2.0</a></li>
+<li><a href="/packages/ui/2.0.0">ui-2.0.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>Osom-Area</h1>
+
+<p>Osom-Area is custom textarea wrapper for lovely.io, features:</p>
+
+<ul>
+<li>Automatic resize</li>
+<li>Simplified selections handling</li>
+<li>Built in context-menu feature</li>
+<li>Text highlighting feature</li>
+</ul>
+
+<h2>Usage Principles</h2>
+
+<p>Hook up the module through the lovely.io interfaces and instantiate
+the <tt>OsomArea</tt> class</p>
+<pre data-lang='html'>&lt;textarea id="my-area"&gt;&lt;/textarea&gt;&#x000A;&lt;script type="text/javascript"&gt;&#x000A;  Lovely(['osom-area-1.0.0'], function(OsomArea) {&#x000A;    var area = new OsomArea('#my-area', {options: ...});&#x000A;  });&#x000A;&lt;/script&gt;</pre>
+<p>The first parameter can be either a css rule, a raw dom HTMLTextArea object or a
+lovely.io <tt>dom.Input</tt> instance.</p>
+
+<h2>API Reference</h2>
+
+<p>The <tt>OsomArea</tt> class is inherited from the <tt>dom.Input</tt> class and has all the same methods.</p>
+
+<p>Additionally it has a shortcut method to work with the selections, called <tt>#select</tt></p>
+<pre data-lang='js'>area.select('some text'); // select a matching piece of text&#x000A;area.select(1, 22);       // select a range&#x000A;&#x000A;area.select(); // -&gt; returns the current selection range</pre>
+<p>Also every <tt>OsomArea</tt> instances has a property called <tt>selection</tt> with the following API</p>
+<pre data-lang='js'>area.selection.offsets();         // returns the current selection offsets&#x000A;area.selection.offsets(1,22);     // sets current selection offsets&#x000A;&#x000A;area.selection.text();            // returns currently selected text&#x000A;area.selection.text('some text'); // selects matching text in the textarea&#x000A;&#x000A;area.selection.position();        // returns absolute position of the cursor in the document&#x000A;&#x000A;area.selection.save();            // saves the current selection range&#x000A;area.selection.restore();         // restores previously saved selection range</pre>
+<h2>Options</h2>
+
+<ul>
+<li><tt>autoresize</tt> (default: true) - auto-resize the textarea to fit the text</li>
+<li><tt>keepselection</tt> (default: false) - automatically saves/restores the selection range on blur/focus</li>
+<li><tt>minLastWordSize</tt> (default: 2) - minimal last word size when the autocompleter kicks in</li>
+</ul>
+
+<h2>Autocompletion</h2>
+
+<p><tt>OsomArea</tt> instances have additional method called <tt>#autcoplete</tt> which can take two types of parameters,
+a callback function where you can make async calls to the server or an Array of options, so you can hook
+up Ajax autocompleter kinda like that</p>
+<pre data-lang='js'>Lovely(['osom-area', 'ajax'], function(OsomArea, Ajax) {&#x000A;  var input = new OsomArea();&#x000A;&#x000A;  input.autocomplete(function(last_word) {&#x000A;    Ajax.get('/some-url.json?q='+ last_word, {&#x000A;      success: function() {&#x000A;        input.autocomplete(this.responseJSON);&#x000A;      }&#x000A;    });&#x000A;  });&#x000A;});</pre>
+<h2>Text Highlighting</h2>
+
+<p><tt>OsomArea</tt> instances have method called <tt>#paint</tt> which allows you to highlight certain pieces of text</p>
+<pre data-lang='js'>var input = new OsomArea()&#x000A;&#x000A;input.paint('Nikolay'); // will highlight every 'Nikolay' entry with default yellow color&#x000A;input.paint(/nikolay/i, 'pink'); // will hilight everything that matches the re with the pink color&#x000A;input.paint(0, 10, 'lightblue'); // will paint a piece of text at the certain position</pre>
+<p><strong>NOTE</strong>: this feature is a bit of a dirty hack. Textareas themselves don&#39;t support the feature, so
+there is a certain lag with the highlighting response when the user types in something in the textarea</p>
+
+<h2>Copyright And License</h2>
+
+<p>This project is released under the terms of the MIT license</p>
+
+<p>Copyright (C) 2012 Nikolay Nemshilov</p>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

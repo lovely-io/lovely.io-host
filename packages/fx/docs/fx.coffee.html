@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » fx:fx.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/fx">fx</a>:fx.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/fx/docs/colors.coffee">colors.coffee</option>
+<option value="/packages/fx/docs/element.coffee">element.coffee</option>
+<option value="/packages/fx/docs/fx.coffee" selected="selected">fx.coffee</option>
+<option value="/packages/fx/docs/fx/attr.coffee">fx/attr.coffee</option>
+<option value="/packages/fx/docs/fx/fade.coffee">fx/fade.coffee</option>
+<option value="/packages/fx/docs/fx/highlight.coffee">fx/highlight.coffee</option>
+<option value="/packages/fx/docs/fx/scroll.coffee">fx/scroll.coffee</option>
+<option value="/packages/fx/docs/fx/slide.coffee">fx/slide.coffee</option>
+<option value="/packages/fx/docs/fx/style.coffee">fx/style.coffee</option>
+<option value="/packages/fx/docs/fx/twin.coffee">fx/twin.coffee</option>
+<option value="/packages/fx/docs/main.coffee">main.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The visual effects basic class. It doesn&#39;t do anything
+practical itself, just defines the common interface
+and handles timers and queues</p>
+
+<p>Events that can be used with this one</p>
+
+<ul>
+<li><tt>start</tt>  - when an effect starts</li>
+<li><tt>finish</tt> - when an effect finishes</li>
+<li><tt>cancel</tt> - when an effect was interrupted manually</li>
+<li><tt>stop</tt>   - when all scheduled effects are finished</li>
+</ul>
+
+<p>it also will fire events on the related element
+  <tt>fx:start</tt>, <tt>fx:finish</tt>, <tt>fx:cancel</tt></p>
+
+<p>Copyright (C) 2011-2012 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>class Fx&#x000A;  include: [core.Options, core.Events]&#x000A;&#x000A;  extend:&#x000A;    # default options&#x000A;    Options:&#x000A;      duration:   'normal'  # a name or a number in milliseconds&#x000A;      transition: 'default' # css3 cubic-bezier transition-function&#x000A;      queue:      true      # auto-stack the fx in a queue&#x000A;      engine:     'css'     # 'css' for native css3 where it's supported or 'javascript' to&#x000A;      fps:        60        # FPS for the javascript engine&#x000A;&#x000A;    # Named durations&#x000A;    Durations:&#x000A;      short:  200&#x000A;      normal: 400&#x000A;      long:   800</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Basic constructor</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/element.coffee" class="api-ref">Element</a>|<a href="#" class="api-ref">HTMLElement</a>|<a href="#" class="api-ref">String</a> elemnt reference
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Object</a> fx options
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> this</div></section>
+</td><td><pre data-lang='coffee'>  constructor: (element, options)-&gt;&#x000A;    @setOptions(options)&#x000A;&#x000A;    for key of @options&#x000A;      if key in ['start', 'finish', 'cancel', 'stop']&#x000A;        @on(key, @options[key])&#x000A;&#x000A;    @element = $(element)&#x000A;    @element = @element[0] if typeof(element) is 'string'&#x000A;&#x000A;    Fx_register(@)&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>Starts the effect</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> this</div></section>
+</td><td><pre data-lang='coffee'>  start: -&gt;&#x000A;    return @ if Fx_add_to_queue(@, arguments)&#x000A;&#x000A;    Fx_mark_current @&#x000A;&#x000A;    @prepare.apply(@, arguments)&#x000A;&#x000A;    Fx_start_timer(@)&#x000A;&#x000A;    return @emit('start')</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Handles the post-effect logic</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> this</div></section>
+</td><td><pre data-lang='coffee'>  finish: -&gt;&#x000A;    Fx_stop_timer @&#x000A;    Fx_remove_from_queue @&#x000A;    @emit 'finish'&#x000A;    Fx_run_next @&#x000A;    return @</pre></td></tr>
+<tr><td><a href='#5' name='5'></a>
+<p>Manually interrupts the effect</p>
+
+<p>NOTE: cancels all the scheduled effects</p>
+
+<section class='api'><div><strong>@return </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> this</div></section>
+</td><td><pre data-lang='coffee'>  cancel: -&gt;&#x000A;    Fx_stop_timer @&#x000A;    Fx_remove_from_queue @&#x000A;    return @emit('cancel').emit('stop')</pre></td></tr>
+<tr><td><a href='#6' name='6'></a>
+<p>Overloading the original method</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">String</a> event name
+</div><div><strong>@return </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> this</div></section>
+</td><td><pre data-lang='coffee'>  emit: (name)-&gt;&#x000A;    core.Events.emit.apply(@, arguments)&#x000A;    @element.emit "fx:#{name}", fx: @&#x000A;    return @&#x000A;&#x000A;# protected&#x000A;&#x000A;  # those two should be implemented in every subclass&#x000A;  # prepare: -&gt;&#x000A;  # render:  -&gt;&#x000A;&#x000A;# private</pre></td></tr>
+<tr><td><a href='#7' name='7'></a>
+<p>Utility functions to handle queues and timers</p>
+</td><td><pre data-lang='coffee'># global effects registry&#x000A;Fx_scheduled = new List()&#x000A;Fx_running   = new List()</pre></td></tr>
+<tr><td><a href='#8' name='8'></a>
+<p>Registers the element in the effects queue</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> effect
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>Fx_register = (fx)-&gt;&#x000A;  uid = $.uid((fx.element || {})._ || {})&#x000A;  fx._ch = (Fx_scheduled[uid] = Fx_scheduled[uid] || new List())&#x000A;  fx._cr = (Fx_running[uid]   = Fx_running[uid]   || new List())</pre></td></tr>
+<tr><td><a href='#9' name='9'></a>
+<p>Registers the effect in the effects queue</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> fx
+</div><div><strong>@param </strong><em></em><a href="#" class="api-ref">Arguments</a> original arguments list
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Boolean</a> true if it queued and false if it&#39;s ready to go</div></section>
+</td><td><pre data-lang='coffee'>Fx_add_to_queue = (fx, args)-&gt;&#x000A;  chain = fx._ch&#x000A;  queue = fx.options.queue&#x000A;&#x000A;  return (fx._$ch = false) if !chain || fx._$ch&#x000A;&#x000A;  chain.push([args, fx]) if queue&#x000A;&#x000A;  return queue and chain[0][1] isnt fx</pre></td></tr>
+<tr><td><a href='#10' name='10'></a>
+<p>Puts the fx into the list of currently running effects</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> fx
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>Fx_mark_current = (fx)-&gt;&#x000A;  fx._cr.push(fx) if fx._cr</pre></td></tr>
+<tr><td><a href='#11' name='11'></a>
+<p>Removes the fx from the queue</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> fx
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>Fx_remove_from_queue = (fx)-&gt;&#x000A;  currents = fx._cr&#x000A;  currents.splice(currents.indexOf(fx), 1) if currents</pre></td></tr>
+<tr><td><a href='#12' name='12'></a>
+<p>Tries to invoke the next effect in the queue</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> fx
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>Fx_run_next = (fx)-&gt;&#x000A;  chain = fx._ch&#x000A;  next  = chain.shift()&#x000A;&#x000A;  if next = chain[0]&#x000A;    next[1]._$ch = true;&#x000A;    next[1].start.apply(next[1], next[0])&#x000A;  else&#x000A;    fx.emit('stop')&#x000A;&#x000A;  return # nothing</pre></td></tr>
+<tr><td><a href='#13' name='13'></a>
+<p>Cancels all currently running and scheduled effects
+on the element</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/element.coffee" class="api-ref">Element</a> element
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>Fx_cancel_all = (element)-&gt;&#x000A;  uid = $.uid(element._)&#x000A;&#x000A;  Fx_running[uid].forEach('cancel') if Fx_running[uid]&#x000A;  Fx_scheduled_fx[uid].splice(0)    if Fx_scheduled_fx[uid]&#x000A;&#x000A;  return ;</pre></td></tr>
+<tr><td><a href='#14' name='14'></a>
+<p>Initializes the fx rendering timer</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> fx
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>Fx_start_timer = (fx)-&gt;&#x000A;  return     if fx._native_timer # native CSS3 transitions don't need it&#x000A;&#x000A;  options    = fx.options&#x000A;  duration   = Fx.Durations[options.duration] || options.duration&#x000A;  steps      = Math.ceil(duration / 1000 * options.fps)&#x000A;  transition = Bezier_sequence(options.transition, steps)&#x000A;  interval   = Math.round(1000 / options.fps)&#x000A;  number     = 0&#x000A;&#x000A;  fx._timer = setInterval(-&gt;&#x000A;    if number == steps&#x000A;      fx.finish()&#x000A;    else&#x000A;      fx.render(transition[number])&#x000A;      number++&#x000A;  , interval)</pre></td></tr>
+<tr><td><a href='#15' name='15'></a>
+<p>Cancels the Fx rendering timer (if any)</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/fx/docs/fx.coffee" class="api-ref">Fx</a> fx
+</div><div><strong>@return </strong><em></em>void</div></section>
+</td><td><pre data-lang='coffee'>Fx_stop_timer = (fx)-&gt;&#x000A;  clearInterval(fx._timer) if fx._timer</pre></td></tr>
+<tr><td><a href='#16' name='16'></a>
+<p>CSS3 Cubic Bezier sequentions emulator
+<a href="http://st-on-it.blogspot.com/2011/05/calculating-cubic-bezier-function.html">http://st-on-it.blogspot.com/2011/05/calculating-cubic-bezier-function.html</a></p>
+</td><td><pre data-lang='coffee'># CSS3 cubic-bezier presets&#x000A;Bezier_presets =&#x000A;  'default':     '(.25,.1,.25,1)'&#x000A;  'linear':      '(0,0,1,1)'&#x000A;  'ease-in':     '(.42,0,1,1)'&#x000A;  'ease-out':    '(0,0,.58,1)'&#x000A;  'ease-in-out': '(.42,0,.58,1)'&#x000A;  'ease-out-in': '(0,.42,1,.58)'&#x000A;&#x000A;# Bezier loockup tables cache&#x000A;Bezier_cache = {}&#x000A;&#x000A;# builds a loockup table of parametric values with a given size&#x000A;Bezier_sequence = (params, size)-&gt;&#x000A;  params = Bezier_presets[params] || params&#x000A;  params = params.match(/([\d\.]+)[\s,]+([\d\.]+)[\s,]+([\d\.]+)[\s,]+([\d\.]+)/)&#x000A;  params = [0, params[1]-0, params[2]-0, params[3]-0, params[4]-0] # cleaning up&#x000A;  name   = params.join(',') + ',' + size&#x000A;&#x000A;  unless name of Bezier_cache&#x000A;    # defining bezier functions in a polynomial form (coz it's faster)&#x000A;    Cx = 3 * params[1]&#x000A;    Bx = 3 * (params[3] - params[1]) - Cx&#x000A;    Ax = 1 - Cx - Bx&#x000A;&#x000A;    Cy = 3 * params[2]&#x000A;    By = 3 * (params[4] - params[2]) - Cy&#x000A;    Ay = 1 - Cy - By&#x000A;&#x000A;    bezier_x = (t)-&gt; t * (Cx + t * (Bx + t * Ax))&#x000A;    bezier_y = (t)-&gt; t * (Cy + t * (By + t * Ay))&#x000A;&#x000A;&#x000A;    # a quick search for a more or less close parametric&#x000A;    # value using several iterations by Newton's method&#x000A;    bezier_x_der    = (t) -&gt; Cx + t * (2*Bx + t * 3*Ax) + 1e-3 # bezier_x derivative&#x000A;    find_parametric = (t) -&gt;&#x000A;      x=t; i=0; n=5;&#x000A;&#x000A;      while (i &lt; 5)&#x000A;        z = bezier_x(x) - t&#x000A;&#x000A;        break if Math.abs(z) &lt; 1e-3&#x000A;&#x000A;        x = x - z/bezier_x_der(x)&#x000A;        i++&#x000A;&#x000A;      return x&#x000A;&#x000A;    # building the actual lookup table&#x000A;    Bezier_cache[name] = sequence = []&#x000A;    x=0; step=1/size;&#x000A;&#x000A;    while x &lt; 1.0001 # should include 1.0&#x000A;      sequence.push(bezier_y(find_parametric(x)))&#x000A;      x += step&#x000A;&#x000A;&#x000A;  return Bezier_cache[name]</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/fx/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

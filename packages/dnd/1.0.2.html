@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » DND</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-show'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<sidebar><h2>Package Info</h2>
+<dl>
+<dt>Links</dt>
+<dd>
+<ul>
+<li><a href="/packages/dnd" class="package">Main Page</a></li>
+<li><a href="https://github.com/MadRabbit/lovely.io/tree/master/stl/dnd" class="home_page" target="_blank">Home Page</a></li>
+<li><a href="http://lovely.io/packages/dnd/1.0.2/docs" class="api">Documentation</a></li>
+<li><a href="http://lovely.io/packages/dnd/1.0.2/demo" class="demo">Live Demo</a></li>
+<li><a href="http://lovely.io/packages/dnd/changelog" class="changelog">Changelog</a></li>
+</ul>
+</dd>
+<dt>Size</dt>
+<dd>2.33 KB (gzipped)</dd>
+<dt>Tags</dt>
+<dd><a href="/tags/STL">STL</a>, <a href="/tags/drag%20n%20drop">drag n drop</a></dd>
+<dt>Author</dt>
+<dd><a href="/users/1" class="user">Nikolay Nemshilov</a></dd>
+<dt>License</dt>
+<dd>MIT</dd>
+<dt>Versions</dt>
+<dd>
+<ul>
+<li class='current'>
+<a href="/packages/dnd/1.0.2">1.0.2</a>
+(26 Sep 07:08)
+</li>
+<li>
+<a href="/packages/dnd/1.0.1">1.0.1</a>
+(06 Jan 08:08)
+</li>
+<li>
+<a href="/packages/dnd/1.0.0">1.0.0</a>
+(30 Aug 08:13)
+</li>
+</ul>
+</dd>
+<dt>CDN Links</dt>
+<dd>
+<ul>
+<li><a href="http://cdn.lovely.io/dnd-1.0.2.js" class="cdn">dnd-1.0.2.js</a></li>
+<li><a href="http://cdn.lovely.io/dnd-1.0.1.js" class="cdn">dnd-1.0.1.js</a></li>
+<li><a href="http://cdn.lovely.io/dnd-1.0.0.js" class="cdn">dnd-1.0.0.js</a></li>
+</ul>
+</dd>
+<dt>Dependencies</dt>
+<dd>
+<ul>
+<li><a href="/packages/dom/1.4.0">dom-1.4.0</a></li>
+</ul>
+</dd>
+</dl>
+</sidebar>
+<section>
+
+<h1>DND</h1>
+
+<p><tt>DND</tt> is the drag-n-drop feature extension for the <a href="/packages/dom">dom module</a></p>
+<pre data-lang='javascript'>Lovely(['dom', 'dnd'], function($) {&#x000A;  $('#my-element').draggable({&#x000A;    // some options&#x000A;  });&#x000A;  $('#my-element').droppable({&#x000A;    // some options&#x000A;  });&#x000A;&#x000A;  // to remove the functionality call those&#x000A;  $('#my-element').draggable(false);&#x000A;  $('#my-element').droppable(false);&#x000A;&#x000A;  // same thing for droppables&#x000A;  $('#another-element').droppable({&#x000A;    accept: 'div.red'&#x000A;  })&#x000A;&#x000A;  // switch off&#x000A;  $('#another-element').droppable();&#x000A;});</pre>
+<h2>Automatic Initialization</h2>
+
+<p>You can use the standard automatic initialization by the <tt>data-draggable</tt> HTML5 attribute</p>
+<pre data-lang='html'>&lt;div data-draggable="{revert: true}"&gt;&#x000A;  Drag and drop me!&#x000A;&lt;/div&gt;&#x000A;&#x000A;&lt;div data-droppable="{accept: 'div.red'}"&gt;&#x000A;  Reds only!&#x000A;&lt;/div&gt;</pre>
+<p>In this case the element will be initialized automatically when the user <em>starts</em>
+to interact with it. Just specify your draggable unit options in the <tt>JSON</tt> format,
+or leave <tt>{}</tt> in the attribute.</p>
+
+<h2>Options</h2>
+
+<p>The following options are available with the <tt>draggable</tt> method</p>
+
+<ul>
+<li><tt>handle</tt>            (null)       - a handle element that will start the drag</li>
+<li><tt>snap</tt>              (0)          - a number in pixels or [x,y]</li>
+<li><tt>axis</tt>              (null)       - null or &#39;x&#39; or &#39;y&#39; or &#39;vertical&#39; or &#39;horizontal&#39;</li>
+<li><tt>range</tt>             (null)       - {x: [min, max], y: [min, max]} or reference to another element</li>
+<li><tt>dragClass</tt>         (&#39;dragging&#39;) - the in-process class name</li>
+<li><tt>clone</tt>             (false)      - if should keep a clone in place</li>
+<li><tt>revert</tt>            (false)      - marker if the object should be moved back on finish</li>
+<li><tt>revertDuration</tt>    (&#39;normal&#39;)   - the moving back fx duration</li>
+<li><tt>scroll</tt>            (true)       - if it should automatically scroll</li>
+<li><tt>scrollSensitivity</tt> (32)         - the scrolling area size in pixels</li>
+<li><tt>moveOut</tt>           (false)      - marker if the draggable should be moved out of it&#39;s context (for overflown</li>
+</ul>
+
+<p>The following options are available with the <tt>droppable</tt> method</p>
+
+<ul>
+<li><tt>accept</tt>      (&#39;*&#39;)   - css-class, or a list of css-classes or list of elements of accepted draggables</li>
+<li><tt>overlap</tt>     (false) - &#39;x&#39;, &#39;y&#39;, &#39;horizontal&#39;, &#39;vertical&#39;, &#39;both&#39;  makes it respond only if the draggable overlaps the droppable</li>
+<li><tt>overlapSize</tt> (0.5)   - the overlapping level 0 for nothing 1 for the whole thing</li>
+<li><tt>allowClass</tt>  (&#39;droppable-allow&#39;) - added when an acceptable draggable hovers the target</li>
+<li><tt>denyClass</tt>   (&#39;droppable-deny&#39;)  - added when an inacceptable draggable enters the target</li>
+</ul>
+
+<h2>DND Events</h2>
+
+<p>This module fires a bunch of additional events when the user interacts with the draggable
+and droppable elements</p>
+
+<ul>
+<li>beforedrag</li>
+<li>dragstart</li>
+<li>drag</li>
+<li>dragend</li>
+<li>dragenter</li>
+<li>dragleave</li>
+<li>drop</li>
+</ul>
+
+<p>Event listeners can be attached to the elements directly using the standard <tt>Element#on</tt>
+method, or specified along with the options</p>
+
+<h2>Copyright And License</h2>
+
+<p>This project is released under the terms of the MIT license</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

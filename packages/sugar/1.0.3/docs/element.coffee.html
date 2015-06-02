@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » sugar:element.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/sugar">sugar</a>:element.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/sugar/1.0.3/docs/element.coffee" selected="selected">element.coffee</option>
+<option value="/packages/sugar/1.0.3/docs/main.coffee">main.coffee</option>
+<option value="/packages/sugar/1.0.3/docs/string.coffee">string.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>The dom.Element &#39;onSomething&#39; shortcuts</p>
+
+<p>Copyright (C) 2011 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'></pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>builds the &#39;onEvent&#39; shortucts</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="/packages/core/docs/class.coffee" class="api-ref">core.Class</a> dom-wrapper class
+</div><div><strong>@param </strong><em></em><a href="/packages/sugar/1.0.3/docs/string.coffee" class="api-ref">String</a> space separated event names list</div></section>
+</td><td><pre data-lang='coffee'>make_shortcuts = (Klass, EVENTS)-&gt;&#x000A;  for name in EVENTS.split(' ')&#x000A;    do (name)-&gt;&#x000A;      method = "on#{name[0].toUpperCase() + name.substr(1)}"&#x000A;      Klass.prototype[method] = dom.NodeList.prototype[method] = String.prototype[method] = -&gt;&#x000A;        @on.apply(@, [name].concat(A(arguments)))&#x000A;&#x000A;  return # nothing&#x000A;&#x000A;&#x000A;# extending the actual classes&#x000A;make_shortcuts dom.Element,&#x000A;  "click rightclick contextmenu mousedown mouseup "+&#x000A;  "mouseover mouseout mousemove keypress keydown keyup"&#x000A;&#x000A;make_shortcuts dom.Input,&#x000A;  "submit reset focus blur disable enable change"&#x000A;&#x000A;make_shortcuts dom.Form,&#x000A;  "submit reset focus blur disable enable change"</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/sugar/1.0.3/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>

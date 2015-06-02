@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lovely.IO » dom:utils.coffee</title>
+<meta charset='utf-8'>
+<link href="/stylesheets/application.css?1366457277" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://cdn.lovely.io/core-1.4.1.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/dom-1.4.4.js" type="text/javascript"></script>
+<script src="http://cdn.lovely.io/colorifier-1.4.0.js" type="text/javascript"></script>
+<script src="/javascripts/application.js?1357462199" type="text/javascript"></script>
+
+<link href="/news.atom" rel="alternate" title="Lovely.IO News" type="application/atom+xml" />
+<link href="/packages/updated.atom" rel="alternate" title="Lovely.IO Packages" type="application/atom+xml" />
+</head>
+<body class='packages packages-docs'>
+<header>
+<h1><a href="/">Lovely.IO</a></h1>
+<h2>The Next Generation of Front-Side</h2>
+<form action='/packages/search' id='search' method='get'>
+<input name='search' placeholder='Search' type='text'>
+</form>
+
+<nav>
+<a href="/packages">Packages</a>
+|
+<a href="/live" class="live">Demo!</a>
+|
+<a href="/show">TV Show</a>
+|
+<a href="/news">News</a>
+|
+<a href="http://github.com/lovely-io/lovely.io-stl/wiki">Wiki</a>
+|
+<a href="/profile" id="profile">Profile</a>
+<a href="/login" id="login">Log In</a>
+
+</nav>
+</header>
+<section>
+<h1><a href="/packages/dom">dom</a>:utils.coffee</h1>
+<select id="docs-index" name="docs-index" onchange="document.location = this.value;"><option value="/packages/dom/docs/browser.coffee">browser.coffee</option>
+<option value="/packages/dom/docs/casting.coffee">casting.coffee</option>
+<option value="/packages/dom/docs/document.coffee">document.coffee</option>
+<option value="/packages/dom/docs/dollar.coffee">dollar.coffee</option>
+<option value="/packages/dom/docs/element.coffee">element.coffee</option>
+<option value="/packages/dom/docs/element/commons.coffee">element/commons.coffee</option>
+<option value="/packages/dom/docs/element/dimensions.coffee">element/dimensions.coffee</option>
+<option value="/packages/dom/docs/element/events.coffee">element/events.coffee</option>
+<option value="/packages/dom/docs/element/manipulation.coffee">element/manipulation.coffee</option>
+<option value="/packages/dom/docs/element/navigation.coffee">element/navigation.coffee</option>
+<option value="/packages/dom/docs/element/styles.coffee">element/styles.coffee</option>
+<option value="/packages/dom/docs/event.coffee">event.coffee</option>
+<option value="/packages/dom/docs/event/delegation.coffee">event/delegation.coffee</option>
+<option value="/packages/dom/docs/event/focusio.coffee">event/focusio.coffee</option>
+<option value="/packages/dom/docs/event/mouseio.coffee">event/mouseio.coffee</option>
+<option value="/packages/dom/docs/event/ready.coffee">event/ready.coffee</option>
+<option value="/packages/dom/docs/form.coffee">form.coffee</option>
+<option value="/packages/dom/docs/input.coffee">input.coffee</option>
+<option value="/packages/dom/docs/main.coffee">main.coffee</option>
+<option value="/packages/dom/docs/node_list.coffee">node_list.coffee</option>
+<option value="/packages/dom/docs/style.coffee">style.coffee</option>
+<option value="/packages/dom/docs/utils.coffee" selected="selected">utils.coffee</option>
+<option value="/packages/dom/docs/window.coffee">window.coffee</option>
+<option value="/packages/dom/docs/wrapper.coffee">wrapper.coffee</option></select>
+
+        <table class="api-doc"><tr><td><a href='#1' name='1'></a><p>Just a bunch of local utility functions</p>
+
+<p>Copyright (C) 2011-2013 Nikolay Nemshilov</p>
+</td><td><pre data-lang='coffee'>core     = require('core')&#x000A;A        = core.A&#x000A;L        = core.L&#x000A;ext      = core.ext&#x000A;trim     = core.trim&#x000A;bind     = core.bind&#x000A;Class    = core.Class&#x000A;isArray  = core.isArray&#x000A;isObject = core.isObject&#x000A;isString = core.isString&#x000A;window   = global&#x000A;document = window.document&#x000A;HTML     = document.documentElement&#x000A;isElement = (value)-&gt;&#x000A;  `value != null && value.nodeType === 1`&#x000A;&#x000A;&#x000A;# camelizes dashed strings&#x000A;camelize = (string) -&gt;&#x000A;  if string.indexOf('-') is -1 then string&#x000A;  else string.replace /\-([a-z])/g, (match, letter) -&gt;&#x000A;    letter.toUpperCase()&#x000A;&#x000A;&#x000A;dasherize = (string)-&gt;&#x000A;  string.replace(/([a-z\d])([A-Z]+)/g, '$1-$2').toLowerCase()&#x000A;&#x000A;&#x000A;# converts arguments into a standard x:NNN, y: NNN hash&#x000A;dimensions_hash = (args) -&gt;&#x000A;  hash = {}&#x000A;&#x000A;  if args.length is 1 and isObject(args[0])&#x000A;    hash = args[0]&#x000A;  else&#x000A;    hash.x = args[0] unless args[0] is null&#x000A;    hash.y = args[1] unless args[1] is null or args[1] is undefined&#x000A;&#x000A;  hash&#x000A;&#x000A;&#x000A;# extracts and evals scripts out of the content string&#x000A;extract_scripts = (content) -&gt;&#x000A;  scripts = ""&#x000A;&#x000A;  content = content.replace /&lt;script[^&gt;]*&gt;([\s\S]*?)&lt;\/script&gt;/img,&#x000A;    (match, source)-&gt; scripts += source + "\n"; return ''&#x000A;&#x000A;  [content, scripts]&#x000A;&#x000A;&#x000A;# evals the script string in the global-scope&#x000A;global_eval = (script) -&gt;&#x000A;  new Element('script', text: script).insertTo(HTML) if script&#x000A;  return # void&#x000A;&#x000A;if 'execScript' of window&#x000A;  global_eval = (script)-&gt;&#x000A;    window.execScript(script) if script&#x000A;    return # void&#x000A;&#x000A;# ensures that the value is an array&#x000A;ensure_array = (value) -&gt;&#x000A;  if isArray(value) then value else [value]&#x000A;&#x000A;&#x000A;# using a random UID_KEY so we didn't interfere with&#x000A;# any other librarires, including our owns&#x000A;UID_KEY = "__lovely_dom_uid_#{new Date().getTime()}"&#x000A;UID_NUM = 1 # the local uids counter</pre></td></tr>
+<tr><td><a href='#2' name='2'></a>
+<p>Generates an UID for a raw dom-unit</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> raw dom-unit
+</div><div><strong>@return </strong><em></em><a href="#" class="api-ref">Number</a> uid</div></section>
+</td><td><pre data-lang='coffee'>uid = (node) -&gt;&#x000A;  node[UID_KEY] or (node[UID_KEY] = UID_NUM++)</pre></td></tr>
+<tr><td><a href='#3' name='3'></a>
+<p>a quick local dom-wrapping interface</p>
+
+<section class='api'><div><strong>@param </strong><em></em><a href="#" class="api-ref">mixed</a> dom-unit
+</div><div><strong>@return </strong><em></em><a href="/packages/dom/docs/wrapper.coffee" class="api-ref">Wrapper</a> dom-unit</div></section>
+</td><td><pre data-lang='coffee'>wrap = (value) -&gt;&#x000A;  unless `value == null` or value instanceof Wrapper&#x000A;    key = value[UID_KEY]&#x000A;    if key && key of Wrapper_Cache&#x000A;      return Wrapper_Cache[key]&#x000A;    else if value.nodeType is 1&#x000A;      return wrap_element(value)&#x000A;    else if value.nodeType is 9&#x000A;      return new Document(value)&#x000A;    else if `value.target != null`&#x000A;      return new Event(value)&#x000A;    else if `value.window != null && value.window === value.window.window`&#x000A;      return new Window(value)&#x000A;&#x000A;  return value</pre></td></tr>
+<tr><td><a href='#4' name='4'></a>
+<p>Quick dom-elements only wrapping</p>
+
+<p><strong>NOTE</strong>: element must exist and must nodeType 1 !</p>
+</td><td><pre data-lang='coffee'>wrap_element = (element)-&gt;&#x000A;  Wrapper_Cache[element[UID_KEY]] || new (Wrapper.find(element))(element)</pre></td></tr></table>
+      
+<p class='bottom-links'>
+<a href="/packages/dom/docs" class="back">Index</a>
+</p>
+
+<div class='clear'></div>
+</section>
+<footer>
+Copyright (C) 2011-2013
+<a href="http://nikolay.theosom.com">Nikolay Nemshilov</a>
+<nav>
+<a href="/terms">Terms of Use</a>
+|
+<a href="/about">About</a>
+</nav>
+</footer>
+</body>
+</html>
